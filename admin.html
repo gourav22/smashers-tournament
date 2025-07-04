@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Admin Panel</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
+        .container { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1, h2 { color: #333; }
+        form { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], input[type="date"], input[type="time"], input[type="number"], select { /* Added input[type="number"] */
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .score-inputs {
+            display: flex;
+            gap: 10px;
+        }
+        .score-inputs input {
+            flex: 1;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover { background-color: #45a049; }
+        .message { margin-top: 10px; padding: 10px; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+        .info-display {
+            background-color: #e9e9e9;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SMASHERS Tournament Admin Panel</h1>
+        <p>Use this panel to update live scores and fixtures in your Google Sheet backend.</p>
+
+        <h2>Update Live Match Score</h2>
+        <form id="updateScoreForm">
+            <label for="liveScoreCategorySelect">Category:</label>
+            <select id="liveScoreCategorySelect" required>
+                <option value="">Select Category</option>
+            </select><br>
+
+            <label for="liveMatchIdSelect">Match ID:</label>
+            <select id="liveMatchIdSelect" required>
+                <option value="">Select Match ID</option>
+            </select><br>
+
+            <label>Team 1:</label>
+            <div id="liveScoreTeam1Display" class="info-display"></div>
+            <label>Team 2:</label>
+            <div id="liveScoreTeam2Display" class="info-display"></div>
+
+            <label for="liveScoreTeam1Input">Score:</label>
+            <div class="score-inputs">
+                <input type="number" id="liveScoreTeam1Input" placeholder="Team 1 Score" required>
+                <input type="number" id="liveScoreTeam2Input" placeholder="Team 2 Score" required>
+            </div><br>
+
+            <label for="liveScoreStatusSelect">Status:</label>
+            <select id="liveScoreStatusSelect" required>
+                <option value="">Select Status</option>
+                <option value="Scheduled">Scheduled</option>
+                <option value="Live">Live</option>
+                <option value="Completed">Completed</option>
+            </select><br>
+
+            <label>Court:</label>
+            <div id="liveScoreCourtDisplay" class="info-display"></div>
+
+            <button type="submit">Update Score</button>
+            <div id="scoreMessage" class="message"></div>
+        </form>
+
+        <h2>Update Fixture Details</h2>
+        <form id="updateFixtureForm">
+            <label for="fixtureIdSelect">Fixture ID:</label>
+            <select id="fixtureIdSelect" required>
+                <option value="">Select Fixture ID</option>
+            </select><br>
+
+            <label for="fixtureCategorySelect">Category:</label>
+            <select id="fixtureCategorySelect" required>
+                 <option value="">Select Category</option>
+            </select><br>
+
+            <label for="fixtureTeam1Input">Team 1:</label>
+            <input type="text" id="fixtureTeam1Input" required><br>
+
+            <label for="fixtureTeam2Input">Team 2:</label>
+            <input type="text" id="fixtureTeam2Input" required><br>
+
+            <label for="fixtureTeam1ScoreInput">Scores:</label>
+            <div class="score-inputs">
+                <input type="number" id="fixtureTeam1ScoreInput" placeholder="Team 1 Score">
+                <input type="number" id="fixtureTeam2ScoreInput" placeholder="Team 2 Score">
+            </div><br>
+
+            <label for="fixtureCourtInput">Court:</label>
+            <input type="text" id="fixtureCourtInput" required><br>
+
+            <label for="fixtureTimeInput">Time:</label>
+            <input type="time" id="fixtureTimeInput" required><br>
+
+            <label for="fixtureDateInput">Date:</label>
+            <input type="date" id="fixtureDateInput" required><br>
+
+            <label for="fixtureStatusSelect">Status:</label>
+            <select id="fixtureStatusSelect" required>
+                <option value="">Select Status</option>
+                <option value="Scheduled">Scheduled</option>
+                <option value="Live">Live</option>
+                <option value="Completed">Completed</option>
+            </select><br>
+
+            <button type="submit">Update Fixture</button>
+            <div id="fixtureMessage" class="message"></div>
+        </form>
+    </div>
+
+    <script>
+        // *** IMPORTANT: Replace with your deployed Google Apps Script Web App URL ***
+        const GOOGLE_APPS_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzWEqK6KQToFHvYHwVeSjh1wLDQ3yPS6GAmY1dj7auY3yDRPcbrSMbXrn5xJbf4I-G6Hw/exec';
+
+        let allFixturesData = [];
+        let allLiveMatchesData = [];
+
+        // --- References to HTML elements ---
+        const liveScoreCategorySelect = document.getElementById('liveScoreCategorySelect');
+        const liveMatchIdSelect = document.getElementById('liveMatchIdSelect');
+        const liveScoreTeam1Display = document.getElementById('liveScoreTeam1Display'); // Changed
+        const liveScoreTeam2Display = document.getElementById('liveScoreTeam2Display'); // Changed
+        const liveScoreTeam1Input = document.getElementById('liveScoreTeam1Input');     // Changed
+        const liveScoreTeam2Input = document.getElementById('liveScoreTeam2Input');     // Changed
+        const liveScoreStatusSelect = document.getElementById('liveScoreStatusSelect');
+        const liveScoreCourtDisplay = document.getElementById('liveScoreCourtDisplay');
+        const scoreMessage = document.getElementById('scoreMessage');
+
+        const fixtureIdSelect = document.getElementById('fixtureIdSelect');
+        const fixtureCategorySelect = document.getElementById('fixtureCategorySelect');
+        const fixtureTeam1Input = document.getElementById('fixtureTeam1Input');         // Changed
+        const fixtureTeam2Input = document.getElementById('fixtureTeam2Input');         // Changed
+        const fixtureTeam1ScoreInput = document.getElementById('fixtureTeam1ScoreInput'); // New
+        const fixtureTeam2ScoreInput = document.getElementById('fixtureTeam2ScoreInput'); // New
+        const fixtureCourtInput = document.getElementById('fixtureCourtInput');
+        const fixtureTimeInput = document.getElementById('fixtureTimeInput');
+        const fixtureDateInput = document.getElementById('fixtureDateInput');
+        const fixtureStatusSelect = document.getElementById('fixtureStatusSelect');
+        const fixtureMessage = document.getElementById('fixtureMessage');
+
+        // --- Function to fetch all data ---
+        async function fetchAllData() {
+            try {
+                const response = await fetch(GOOGLE_APPS_SCRIPT_WEB_APP_URL);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                allFixturesData = data.fixtures;
+                allLiveMatchesData = data.liveMatches;
+
+                populateDropdowns();
+
+            } catch (error) {
+                console.error('Error fetching data for admin panel:', error);
+                scoreMessage.textContent = 'Failed to load data for dropdowns. Check console.';
+                scoreMessage.classList.add('error');
+                fixtureMessage.textContent = 'Failed to load data for dropdowns. Check console.';
+                fixtureMessage.classList.add('error');
+            }
+        }
+
+        // --- Populate Dropdowns ---
+        function populateDropdowns() {
+            // Populate Live Score Category Dropdown
+            const uniqueLiveCategories = [...new Set(allLiveMatchesData.map(match => match.Category))];
+            liveScoreCategorySelect.innerHTML = '<option value="">Select Category</option>';
+            uniqueLiveCategories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                liveScoreCategorySelect.appendChild(option);
+            });
+
+            // Populate Fixture ID Dropdown
+            fixtureIdSelect.innerHTML = '<option value="">Select Fixture ID</option>';
+            allFixturesData.forEach(fixture => {
+                const option = document.createElement('option');
+                option.value = fixture.ID;
+                option.textContent = `${fixture.ID}: ${fixture['Team 1']} vs ${fixture['Team 2']} (${fixture.Date} ${fixture.Time})`; // Updated display
+                fixtureIdSelect.appendChild(option);
+            });
+
+            // Populate Fixture Category Dropdown
+            const uniqueFixtureCategories = [...new Set(allFixturesData.map(fixture => fixture.Category))];
+            fixtureCategorySelect.innerHTML = '<option value="">Select Category</option>';
+            uniqueFixtureCategories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                fixtureCategorySelect.appendChild(option);
+            });
+        }
+
+        // --- Event Listener for Live Score Category Change ---
+        liveScoreCategorySelect.addEventListener('change', () => {
+            const selectedCategory = liveScoreCategorySelect.value;
+            liveMatchIdSelect.innerHTML = '<option value="">Select Match ID</option>'; // Clear previous options
+            liveScoreTeam1Display.textContent = '';
+            liveScoreTeam2Display.textContent = '';
+            liveScoreTeam1Input.value = '';
+            liveScoreTeam2Input.value = '';
+            liveScoreStatusSelect.value = '';
+            liveScoreCourtDisplay.textContent = '';
+
+            if (selectedCategory) {
+                const filteredMatches = allLiveMatchesData.filter(match => match.Category === selectedCategory);
+                filteredMatches.forEach(match => {
+                    const option = document.createElement('option');
+                    option.value = match.ID;
+                    option.textContent = `${match.ID}: ${match['Team 1']} vs ${match['Team 2']}`; // Updated display
+                    liveMatchIdSelect.appendChild(option);
+                });
+            }
+        });
+
+        // --- Event Listener for Live Score Match ID Change ---
+        liveMatchIdSelect.addEventListener('change', () => {
+            const selectedMatchId = liveMatchIdSelect.value;
+            const selectedMatch = allLiveMatchesData.find(match => match.ID === selectedMatchId);
+
+            if (selectedMatch) {
+                liveScoreTeam1Display.textContent = selectedMatch['Team 1'] || 'N/A';
+                liveScoreTeam2Display.textContent = selectedMatch['Team 2'] || 'N/A';
+                liveScoreTeam1Input.value = selectedMatch['Team 1 Score'] || '';
+                liveScoreTeam2Input.value = selectedMatch['Team 2 Score'] || '';
+                liveScoreStatusSelect.value = selectedMatch.Status || '';
+                liveScoreCourtDisplay.textContent = selectedMatch.Court || 'N/A';
+            } else {
+                liveScoreTeam1Display.textContent = '';
+                liveScoreTeam2Display.textContent = '';
+                liveScoreTeam1Input.value = '';
+                liveScoreTeam2Input.value = '';
+                liveScoreStatusSelect.value = '';
+                liveScoreCourtDisplay.textContent = '';
+            }
+        });
+
+        // --- Event Listener for Fixture ID Change ---
+        fixtureIdSelect.addEventListener('change', () => {
+            const selectedFixtureId = fixtureIdSelect.value;
+            const selectedFixture = allFixturesData.find(fixture => fixture.ID === selectedFixtureId);
+
+            if (selectedFixture) {
+                fixtureCategorySelect.value = selectedFixture.Category || '';
+                fixtureTeam1Input.value = selectedFixture['Team 1'] || '';     // Changed
+                fixtureTeam2Input.value = selectedFixture['Team 2'] || '';     // Changed
+                fixtureTeam1ScoreInput.value = selectedFixture['Team 1 Score'] || ''; // New
+                fixtureTeam2ScoreInput.value = selectedFixture['Team 2 Score'] || ''; // New
+                fixtureCourtInput.value = selectedFixture.Court || '';
+                fixtureTimeInput.value = selectedFixture.Time || '';
+                fixtureDateInput.value = selectedFixture.Date || '';
+                fixtureStatusSelect.value = selectedFixture.Status || '';
+            } else {
+                fixtureCategorySelect.value = '';
+                fixtureTeam1Input.value = '';
+                fixtureTeam2Input.value = '';
+                fixtureTeam1ScoreInput.value = '';
+                fixtureTeam2ScoreInput.value = '';
+                fixtureCourtInput.value = '';
+                fixtureTimeInput.value = '';
+                fixtureDateInput.value = '';
+                fixtureStatusSelect.value = '';
+            }
+        });
+
+        // --- Function to send update requests ---
+        async function sendUpdate(sheetName, id, updates, messageDiv) {
+            const payload = {
+                sheetName: sheetName,
+                id: id,
+                updates: updates
+            };
+
+            messageDiv.className = 'message'; // Reset message styling
+            messageDiv.textContent = 'Sending update...';
+
+            try {
+                const response = await fetch(GOOGLE_APPS_SCRIPT_WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Use 'no-cors' for Google Apps Script for simplicity.
+                                     // This means you won't see the actual response content
+                                     // but the request will still be sent.
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                messageDiv.textContent = `Update request sent for ${sheetName} ID: ${id}. Check your Google Sheet in a few seconds.`;
+                messageDiv.classList.add('success');
+
+            } catch (error) {
+                messageDiv.textContent = `Error sending update request: ${error.message}. Check console for details.`;
+                messageDiv.classList.add('error');
+                console.error('Fetch error:', error);
+            }
+        }
+
+        // --- Event Listener for Live Score Update Form ---
+        document.getElementById('updateScoreForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = liveMatchIdSelect.value;
+            const team1Score = liveScoreTeam1Input.value;
+            const team2Score = liveScoreTeam2Input.value;
+            const status = liveScoreStatusSelect.value;
+
+            if (!id) {
+                scoreMessage.textContent = 'Please select a Match ID.';
+                scoreMessage.classList.add('error');
+                return;
+            }
+
+            const updates = {
+                "Team 1 Score": team1Score, // Changed
+                "Team 2 Score": team2Score, // Changed
+                "Status": status
+            };
+
+            sendUpdate('LiveScores', id, updates, scoreMessage);
+        });
+
+        // --- Event Listener for Fixture Update Form ---
+        document.getElementById('updateFixtureForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = fixtureIdSelect.value;
+            const category = fixtureCategorySelect.value;
+            const team1 = fixtureTeam1Input.value;
+            const team2 = fixtureTeam2Input.value;
+            const team1Score = fixtureTeam1ScoreInput.value; // New
+            const team2Score = fixtureTeam2ScoreInput.value; // New
+            const court = fixtureCourtInput.value;
+            const time = fixtureTimeInput.value;
+            const date = fixtureDateInput.value;
+            const status = fixtureStatusSelect.value;
+
+            if (!id) {
+                fixtureMessage.textContent = 'Please select a Fixture ID.';
+                fixtureMessage.classList.add('error');
+                return;
+            }
+
+            const updates = {
+                "Category": category,
+                "Team 1": team1,      // Changed
+                "Team 2": team2,      // Changed
+                "Team 1 Score": team1Score, // New
+                "Team 2 Score": team2Score, // New
+                "Court": court,
+                "Time": time,
+                "Date": date,
+                "Status": status
+            };
+
+            sendUpdate('Fixtures', id, updates, fixtureMessage);
+        });
+
+        // --- Initial data fetch on page load ---
+        fetchAllData();
+    </script>
+</body>
+</html>

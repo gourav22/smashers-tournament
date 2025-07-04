@@ -4,160 +4,193 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SMASHERS Badminton Tournament 2025</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #6441A5, #2a0845);
-      color: #fff;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background: linear-gradient(to right, #FFC371, #FF5F6D);
-      padding: 2rem;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
-    .flyer {
-      text-align: center;
-      margin-top: 1rem;
-    }
-    .flyer img {
-      max-width: 400px;
-      width: 90%;
-      border-radius: 12px;
-      border: 2px solid #fff;
-    }
-    .timer {
-      text-align: center;
-      font-size: 1.5rem;
-      margin: 1rem auto;
-    }
-    section {
-      padding: 2rem;
-      max-width: 900px;
-      margin: auto;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      margin-top: 1.5rem;
-    }
-    h2 {
-      color: #FFD700;
-      border-bottom: 1px solid #FFD700;
-      padding-bottom: 0.3rem;
-    }
-    a {
-      color: #FFD700;
-    }
-    ul {
-      line-height: 1.8;
-    }
-    .categories {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-    .category {
-      background: #FFD700;
-      color: #000;
-      padding: 1rem 2rem;
-      border-radius: 8px;
-      font-weight: bold;
-      text-align: center;
-      cursor: pointer;
-      transition: background 0.3s;
-      text-decoration: none;
-    }
-    .category:hover {
-      background: #fff4a3;
-    }
-    .sponsors {
-      text-align: center;
-      padding: 2rem;
-      background-color: rgba(255,255,255,0.05);
-      margin: 2rem 0;
-      border-radius: 10px;
-    }
-    .footer {
-      text-align: center;
-      font-size: 0.9rem;
-      padding: 2rem;
-      color: #ccc;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>🏸 SMASHERS Badminton Tournament</h1>
-    <p>7th – 11th July | 8:30 PM onwards | Slagbaai 14, 1317 AC, Almere</p>
+    <h1>SMASHERS Badminton Tournament 2025</h1>
+    <p>Get ready for an electrifying tournament experience!</p>
   </header>
 
-  <div class="flyer">
-    <img src="flyer.png" alt="Tournament Flyer" />
+  <div class="main-visual-area">
+    <section class="countdown-section">
+      <div class="countdown-timer-group">
+        <h2>🏆 Tournament Starts In</h2>
+        <div id="tournament-countdown" class="timer">
+          <div class="timer-unit">
+            <span class="timer-number" id="tournament-days">--</span>
+            <span class="timer-label">Days</span>
+          </div>
+          <div class="timer-unit">
+            <span class="timer-number" id="tournament-hours">--</span>
+            <span class="timer-label">Hours</span>
+          </div>
+          <div class="timer-unit">
+            <span class="timer-number" id="tournament-minutes">--</span>
+            <span class="timer-label">Minutes</span>
+          </div>
+          <div class="timer-unit">
+            <span class="timer-number" id="tournament-seconds">--</span>
+            <span class="timer-label">Seconds</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="countdown-timer-group">
+        <h2>📝 Registration Closes In</h2>
+        <div id="registration-countdown" class="timer">
+          <div class="timer-unit">
+            <span class="timer-number" id="reg-days">--</span>
+            <span class="timer-label">Days</span>
+          </div>
+          <div class="timer-unit">
+            <span class="timer-number" id="reg-hours">--</span>
+            <span class="timer-label">Hours</span>
+          </div>
+          <div class="timer-unit">
+            <span class="timer-number" id="reg-minutes">--</span>
+            <span class="timer-label">Minutes</span>
+          </div>
+          <div class="timer-unit">
+            <span class="timer-number" id="reg-seconds">--</span>
+            <span class="timer-label">Seconds</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="flyer-and-categories">
+      <div class="flyer">
+        <img src="flyer2.png" alt="SMASHERS Tournament 2025 Flyer" loading="lazy">
+      </div>
+      <section class="category-selection-section">
+        <h3>🏅 Tournament Category Selection</h3>
+        <p>Select your category to get detailed fixtures and scores</p>
+        <div class="category-buttons">
+          <a href="mens-beginner-doubles.html" class="category">👥 Men's Beginner Doubles</a>
+          <a href="mens-advanced-doubles.html" class="category">🏆 Men's Advanced Doubles</a>
+          <a href="womens-doubles.html" class="category">👭 Women's Doubles</a>
+          <a href="mixed-doubles.html" class="category">👫 Mixed Doubles</a>
+        </div>
+      </section>
+    </div>
   </div>
 
-  <div class="timer" id="countdown"></div>
+  <div class="live-scores-full-width-wrapper">
+    <div class="live-scores-fixtures">
+      <section>
+        <h2>🏆 Live Matches</h2>
+        <input type="text" id="live-match-team-filter" class="team-filter-input" placeholder="Filter by team name...">
+        <div id="live-scoring-content" class="loading-message">
+          Loading live scores...
+        </div>
+      </section>
 
-  <div class="sponsors">
-    <h2>🏅 Sponsors</h2>
-    <p>To be announced</p>
+      <section>
+        <h2>🗓️ Upcoming Fixtures</h2>
+        <input type="text" id="fixtures-team-filter" class="team-filter-input" placeholder="Filter by team name...">
+        <div id="fixtures-list" class="loading-message">
+          Loading tournament fixtures...
+        </div>
+      </section>
+    </div>
   </div>
 
-  <section>
-    <h2>📅 Schedule</h2>
-    <ul>
-      <li><strong>7th July:</strong> Women’s Doubles (League + Finals), Men’s Beginners (League + Finals)</li>
-      <li><strong>8th July:</strong> Men’s Advanced (League + Quarters)</li>
-      <li><strong>9th July:</strong> Mixed Doubles (League + Semis) — Finals if time permits</li>
-      <li><strong>11th July:</strong> Men’s Advanced (Semis + Finals), Mixed Doubles Finals (if pending)</li>
-    </ul>
-  </section>
+  <div class="main-grid">
+    <section class="tournament-info-registration-contact combined-details-section">
+      <div class="tournament-details-column">
+        <h2>📋 Tournament Information</h2>
+        <ul>
+          <li><strong>Registration:</strong> Every individual needs to register separately</li>
+          <li><strong>Location:</strong> Slagbaai 14, 1317 AC, Almere</li>
+          <li><strong>Match Start Time:</strong> 8:30 PM onwards</li>
+          <li><strong>Shuttle Used:</strong> Mavis 600</li>
+        </ul>
 
-  <section>
-    <h2>📃 House Rules</h2>
-    <p><a href="house_rules.docx" download>Download House Rules Document</a></p>
-  </section>
+        <hr>
+        <h3>📅 Tournament Schedule</h3>
+        <ul>
+          <li><strong>7th July:</strong> Women's Doubles + Men's Beginner Doubles (Complete)</li>
+          <li><strong>8th July:</b> Men's Advanced Doubles (League + Quarters)</li>
+          <li><strong>9th July:</strong> Mixed Doubles (League + Semi-finals)</li>
+          <li><strong>11th July:</strong> Finals Day (Men's Advanced + Mixed Doubles)</li>
+        </ul>
 
-  <section>
-    <h2>🏆 Categories</h2>
-    <div class="categories">
-      <a href="mens_beginner.html" class="category">Mens Beginner Doubles</a>
-      <a href="mens_advanced.html" class="category">Mens Advanced Doubles</a>
-      <a href="womens_doubles.html" class="category">Womens Doubles</a>
-      <a href="mixed_doubles.html" class="category">Mixed Doubles</a>
+        <hr>
+        <h3>📞 Contact Information</h3>
+        <div class="contact-info-block">
+          <p><strong>Tournament Organizer:</strong> Gourav</p>
+          <p><strong>WhatsApp:</strong> <a href="https://wa.me/917022462728" target="_blank" rel="noopener noreferrer">+91 70224 62728</a></p>
+          <p class="text-lighter small-text">Available for queries, partnerships, and tournament updates</p>
+        </div>
+      </div>
+      <div class="registration-contact-column">
+        <h3>📝 Registration Details</h3>
+        <ul>
+          <li><strong>Solo Registration:</strong> Register individually - partner mapped by us if not available</li>
+          <li><strong>Individual Entry:</strong> Each person must register separately</li>
+          <li><strong>Deadline:</strong> July 4th, 2025</li>
+          <li><strong>Fees:</strong> €12 per person for 1 category and €15 for 2 categories </li>
+          <li><strong>Payment:</strong> Via tikkie. Present in google form </li>
+        </ul>
+        <div class="registration-buttons">
+          <a href="https://forms.gle/FSXz5i7oqqMf12DP6" target="_blank" rel="noopener noreferrer" class="register-button">Register Now!</a>
+        </div>
+        <div class="faq-link">
+          <p><a href="#faq-section">Have questions? Check out our FAQ</a></p>
+        </div>
+
+        <hr>
+        <h3>🏆 Prizes</h3>
+        <ul>
+          <li>Shiny Winner's Cups for champions</li>
+          <li>Free games with SMASHERS for winners</li>
+          <li>Free Game on Registration</li>
+          <li>Bragging rights and eternal glory and many more!</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+  <section id="faq-section" class="faq-section">
+    <h2>❓ Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <details>
+        <summary>Q: Do I need a partner to register?</summary>
+        <p>A: No, you can register individually. We will help pair you with a partner if needed, or you can register with a friend.</p>
+      </details>
+    </div>
+    <div class="faq-item">
+      <details>
+        <summary>Q: How will I know my match schedule?</summary>
+        <p>A: The full schedule will be published on this website a few days before the tournament. Live updates will be available on the 'Live Matches' section.</p>
+      </details>
+    </div>
+    <div class="faq-item">
+      <details>
+        <summary>Q: What shuttlecocks will be used?</summary>
+        <p>A: We will be using Mavis 600 shuttlecocks for all matches.</p>
+      </details>
+    </div>
+    <div class="faq-item">
+      <details>
+        <summary>Q: What are the prizes for winners?</summary>
+        <p>A: Attractive prizes and trophies await the champions and runners-up in each category!</p>
+      </details>
     </div>
   </section>
 
-  <section>
-    <h2>📝 Registration</h2>
-    <ul>
-      <li>Register solo — you don’t need a partner</li>
-      <li>Each individual must register separately</li>
-      <li>Deadline: <strong>3rd July</strong></li>
-      <li>Form: <a href="https://forms.gle/PPZC2cLJtGE1msbB9" target="_blank">Register Here</a></li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>📞 Contact</h2>
-    <p>Organizer: <strong>Gourav</strong></p>
-    <p>WhatsApp: <a href="https://wa.me/917022462728" target="_blank">+91 70224 62728</a></p>
-  </section>
-
-  <div class="footer">© 2025 SMASHERS Tournament</div>
+  <footer>
+    <p>&copy; 2025 SMASHERS Badminton Tournament. All rights reserved.</p>
+  </footer>
 
   <script>
-    // Countdown Timer
-    const targetDate = new Date("2025-07-07T20:30:00").getTime();
-    const timer = document.getElementById("countdown");
+    // Configuration
+    const GOOGLE_APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzWEqK6KQToFHvYHwVeSjh1wLDQ3yPS6GAmY1dj7auY3yDRPcbrSMbXrn5xJbf4I-G6Hw/exec'; // Replace with your Google Apps Script Web App URL
 
-    setInterval(() => {
-      const now = new Date().getTime();
+    // --- Countdown Logic ---
+    function updateCountdown(targetDate, elementIds) {
+      const now = new Date();
       const distance = targetDate - now;
 
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -165,8 +198,354 @@
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      timer.innerHTML = `⏳ Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      document.getElementById(elementIds.days).textContent = days > 0 ? days.toString().padStart(2, '0') : '--';
+      document.getElementById(elementIds.hours).textContent = hours > 0 || days > 0 ? hours.toString().padStart(2, '0') : '--';
+      document.getElementById(elementIds.minutes).textContent = minutes > 0 || hours > 0 || days > 0 ? minutes.toString().padStart(2, '0') : '--';
+      document.getElementById(elementIds.seconds).textContent = seconds > 0 || minutes > 0 || hours > 0 || days > 0 ? seconds.toString().padStart(2, '0') : '--';
+
+      if (distance < 0) {
+        document.getElementById(elementIds.days).textContent = '00';
+        document.getElementById(elementIds.hours).textContent = '00';
+        document.getElementById(elementIds.minutes).textContent = '00';
+        document.getElementById(elementIds.seconds).textContent = '00';
+        return true; // Indicates countdown finished
+      }
+      return false; // Indicates countdown not finished
+    }
+
+    // Set target dates (Year, Month (0-11), Day, Hour, Minute, Second)
+    const tournamentDate = new Date(2025, 6, 7, 20, 30, 0); // July 7, 2025, 8:30 AM
+    const registrationEndDate = new Date(2025, 6, 4, 23, 59, 59); // July 4, 2025, 11:59:59 PM
+
+    setInterval(() => {
+      updateCountdown(tournamentDate, { days: 'tournament-days', hours: 'tournament-hours', minutes: 'tournament-minutes', seconds: 'tournament-seconds' });
+      updateCountdown(registrationEndDate, { days: 'reg-days', hours: 'reg-hours', minutes: 'reg-minutes', seconds: 'reg-seconds' });
     }, 1000);
+
+    // Initial call to display immediately
+    updateCountdown(tournamentDate, { days: 'tournament-days', hours: 'tournament-hours', minutes: 'tournament-minutes', seconds: 'tournament-seconds' });
+    updateCountdown(registrationEndDate, { days: 'reg-days', hours: 'reg-hours', minutes: 'reg-minutes', seconds: 'reg-seconds' });
+
+    // --- Data Fetching & Display Logic for Live Scores and Fixtures (from mens-beginner-doubles.html) ---
+
+    // Function to format time (e.g., "8:30 PM")
+    const formatTime = (timeString) => {
+        if (!timeString) return 'N/A';
+        try {
+            // Create a dummy date to parse the time string correctly
+            const dummyDate = new Date(`2000-01-01T${timeString}`);
+            if (isNaN(dummyDate.getTime())) {
+                return timeString; // Return original if parsing fails
+            }
+            return dummyDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+        } catch (e) {
+            console.error("Error formatting time:", timeString, e);
+            return timeString; // Fallback
+        }
+    };
+
+    // Function to format date (e.g., "Jan 1, 2000")
+    const formatDate = (dateString) => {
+        if (!dateString) return 'N/A';
+        try {
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) {
+                return dateString; // Return original if parsing fails
+            }
+            return date.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' });
+        } catch (e) {
+            console.error("Error formatting date:", dateString, e);
+            return dateString; // Fallback
+        }
+    };
+
+
+    // --- Fixtures for Category Pages (Scheduled only, grouped by Stage and Group) ---
+    const fixturesListContainer = document.getElementById('fixtures-list');
+    const fixturesTeamNameFilterInput = document.getElementById('fixtures-team-filter'); // Changed ID to match index.html
+
+    async function fetchAndDisplayFixtures() {
+        const teamName = fixturesTeamNameFilterInput.value.trim();
+        // Changed filter to only show 'Scheduled'
+        let url = `${GOOGLE_APP_SCRIPT_URL}?sheet=Fixtures`; // Removed category filter for index.html
+        if (teamName) {
+            url += `&teamName=${encodeURIComponent(teamName)}`;
+        }
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            const fixtures = data.fixtures;
+
+            if (!fixtures || fixtures.length === 0) {
+                fixturesListContainer.innerHTML = '<p class="loading-message">No upcoming fixtures yet.</p>';
+                return;
+            }
+
+            // Filter out completed and live matches, sort by Date then Time
+            const upcomingFixtures = fixtures.filter(fixture => {
+              const status = fixture.Status?.toLowerCase();
+              return status !== 'completed' && status !== 'live';
+            }).sort((a, b) => {
+              // Sort by date
+              const dateA = new Date(a.Date);
+              const dateB = new Date(b.Date);
+              if (dateA - dateB !== 0) {
+                return dateA - dateB;
+              }
+
+              // Then by time (convert HH:mm to sortable format, e.g., minutes from midnight)
+              const timeA = a.Time ? parseInt(a.Time.split(':')[0]) * 60 + parseInt(a.Time.split(':')[1]) : 0;
+              const timeB = b.Time ? parseInt(b.Time.split(':')[0]) * 60 + parseInt(b.Time.split(':')[1]) : 0;
+              return timeA - timeB;
+            });
+
+
+            // Group fixtures by Stage and then by Category
+            const groupedByStageAndCategory = upcomingFixtures.reduce((acc, fixture) => {
+                const stage = fixture.Stage || 'Uncategorized Stage';
+                const category = fixture.Category || 'Uncategorized Category'; // Default if Category is empty
+
+                if (!acc[stage]) {
+                    acc[stage] = {};
+                }
+                if (!acc[stage][category]) {
+                    acc[stage][category] = [];
+                }
+                acc[stage][category].push(fixture);
+                return acc;
+            }, {});
+
+            let htmlContent = '';
+            // Define a custom order for stages
+            const stageOrder = ['League', 'QuarterFinals', 'Semi Finals', 'Finals'];
+
+            // Sort stages based on the predefined order
+            const sortedStages = Object.keys(groupedByStageAndCategory).sort((a, b) => {
+                const indexA = stageOrder.indexOf(a);
+                const indexB = stageOrder.indexOf(b);
+                if (indexA === -1 && indexB === -1) return a.localeCompare(b); // If both not in order, sort alphabetically
+                if (indexA === -1) return 1; // a is not in order, b is - push a to end
+                if (indexB === -1) return -1; // b is not in order, a is - push b to end
+                return indexA - indexB;
+            });
+
+            sortedStages.forEach(stage => {
+                htmlContent += `<div class="stage-group-container">`;
+                htmlContent += `<h3 class="stage-header">${stage}</h3>`;
+
+                const categoriesInStage = groupedByStageAndCategory[stage];
+                // Sort categories alphabetically
+                const sortedCategories = Object.keys(categoriesInStage).sort();
+
+                sortedCategories.forEach(category => {
+                    htmlContent += `<h4 class="group-header">${category}</h4>`; // Sub-header for category
+                    htmlContent += '<div class="fixtures-table-container">';
+                    htmlContent += '<table class="fixtures-table points-table">'; // Reusing points-table for styling
+                    htmlContent += '<thead><tr><th>Date</th><th>Time</th><th>Team 1</th><th>Team 2</th><th>Court</th></tr></thead>';
+                    htmlContent += '<tbody>';
+
+                    // Sort fixtures within each category by Date then Time
+                    categoriesInStage[category].sort((a, b) => {
+                        const dateA = new Date(`${a.Date}T${a.Time || '00:00:00'}`);
+                        const dateB = new Date(`${b.Date}T${b.Time || '00:00:00'}`);
+                        return dateA.getTime() - dateB.getTime();
+                    }).forEach(fixture => {
+                        htmlContent += `
+                            <tr>
+                                <td>${formatDate(fixture.Date)}</td>
+                                <td>${formatTime(fixture.Time)}</td>
+                                <td>${fixture['Team 1'] || 'N/A'}</td>
+                                <td>${fixture['Team 2'] || 'N/A'}</td>
+                                <td>${fixture.Court || 'N/A'}</td>
+                            </tr>
+                        `;
+                    });
+                    htmlContent += '</tbody></table>';
+                    htmlContent += '</div>'; // Close fixtures-table-container
+                });
+                htmlContent += `</div>`; // Close stage-group-container
+            });
+
+            fixturesListContainer.innerHTML = htmlContent;
+
+        } catch (error) {
+            console.error('Error fetching fixtures:', error);
+            fixturesListContainer.innerHTML = '<p class="loading-message" style="color: red;">Failed to load fixtures. Please try again later.</p>';
+        }
+    }
+
+    fixturesTeamNameFilterInput.addEventListener('input', fetchAndDisplayFixtures);
+
+
+    // --- Live Scoring for Category Pages (In Progress & Completed) ---
+    const liveScoresContainer = document.getElementById('live-scoring-content');
+    const liveTeamNameFilterInput = document.getElementById('live-match-team-filter'); // Changed ID to match index.html
+
+    async function fetchAndDisplayLiveScores() {
+        const teamName = liveTeamNameFilterInput.value.trim();
+        // Changed filter to include both 'In Progress' and 'Complete'
+        let url = `${GOOGLE_APP_SCRIPT_URL}?sheet=Live Matches&filter=In%20Progress,Complete`; // Removed category filter for index.html
+        if (teamName) {
+            url += `&teamName=${encodeURIComponent(teamName)}`;
+        }
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            const liveMatches = data.liveMatches;
+
+            let htmlContent = '';
+            if (!liveMatches || liveMatches.length === 0) {
+                htmlContent = '<p class="loading-message">No live or recent matches available yet. Stay tuned!</p>';
+            } else {
+                const inProgressMatches = liveMatches.filter(m => (m.Status || '').toLowerCase() === 'in progress');
+                const completedMatches = liveMatches.filter(m => (m.Status || '').toLowerCase() === 'complete');
+
+                if (inProgressMatches.length > 0) {
+                    htmlContent += '<h3>Currently In Progress</h3>';
+                    htmlContent += '<div class="live-scores-table-container">';
+                    htmlContent += '<table class="live-scores-table">';
+                    htmlContent += '<thead><tr><th>Category</th><th>Group</th><th>Stage</th><th>Team 1</th><th>Team 2</th><th>Score</th><th>Court</th></tr></thead>'; // Added Category column
+                    htmlContent += '<tbody>';
+                    inProgressMatches.forEach(match => {
+                        const category = match.Category || 'N/A'; // Get Category
+                        const team1 = match['Team 1'] || 'TBD';
+                        const team2 = match['Team 2'] || 'TBD';
+                        const score1 = match['Team 1 Score'] !== undefined && match['Team 1 Score'] !== '' ? match['Team 1 Score'] : '0';
+                        const score2 = match['Team 2 Score'] !== undefined && match['Team 2 Score'] !== '' ? match['Team 2 Score'] : '0';
+                        const court = match.Court || 'TBD';
+                        const group = match.Group || 'N/A';
+                        const stage = match.Stage || 'N/A';
+
+                        htmlContent += `
+                            <tr>
+                                <td>${category}</td>
+                                <td>${group}</td>
+                                <td>${stage}</td>  
+                                <td>${team1}</td>
+                                <td>${team2}</td>
+                                <td><span class="score-display">${score1} - ${score2}</span></td>
+                                <td>${court}</td>
+                            </tr>
+                        `;
+                    });
+                    htmlContent += '</tbody></table>';
+                    htmlContent += '</div>'; // Close live-scores-table-container
+                }
+
+                if (completedMatches.length > 0) {
+                    htmlContent += '<h3>Recently Completed Matches</h3>';
+                    htmlContent += '<div class="live-scores-table-container">';
+                    htmlContent += '<table class="live-scores-table">';
+                    htmlContent += '<thead><tr><th>Category</th><th>Group</th><th>Stage</th><th>Team 1</th><th>Team 2</th><th>Score</th><th>Court</th><th>Completed At</th></tr></thead>'; // Added Category column
+                    htmlContent += '<tbody>';
+                    // The matches are already sorted by CompletionTimestamp descending from code.gs
+                    completedMatches.forEach(match => {
+                        const category = match.Category || 'N/A'; // Get Category
+                        const team1 = match['Team 1'] || 'N/A';
+                        const team2 = match['Team 2'] || 'N/A';
+                        const score1 = match['Team 1 Score'] !== undefined && match['Team 1 Score'] !== '' ? match['Team 1 Score'] : '--';
+                        const score2 = match['Team 2 Score'] !== undefined && match['Team 2 Score'] !== '' ? match['Team 2 Score'] : '--';
+                        const court = match.Court || 'N/A';
+                        const completionTime = match.CompletionTimestamp ? new Date(match.CompletionTimestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : 'N/A';
+                        const group = match.Group || 'N/A';
+                        const stage = match.Stage || 'N/A';
+
+                        htmlContent += `
+                            <tr>
+                                <td>${category}</td>
+                                <td>${group}</td>
+                                <td>${stage}</td>
+                                <td>${team1}</td>
+                                <td>${team2}</td>
+                                <td><span class="score-display">${score1} - ${score2}</span></td>
+                                <td>${court}</td>
+                                <td>${completionTime}</td>
+                            </tr>
+                        `;
+                    });
+                    htmlContent += '</tbody></table>';
+                    htmlContent += '</div>'; // Close live-scores-table-container
+                }
+            }
+            liveScoresContainer.innerHTML = htmlContent;
+
+        } catch (error) {
+            console.error('Error fetching live scores:', error);
+            liveScoresContainer.innerHTML = '<p class="loading-message" style="color: red;">Failed to load live scores. Please try again later.</p>';
+        }
+    }
+
+    liveTeamNameFilterInput.addEventListener('input', fetchAndDisplayLiveScores);
+
+    // Initial data fetch on page load
+    fetchAllData();
+    // Poll for updates (e.g., every 30 seconds) - adjust as needed
+    setInterval(fetchAllData, 30000);
+
+    function fetchAllData() {
+      fetchAndDisplayLiveScores();
+      fetchAndDisplayFixtures();
+    }
+
+    // New event listeners for team filters
+    document.getElementById('live-match-team-filter').addEventListener('input', fetchAndDisplayLiveScores);
+    document.getElementById('fixtures-team-filter').addEventListener('input', fetchAndDisplayFixtures);
+
+
+    // Service Worker for PWA (Optional)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js').then(registration => {
+          console.log('ServiceWorker registered: ', registration.scope);
+        }, err => {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
+
+    // Add analytics tracking (placeholder)
+    function trackEvent(eventName, properties = {}) {
+      // This would integrate with your analytics service
+      console.log('Event tracked:', eventName, properties);
+    }
+
+    // Track user interactions
+    document.addEventListener('click', (e) => {
+      if (e.target.matches('.category')) {
+        trackEvent('category_clicked', { category: e.target.textContent });
+      }
+      if (e.target.matches('a[href*="forms.gle"]')) {
+        trackEvent('registration_clicked');
+      }
+      if (e.target.matches('a[href*="wa.me"]')) {
+        trackEvent('whatsapp_clicked');
+      }
+    });
+
+    // Add notification system (placeholder for future web notifications)
+    function requestNotificationPermission() {
+      if ('Notification' in window && Notification.permission === 'default') {
+        Notification.requestPermission().then(permission => {
+          if (permission === 'granted') {
+            console.log('Notification permission granted');
+            // You could send notifications for live match updates
+          }
+        });
+      }
+    }
+
+    // Request notification permission after user interaction
+    document.addEventListener('click', requestNotificationPermission, { once: true });
+
+    console.log('SMASHERS Tournament Website loaded successfully! 🏆');
   </script>
 </body>
 </html>

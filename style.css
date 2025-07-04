@@ -1,0 +1,1348 @@
+:root {
+  --primary-blue: #ea7941; /* A nice, vibrant blue (actually orange) */
+  --secondary-blue: #0056b3; /* Darker blue */
+  --light-background-white: #f5f5fa; /* Energetic orange (actually light white) */
+  --muted-brown-grey: #c6beb3; /* Darker orange (actually muted brown-grey) */
+  --text-light: rgba(255, 255, 255, 0.9);
+  --text-lighter: rgba(255, 255, 255, 0.7);
+  --glass-bg: rgba(93, 90, 11, 0.789); /* Slightly more transparent for a lighter feel */
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --link-color: #80a1ae; /* Sky blue for links */
+  --link-hover-color: #add8e6;
+  --background-start: #dfdfe1; /* Dark blue */
+  --background-end: #e7e8e9; /* Medium blue */
+
+  /* --- NEWLY DEFINED VARIABLES FOR CONSISTENCY --- */
+  --primary-color: var(--primary-blue); /* Used for general accent/primary (your orange) */
+  --primary-color-dark: #cc6033; /* A darker shade of the primary orange */
+  --card-background: var(--glass-bg); /* General background for "card" like elements, matching glass-bg */
+  --secondary-background-light: rgba(43, 44, 153, 0.6); /* Light transparent for blocks/rounds */
+  --secondary-background-dark: rgba(0, 0, 0, 0.6); /* Dark transparent for contrast */
+  --button-background: var(--primary-blue); /* Consistent button color (your orange) */
+  --text-dark: var(--light-background-white); /* For text on dark elements, ensures visibility */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--background-start); /* INSTANT SOLID BASE COLOR */
+}
+
+html {
+  background-image: linear-gradient(135deg, var(--background-start) 0%, var(--background-end) 100%);
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: transparent; /* Crucial for HTML's background to show */
+  color: #fff;
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+/* Keyframe animation for the background gradient */
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Header Improvements */
+header {
+  background: linear-gradient(135deg, #705b5b 0%, #393131 100%); /* Reddish gradient */
+  padding: 1.5rem 2rem; /* Reduced top padding */
+  text-align: center;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4); /* Stronger shadow */
+  position: relative; /* CRITICAL: Allows absolute positioning of children like back-button */
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.15)"/></svg>') repeat;
+  animation: float 25s infinite linear; /* Slightly slower float */
+  opacity: 0.7;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(-100px) rotate(360deg); }
+}
+
+header h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 6vw, 3.5rem); /* Slightly larger */
+  color: #fff;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+  letter-spacing: 1px;
+}
+
+header p {
+  color: var(--text-light);
+  font-size: clamp(1.1rem, 3vw, 1.3rem); /* Slightly larger */
+  margin-top: 0.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Back Button (specific to category pages, absolute position) */
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: var(--primary-blue);
+  color: #333; /* Darker text for better contrast on orange */
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: absolute; /* Position absolutely relative to the header */
+  top: 15px; /* Adjust top spacing */
+  left: 15px; /* Adjust left spacing */
+  z-index: 20; /* Ensure it's on top */
+}
+
+.back-button:hover {
+  background-color: var(--muted-brown-grey);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.back-button::before {
+    content: '←'; /* Unicode left arrow */
+    font-size: 1.2em;
+    line-height: 1;
+    margin-right: 5px; /* Space between arrow and text */
+}
+
+/* Countdown Timer Enhancement (for sections that are themselves countdown-section) */
+.countdown-section {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 1rem 1.5rem; /* Reduced padding for smaller height, consistent horizontal */
+  text-align: center;
+  display: grid; /* Use grid for side-by-side layout of the two countdown groups */
+  grid-template-columns: 1fr 1fr; /* Two equal columns for desktop */
+  gap: 1.5rem; /* Gap between the two countdown groups */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  max-width: 1200px; /* Consistent overall width for all main content sections */
+  margin: 2.5rem auto; /* Centralize sections horizontally */
+}
+
+.countdown-timer-group {
+    text-align: center; /* Ensure text within group is centered relative to its column */
+}
+
+.countdown-timer-group h2 {
+  color: var(--light-background-white);
+  font-size: 1.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.timer {
+  font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+  font-weight: 600;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.timer-unit {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 0.3rem 0.7rem;
+  border-radius: 10px;
+  min-width: 55px;
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--glass-border);
+}
+
+.timer-number {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: var(--light-background-white);
+}
+
+.timer-label {
+  font-size: 0.65em;
+  color: var(--text-lighter);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* General Section Styling (Applies to all <section> elements as main content blocks) */
+section {
+  padding: 2.2rem;
+  max-width: 1200px; /* Consistent overall width for all main content sections */
+  margin: 2.5rem auto; /* Centralize sections horizontally */
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.35);
+}
+
+section h2 {
+  text-align: center;
+  color: var(--light-background-white);
+  margin-bottom: 1.8rem;
+  font-size: clamp(1.8rem, 4.5vw, 2.2rem);
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+section h3 {
+  text-align: center;
+  color: var(--light-background-white);
+  margin-top: 2.5rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin-bottom: 1.2rem;
+}
+
+/* Specific styling for .process-flow section (Road to the Finals) */
+.process-flow {
+  /* Inherits general section styles for max-width, margin, padding, background etc. */
+  text-align: center; /* Ensures the main H2 heading is centered */
+}
+
+.process-flow > p { /* Target the paragraph directly under .process-flow */
+    text-align: center; /* Center this introductory paragraph */
+    max-width: 800px; /* Constrain its width for readability */
+    margin: 0 auto 1.5rem auto; /* Center it with some bottom margin */
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.process-flow .workflow-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows steps to wrap on smaller screens */
+  justify-content: center;
+  align-items: flex-start; /* Align items to the top for better text flow */
+  gap: 1.5rem; /* Space between steps and arrows */
+  margin-top: 2rem;
+  position: relative;
+  padding: 1rem 0;
+}
+
+.process-flow .workflow-step {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--glass-border);
+  border-radius: 15px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  flex: 1;
+  min-width: 180px;
+  max-width: 250px; /* Max width for larger screens */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align content to the top within the step */
+}
+
+.process-flow .workflow-step:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.process-flow .step-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.8rem;
+  line-height: 1;
+}
+
+.process-flow .workflow-step h3 {
+  color: var(--light-background-white);
+  font-size: 1.3rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.process-flow .workflow-step p {
+  font-size: 0.95rem;
+  color: var(--text-lighter);
+  margin: 0; /* Remove default paragraph margins */
+  text-align: center; /* Center text within the step box */
+}
+
+.process-flow .workflow-arrow {
+  font-size: 2.5rem;
+  color: var(--light-background-white);
+  flex-shrink: 0;
+  margin: 0 0.5rem;
+}
+
+.process-flow .final-note {
+  text-align: center;
+  margin-top: 2.5rem;
+  font-size: 1rem;
+  color: var(--text-light);
+  font-style: italic;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  max-width: 800px; /* Constrain width for this note */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Horizontal rule for separation within combined box */
+.tournament-info-registration-contact hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin: 2.5rem 0;
+}
+
+/* Enhanced List Styling (General) */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+  border-left: 5px solid var(--light-background-white);
+  border-radius: 15px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+li:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(8px);
+}
+
+/* Tournament Info specific styling for the combined box */
+.tournament-info-section ul {
+  text-align: left;
+  padding: 0 10px;
+}
+
+/* Live Match & Fixture Items */
+.live-match-item, .fixture-item {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 15px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.live-match-item:hover, .fixture-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.match-details, .fixture-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.score-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.score-team1, .score-team2 {
+  color: var(--light-background-white);
+}
+
+
+.match-meta, .fixture-meta {
+  font-size: 0.85rem;
+  color: var(--text-lighter);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 0.3rem;
+}
+
+.match-time, .fixture-time {
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+/* Points Table Styling */
+.points-table-container {
+  overflow-x: auto; /* Allows horizontal scrolling on small screens */
+  margin-top: 2rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 15px;
+  border: 1px solid var(--glass-border);
+  padding: 1rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.points-table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap; /* Prevent text wrapping in cells */
+}
+
+.points-table th, .points-table td {
+  text-align: left;
+  padding: 12px 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.points-table th {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--light-background-white);
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+.points-table tr:last-child td {
+  border-bottom: none;
+}
+
+.points-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.points-table td {
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+
+/* Responsive category buttons (main page) */
+.category-buttons {
+  display: grid;
+  grid-template-columns: 1fr; /* Default to single column for mobile */
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 0 1rem; /* Add some padding so buttons don't touch edges on small screens */
+}
+
+@media (min-width: 600px) {
+  .category-buttons {
+    grid-template-columns: 1fr 1fr; /* Two columns for larger phones/tablets and desktop (2/2 matrix) */
+  }
+}
+
+@media (min-width: 992px) {
+  .category-buttons {
+    /* Enforce 2 columns for the buttons within the reduced category size */
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.category {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 1.2rem 1.5rem;
+  background-color: var(--primary-blue);
+  color: var(--text-light);
+  text-decoration: none;
+  border-radius: 15px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  text-align: center; /* Ensure text is centered if it wraps */
+}
+
+.category:hover {
+  background-color: var(--secondary-blue);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* FAQ Section Styling */
+.full-width-section {
+  padding: 2.2rem;
+  max-width: 1400px; /* Increased width to match other sections */
+  margin: 2.5rem auto; /* Centralize */
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.full-width-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.35);
+}
+
+details {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+details:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+summary {
+  padding: 1.2rem 1.5rem;
+  display: block;
+  cursor: pointer;
+  font-weight: bold;
+  color: var(--light-background-white);
+  position: relative;
+  user-select: none;
+  font-size: 1.1rem;
+}
+
+summary::marker {
+  display: none; /* Hide default marker */
+}
+
+summary::after {
+  content: '+';
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.3s ease;
+  color: var(--text-light);
+}
+
+details[open] summary::after {
+  content: '−';
+  transform: translateY(-50%) rotate(180deg);
+}
+
+details p {
+  padding: 0.5rem 1.5rem 1.2rem;
+  margin: 0;
+  color: var(--text-lighter);
+  line-height: 1.7;
+  font-size: 0.95rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Footer Styling */
+.footer { /* Changed from `footer` to `.footer` as per HTML to match */
+  text-align: center;
+  padding: 2.5rem 1rem;
+  margin-top: 3rem;
+  color: var(--text-lighter);
+  font-size: 0.9rem;
+  background: linear-gradient(0deg, var(--background-start) 0%, rgba(30, 60, 114, 0.5) 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.footer p {
+  margin: 0.5rem 0;
+}
+
+.footer a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+/* === NEW & MODIFIED LAYOUT STYLES === */
+
+/* Overall container for the main content areas */
+.main-visual-area {
+    display: flex;
+    flex-direction: column; /* Stack countdown and flyer/categories vertically */
+    gap: 2.5rem; /* Space between the two main blocks inside this area */
+    max-width: 1200px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem; /* Add padding to the container itself */
+}
+
+/* Main Grid Layout for the index page (for tournament info and FAQ) */
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Default to single column for mobile */
+    gap: 2.5rem; /* Gap between the tournament info block and the FAQ block */
+    max-width: 1200px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .main-grid {
+        /* This grid now only affects tournament-info and FAQ, which will stack */
+        grid-template-columns: 1fr; /* Forces single column for remaining items */
+    }
+    /* Ensure the tournament info section spans both columns (no change needed here as it's already full width) */
+    .main-grid .tournament-info-registration-contact {
+        grid-column: 1 / -1; /* Spans all columns */
+    }
+}
+
+/* Flyer and Categories section layout (container) */
+.flyer-and-categories {
+  display: grid; /* Changed from flex to grid */
+  grid-template-columns: 1fr; /* Default to single column for mobile */
+  gap: 2.5rem; /* Space between the flyer and the category box */
+  margin: 0; /* Removed external margins as main-visual-area handles it */
+  padding: 0; /* Container should not have its own padding or background */
+  background: none;
+  backdrop-filter: none;
+  border: none;
+  box-shadow: none;
+}
+
+.flyer-and-categories .flyer {
+    /* REMOVED: flex properties */
+    text-align: center; /* For image centering */
+    transition: none; /* Remove hover transition */
+}
+.flyer-and-categories .flyer:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.flyer-and-categories .flyer img {
+    width: 85%; /* Take full width of its grid cell */
+    /* REMOVED: max-width: 350px; to allow it to expand more */
+    height: auto;
+    border-radius: 10px; /* Keep slightly rounded corners for the image */
+    display: block; /* Make image a block element to center with margin auto */
+    margin: 0 auto; /* Center image within its grid cell */
+}
+
+.flyer-and-categories .category-selection-section { /* The 'Tournament Category Selection' section */
+    /* REMOVED: flex properties */
+    margin: 0; /* Ensure no external margin from general section rule */
+    /* Explicitly apply full glass effect to this section */
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+    padding: 2.2rem; /* Add padding to the box itself */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.flyer-and-categories .category-selection-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.35);
+}
+
+/* Desktop: flyer and categories side by side */
+@media (min-width: 768px) {
+    .flyer-and-categories {
+        /* Flyer and category selection are now equal size (1fr 1fr) */
+        grid-template-columns: 1fr 1fr;
+        align-items: center; /* Vertically align items */
+    }
+}
+
+/* Mobile stacking for flyer and categories */
+@media (max-width: 767px) {
+    .flyer-and-categories {
+        flex-direction: column; /* This is now handled by grid-template-columns: 1fr; */
+        align-items: center;
+        gap: 1.5rem; /* Smaller gap when stacked */
+    }
+    .flyer-and-categories .flyer img {
+        width: 100%; /* Full width on mobile within its container */
+        max-width: none;
+    }
+    .flyer-and-categories .category-selection-section {
+        flex-basis: auto; /* Revert flex-basis on small screens */
+        width: 100%; /* Take full width of parent on small screens */
+        max-width: none;
+    }
+}
+
+/* NEW: Full-width wrapper for Live Scores and Fixtures */
+.live-scores-full-width-wrapper {
+    width: 100%; /* Make it span the full viewport width */
+    margin: 2.5rem 0; /* Add top/bottom margin, no side margin */
+    padding: 0 1.5rem; /* Add horizontal padding to match other sections */
+}
+
+/* Live Matches and Fixtures layout (inner container, centered) */
+.live-scores-fixtures {
+    display: grid;
+    grid-template-columns: 1fr; /* ALWAYS single column, so they stack */
+    gap: 2.5rem; /* Space between live matches box and fixtures box */
+    max-width: 1200px; /* Limit the content width and center it */
+    margin: 0 auto; /* Center within the full-width wrapper */
+    padding: 0; /* No padding on this inner container, children handle it */
+    background: none; /* No background on container */
+    backdrop-filter: none;
+    border: none;
+    box-shadow: none;
+}
+
+/* REMOVED the @media (min-width: 768px) rule for .live-scores-fixtures */
+
+
+/* Styling for the new team filter input */
+.team-filter-input {
+    width: 100%; /* Take full width of its container */
+    padding: 12px 15px;
+    margin-bottom: 20px; /* Space below the input */
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.15); /* Slightly visible background */
+    color: var(--text-light);
+    font-size: 1rem;
+    outline: none; /* Remove default outline */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    -webkit-appearance: none; /* Remove default styling on some browsers */
+}
+
+.team-filter-input::placeholder {
+    color: var(--text-lighter); /* Lighter placeholder text */
+    opacity: 0.8;
+}
+
+.team-filter-input:focus {
+    border-color: var(--primary-blue); /* Highlight on focus, using primary blue */
+    box-shadow: 0 0 0 3px rgba(234, 121, 65, 0.3); /* Soft glow on focus, matching primary blue */
+}
+
+
+/* Target the sections directly within .live-scores-fixtures (the individual boxes) */
+.live-scores-fixtures > section {
+    margin: 0; /* Remove default section margins as the grid handles spacing */
+    /* Explicitly apply full glass effect to these sections */
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+    padding: 2.2rem; /* Add padding to the box itself */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: auto; /* Allow height to adjust to content */
+}
+.live-scores-fixtures > section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.35);
+}
+
+
+/* Tournament Info & Registration/Contact layout (container) */
+.tournament-info-registration-contact {
+    display: grid;
+    grid-template-columns: 1fr; /* Default for mobile */
+    gap: 2.5rem; /* Gap between internal columns */
+    /* This section already inherits its "big box" styling from the general 'section' rule, and full-width from .main-grid rule */
+}
+
+@media (min-width: 768px) {
+    .tournament-info-registration-contact {
+        grid-template-columns: 1fr 1fr; /* Two columns on desktop for its internal content */
+    }
+}
+/* --- NEW STYLES FOR LIVE SCORES TABLE --- */
+.live-scores-table-container {
+  overflow-x: auto; /* Enable horizontal scrolling on small screens */
+  width: 100%;
+  margin-bottom: 20px; /* Space below the table */
+}
+
+.live-scores-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: var(--card-background); /* Use a slightly darker background */
+  border-radius: 10px; /* Rounded corners for the table */
+  overflow: hidden; /* Ensures rounded corners apply to content */
+}
+
+.live-scores-table thead tr {
+  background-color: var(--primary-color-dark); /* Darker header background */
+  color: var(--light-background-white);
+}
+
+.live-scores-table th,
+.live-scores-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Lighter border for rows */
+  font-size: 0.95rem;
+  color: var(--text-light); /* Default text color */
+}
+
+.live-scores-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05); /* Subtle hover effect */
+}
+
+/* Specific styling for Score column in live scores */
+.live-scores-table .score-display {
+  font-weight: bold;
+  color: var(--primary-blue);
+  white-space: nowrap;
+  text-align: center; /* Center score */
+  display: block; /* To allow text-align */
+}
+
+/* Centering for Team Name columns in live scores */
+.live-scores-table td:nth-child(1), /* Team 1 */
+.live-scores-table td:nth-child(3) { /* Team 2 */
+  text-align: center;
+}
+/* Centering for Score and Court columns in live scores */
+.live-scores-table td:nth-child(2), /* Score */
+.live-scores-table td:nth-child(4) { /* Court */
+  text-align: center;
+}
+
+/* Add minimal new styles for Group/Stage headers in HTML and JS generated content */
+.stage-group-container {
+    margin-bottom: 2rem;
+}
+.stage-header {
+    font-size: 1.8rem;
+    color: var(--light-background-white);
+    text-align: center;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    border-bottom: 2px solid rgba(255,255,255,0.2);
+    padding-bottom: 10px;
+}
+.group-header {
+    font-size: 1.4rem;
+    color: var(--text-light);
+    text-align: center;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    background: rgba(255,255,255,0.08);
+    padding: 8px 15px;
+    border-radius: 8px;
+    display: inline-block; /* Make it fit content */
+    max-width: 80%; /* Prevent it from being too wide */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Style for points table headers (stages/groups) */
+.points-table-stage-header {
+    font-size: 1.8rem;
+    color: var(--light-background-white);
+    text-align: center;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    border-bottom: 2px solid rgba(255,255,255,0.2);
+    padding-bottom: 10px;
+}
+.points-table-group-header {
+    font-size: 1.4rem;
+    color: var(--text-light);
+    text-align: center;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    background: rgba(255,255,255,0.08);
+    padding: 8px 15px;
+    border-radius: 8px;
+    display: inline-block;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* Ensure the score display fits well */
+.score-display {
+    font-weight: bold;
+    color: var(--primary-blue);
+    white-space: nowrap; /* Prevent score from wrapping */
+}
+/* Adjustments for Fixtures table to show Group/Stage */
+.fixtures-table th:nth-child(2), /* Team 1 */
+.fixtures-table td:nth-child(2),
+.fixtures-table th:nth-child(3), /* Team 2 or Score */
+.fixtures-table td:nth-child(3),
+.fixtures-table th:nth-child(4), /* Team 2 or Court */
+.fixtures-table td:nth-child(4) {
+    text-align: center; /* Center these columns for better alignment */
+}
+/* Specific centering for score column */
+.fixtures-table td .score-display {
+    display: block; /* Make it a block to apply text-align center if needed */
+    text-align: center;
+}
+
+/* Make team names in fixtures tables center aligned */
+.fixtures-table td:nth-child(2), /* Team 1 */
+.fixtures-table td:nth-child(3) { /* Score or Team 2 */
+    text-align: center;
+}
+/* For completed matches, Team 1 and Team 2 should be centered */
+.fixtures-table.completed-matches-table td:nth-child(2), /* Team 1 */
+.fixtures-table.completed-matches-table td:nth-child(4) { /* Team 2 */
+    text-align: center;
+}
+/* Score in completed matches table */
+.fixtures-table.completed-matches-table td:nth-child(3) { /* Score */
+    text-align: center;
+}
+
+/* --- NEW STYLES FOR ROAD TO FINALS DIAGRAM --- */
+
+/* --- REVISED STYLES FOR ROAD TO FINALS DIAGRAM (More Compact & Color Sync) --- */
+
+/* --- REVISED STYLES FOR ROAD TO FINALS DIAGRAM (More Compact & Color Sync) --- */
+
+/* --- REVISED STYLES FOR ROAD TO FINALS DIAGRAM (Left-to-Right Layout, More Compact & Mobile Compatible) --- */
+
+.process-flow {
+  text-align: center;
+  padding: 15px;
+  background-color: var(--card-background);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
+  color: var(--text-light);
+}
+
+.process-flow h2 {
+  color: var(--light-background-white);
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+}
+
+.process-flow p {
+  margin-bottom: 10px;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.tournament-diagram {
+  display: flex;
+  flex-direction: row; /* Changed to horizontal layout */
+  align-items: center; /* Vertically align items in the row */
+  justify-content: center; /* Center the entire diagram horizontally */
+  gap: 10px; /* Space between blocks and arrows */
+  margin-top: 20px;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  overflow-x: auto; /* Enable horizontal scrolling if content overflows on small screens */
+  padding-bottom: 10px; /* Add some padding for scrollbar */
+}
+
+.stage-block {
+  flex-shrink: 0; /* Prevent blocks from shrinking */
+  background-color: var(--secondary-background-dark);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 8px 15px;
+  width: auto; /* Adjust width automatically */
+  min-width: 150px; /* Minimum width for stage blocks */
+  max-width: 200px; /* Max width to keep it compact */
+  box-shadow: 0 2px 4px rgba(206, 8, 8, 0.1);
+  text-align: center;
+  color: var(--text-light);
+  font-size: 0.85rem;
+}
+
+.stage-block h3 {
+  color: var(--primary-color);
+  margin-top: 5px;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+.stage-block p {
+  font-size: 0.8rem;
+}
+
+.stage-block .icon {
+  font-size: 1.8rem;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Specific stage colors/styles (remain the same) */
+.start-stage {
+  background-color: var(--primary-color-dark);
+  color: var(--light-background-white);
+}
+.start-stage h3 { color: var(--light-background-white); }
+.start-stage p { color: var(--text-light); }
+
+.league-stage { background-color: var(--secondary-background-dark); }
+.qualification-stage { background-color: var(--secondary-background-dark); }
+.champion-stage {
+  background-color: var(--primary-blue);
+  color: var(--light-background-white);
+}
+.champion-stage h3 { color: var(--light-background-white); }
+.champion-stage p { color: var(--text-light); }
+
+
+/* Arrow Connector between stages (Horizontal) */
+.arrow-connector {
+  width: 20px; /* Width for horizontal arrow */
+  height: 2px; /* Height for horizontal arrow */
+  background-color: var(--primary-color);
+  position: relative;
+  margin: 0 5px; /* Adjust margin for horizontal flow */
+}
+
+.arrow-connector::after {
+  content: '';
+  position: absolute;
+  top: 50%; /* Center vertically */
+  left: 100%; /* Arrowhead at the right end */
+  transform: translateY(-50%); /* Center vertically */
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 6px solid var(--primary-color); /* Right-pointing arrowhead */
+  border-right: none; /* No right border */
+}
+
+/* Knockout Stage Container (Semi-finals & Final) */
+.knockout-stage-container {
+  display: flex;
+  flex-direction: column; /* Keep internal stages stacked vertically within this box */
+  align-items: center;
+  flex-shrink: 0; /* Prevent from shrinking */
+  width: auto; /* Adjust width automatically */
+  min-width: 250px; /* Minimum width for the knockout box */
+  max-width: 400px; /* Max width to keep it compact */
+  margin-top: 0; /* Remove top margin, handled by gap */
+  padding: 8px;
+  background-color: var(--secondary-background-dark);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.knockout-stage-label h3 {
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.knockout-brackets {
+  display: flex;
+  flex-direction: row; /* Arrange rounds (Semi, Final) horizontally */
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: nowrap; /* Prevent wrapping for rounds itself, let outer container handle it */
+  gap: 8px;
+}
+
+.bracket-round {
+  display: flex;
+  flex-direction: column; /* Matches stack vertically within each round */
+  align-items: center;
+  padding: 6px;
+  background-color: var(--card-background);
+  border-radius: 6px;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.08);
+}
+
+.bracket-round h4 {
+  color: var(--text-dark);
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.match-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.match-block {
+  background-color: var(--button-background);
+  color: var(--light-background-white);
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  min-width: 80px;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.final-match {
+  background-color: var(--primary-blue);
+}
+
+.bracket-arrow {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  padding: 0 5px; /* Adjust padding for horizontal flow */
+  transform: none; /* Reset any previous transforms */
+}
+
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .tournament-diagram {
+      flex-direction: column; /* Stack vertically on mobile */
+      align-items: center;
+      gap: 15px; /* More space when stacked vertically */
+      padding-left: 0; /* Remove horizontal padding for overflow */
+      padding-right: 0;
+      overflow-x: hidden; /* Disable horizontal scroll on vertical stack */
+  }
+
+  .stage-block {
+      width: 90%; /* Take more width on mobile when stacked */
+      max-width: 300px; /* Keep consistent max width */
+      min-width: unset; /* Remove min-width on mobile */
+      padding: 10px 15px;
+  }
+
+  .arrow-connector {
+      width: 2px; /* Back to vertical arrow width */
+      height: 20px; /* Back to vertical arrow height */
+      margin: 5px 0; /* Back to vertical margin */
+  }
+
+  .arrow-connector::after {
+      top: 100%; /* Back to bottom arrow */
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid var(--primary-color); /* Down-pointing arrowhead */
+      border-bottom: none; /* No bottom border */
+  }
+
+  .knockout-stage-container {
+      flex-direction: column; /* Ensure knockout container stacks vertically */
+      width: 90%; /* Take more width on mobile */
+      max-width: 300px; /* Consistent max width */
+      min-width: unset; /* Remove min-width on mobile */
+      padding: 10px;
+  }
+
+  .knockout-brackets {
+      flex-direction: column; /* Stack rounds vertically on mobile */
+      gap: 10px;
+      flex-wrap: wrap; /* Allow matches to wrap within rounds if needed */
+  }
+
+  .bracket-round {
+      padding: 8px;
+      width: 100%; /* Take full width within knockout container */
+      max-width: 250px; /* Add a max-width for aesthetic */
+  }
+
+  .match-block {
+      padding: 6px 12px;
+      min-width: 70px;
+      font-size: 0.8rem;
+  }
+
+  .bracket-arrow {
+      font-size: 1.3rem;
+      padding: 0 4px;
+      margin-top: 8px;
+  }
+}
+/* --- FAQ Dropdown Box Styles --- */
+.faq-item details {
+  background-color: var(--card-background); /* Use existing card background */
+  border: 1px solid var(--glass-border); /* Use existing glass border */
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: var(--text-light); /* Use existing text color */
+  overflow: hidden; /* Ensures rounded corners are respected */
+}
+
+.faq-item summary {
+  cursor: pointer;
+  padding: 15px 20px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  position: relative; /* For the custom arrow */
+  list-style: none; /* Remove default marker */
+  color: var(--light-background-white); /* Lighter text for summary */
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none; /* Hide default marker for webkit browsers */
+}
+
+.faq-item summary::after {
+  content: '+'; /* Custom open indicator */
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  color: var(--primary-color); /* Use primary color for arrow */
+  transition: transform 0.2s ease-in-out;
+}
+
+.faq-item details[open] summary::after {
+  content: '-'; /* Custom close indicator */
+  transform: translateY(-50%) rotate(0deg); /* No rotation needed for '-' */
+}
+
+.faq-item details p {
+  padding: 0 20px 15px 20px;
+  margin: 0;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  color: var(--text-lighter); /* Slightly lighter text for content */
+}
+
+/* Optional: Style for when details is open */
+.faq-item details[open] summary {
+    background-color: rgba(255, 255, 255, 0.05); /* Slightly different background when open */
+}
+
+/* Responsive adjustments for FAQ */
+@media (max-width: 768px) {
+  .faq-item summary {
+    font-size: 1rem;
+    padding: 12px 15px;
+  }
+  .faq-item summary::after {
+    right: 15px;
+    font-size: 1.3rem;
+  }
+  .faq-item details p {
+    padding: 0 15px 12px 15px;
+    font-size: 0.9rem;
+  }
+}
+/* Add or modify this section in your style.css */
+.faq-section {
+  max-width: 1200px; /* Aligns with other main content sections */
+  margin: 40px auto; /* Centers the section and adds vertical spacing */
+  padding: 20px;
+  box-sizing: border-box; /* Include padding in the width */
+}
+
+/* Ensure existing FAQ styles are still present as provided previously */
+/* --- FAQ Dropdown Box Styles --- */
+.faq-item details {
+  background-color: var(--card-background);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: var(--text-light);
+  overflow: hidden;
+}
+
+.faq-item summary {
+  cursor: pointer;
+  padding: 15px 20px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  position: relative;
+  list-style: none;
+  color: var(--light-background-white);
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: '+';
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  transition: transform 0.2s ease-in-out;
+}
+
+.faq-item details[open] summary::after {
+  content: '-';
+  transform: translateY(-50%) rotate(0deg);
+}
+
+.faq-item details p {
+  padding: 0 20px 15px 20px;
+  margin: 0;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  color: var(--text-lighter);
+}
+
+/* Optional: Style for when details is open */
+.faq-item details[open] summary {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Responsive adjustments for FAQ */
+@media (max-width: 768px) {
+  .faq-section {
+    padding: 15px; /* Adjust padding for smaller screens */
+  }
+  .faq-item summary {
+    font-size: 1rem;
+    padding: 12px 15px;
+  }
+  .faq-item summary::after {
+    right: 15px;
+    font-size: 1.3rem;
+  }
+  .faq-item details p {
+    padding: 0 15px 12px 15px;
+    font-size: 0.9rem;
+  }
+}
+/* Ensure inner columns (divs) don't have conflicting section styles */
+.tournament-info-registration-contact .tournament-details-column,
+.tournament-info-registration-contact .registration-contact-column {
+    /* These are divs, so they won't inherit 'section' styles directly. */
+    /* No need to re-apply glass effect here, as the parent .tournament-info-registration-contact already has it */
+}
