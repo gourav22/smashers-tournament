@@ -1321,7 +1321,72 @@ details p {
 .faq-item details[open] summary {
     background-color: rgba(255, 255, 255, 0.05);
 }
+@media (max-width: 768px) {
+  /* Ensure the main container for live scores and fixtures allows full width */
+  .live-scores-full-width-wrapper {
+    width: 100%;
+    overflow-x: hidden; /* Prevent this wrapper from causing overall scroll if its children overflow correctly */
+  }
 
+  .live-scores-fixtures {
+    flex-direction: column; /* Stack sections vertically */
+    align-items: center; /* Center sections when stacked */
+    width: 100%;
+  }
+
+  .live-scores-fixtures section {
+    width: 95%; /* Adjust width for sections on mobile */
+    margin-bottom: 20px; /* Add some space between stacked sections */
+  }
+
+  /* Containers for the tables themselves to enable horizontal scrolling */
+  .live-scores-table-container,
+  .fixtures-table-container,
+  .points-table-container { /* Also apply to points table for consistency */
+    width: 100%;
+    overflow-x: auto; /* This is the key: enables horizontal scrolling */
+    -webkit-overflow-scrolling: touch; /* Improves scrolling on iOS devices */
+  }
+
+  /* Make sure tables within these containers don't have fixed widths that prevent shrinking */
+  .live-scores-table,
+  .fixtures-table,
+  .points-table {
+    width: auto; /* Allow table to be wider than its container and scroll */
+    min-width: 500px; /* Example: set a minimum width to ensure content doesn't get too squished */
+    border-collapse: collapse; /* Ensure borders collapse correctly */
+  }
+
+  /* Adjust padding and font sizes for table cells on small screens */
+  .live-scores-table th, .live-scores-table td,
+  .fixtures-table th, .fixtures-table td,
+  .points-table th, .points-table td {
+    padding: 8px 12px;
+    font-size: 0.85rem; /* Slightly smaller font for better fit */
+    white-space: nowrap; /* Prevent text wrapping in cells if possible */
+  }
+
+  /* Specific adjustments for input filters to ensure they fit */
+  .filter-controls {
+    width: 100%;
+    padding: 0 10px; /* Add some horizontal padding */
+    box-sizing: border-box; /* Include padding in the width calculation */
+  }
+
+  .team-filter-input {
+    width: calc(100% - 20px); /* Adjust width considering padding */
+    margin: 10px 0;
+    padding: 10px;
+  }
+
+  /* Headers within these sections */
+  .live-scores-fixtures h2,
+  .live-scores-fixtures h3 {
+    font-size: 1.5rem; /* Adjust heading sizes if needed */
+    text-align: center;
+    width: 100%;
+  }
+}
 /* Responsive adjustments for FAQ */
 @media (max-width: 768px) {
   .faq-section {
