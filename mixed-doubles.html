@@ -208,7 +208,7 @@ function renderLiveScores(liveScores) {
       groupsInStage.forEach(group => {
         htmlContent += `
           <div class="live-scores-table-container">
-            <h3>${group.group && group.group !== 'No Group' ? `Group ${group.group}` : 'Matches'}</h3> <table class="live-scores-table points-table">
+            <h3>${group.group && group.group !== 'No Group' ? `${group.group}` : 'Matches'}</h3> <table class="live-scores-table points-table">
               <tr><th>Match ID</th><th>Team 1</th><th>Score</th><th>Team 2</th><th>Score</th><th>Status</th></tr>
               ${(group.scores || []).map(score => `
                 <tr>
@@ -278,7 +278,7 @@ function renderFixtures(fixtures) {
       groupsInStage.forEach(group => {
         htmlContent += `
           <div class="fixtures-table-container">
-            <h3>${group.group && group.group !== 'No Group' ? `Group ${group.group}` : 'Matches'}</h3> <table class="fixtures-table points-table">
+            <h3>${group.group && group.group !== 'No Group' ? `${group.group}` : 'Matches'}</h3> <table class="fixtures-table points-table">
               <tr><th>Match ID</th><th>Team 1</th><th>Team 2</th><th>Date</th><th>Time</th><th>Court</th></tr>
               ${(group.fixtures || []).map(fixture => `
                 <tr>
@@ -355,7 +355,7 @@ function renderPointsTable(pointsData) {
 
         htmlContent += `
           <div class="points-table-container">
-            <h3>${group.group && group.group !== 'No Group' ? `Group ${group.group}` : 'Overall Standings'}</h3> <table class="points-table">
+            <h3>${group.group && group.group !== 'No Group' ? `${group.group}` : 'Overall Standings'}</h3> <table class="points-table">
               <thead>
                 <tr><th>Team</th><th>Points</th><th>Wins</th><th>Losses</th><th>Net Score</th></tr>
               </thead>
