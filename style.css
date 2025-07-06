@@ -334,7 +334,7 @@ border: 1px solid var(--glass-border);
 border-radius: 15px; /* Slightly larger border-radius */
 padding: 1.5rem 1rem; /* Adjusted padding */
 text-align: center;
-flex: 2 2 20%; /* Allows blocks to grow/shrink */
+flex: 2 2 40%; /* Allows blocks to grow/shrink */
 /* min-width: 180px; /* Increased min-width */
 /* max-width: auto; Increased max-width for larger screens */
 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -400,7 +400,7 @@ line-height: 1;
   padding: 1.5rem 1rem; /* Consistent padding */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  flex: 1; /* Allow it to grow/shrink like other stages */
+  flex: 2 2 40%; /* Allow it to grow/shrink like other stages */
 }
 
 .knockout-stage-container:hover {
