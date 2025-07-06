@@ -304,7 +304,11 @@
             </select>
             <label for="livescoreCourt">Court:</label>
             <input type="text" id="livescoreCourt" placeholder="Court Number or Name">
-            <button type="submit">Update Live Score</button>
+            <div style="margin-bottom: 15px; margin-top: 10px;">
+                <input type="checkbox" id="superAdminModeCheckbox">
+                <label for="superAdminModeCheckbox" style="display: inline-block; font-weight: normal;">Super Admin Mode (Bypass Completed Match Lock)</label>
+            </div>
+            <button type="submit"  id="updateLiveScoreButton">Update Live Score</button>
             <div id="liveScoreMessage" class="message"></div>
         </form>
 
@@ -376,6 +380,8 @@
         // --- Client-Side Password Protection ---
         const CORRECT_USERNAME = 'admin'; // <--- CHANGE THIS USERNAME
         const CORRECT_PASSWORD = 'password123'; // <--- CHANGE THIS PASSWORD
+        // Define a client-side password for the super admin mode (NOT SECURE FOR PRODUCTION)
+        const SUPER_ADMIN_CLIENT_PASSWORD = 'pass123';
 
         const loginContainer = document.getElementById('loginContainer');
         const loginForm = document.getElementById('loginForm');
@@ -489,6 +495,31 @@
             }, 5000); // Message visible for 5 seconds
         }
 
+        // New function to load match data into the live score form fields
+        function loadLiveScoreFormData(selectedMatch) {
+                currentSelectedLiveMatch = selectedMatch; // Set the global variable
+
+                if (selectedMatch) {
+                    livescoreTeam1NameInput.value = selectedMatch['Team 1'] || '';
+                    livescoreTeam2NameInput.value = selectedMatch['Team 2'] || '';
+                    livescoreTeam1ScoreInput.value = selectedMatch['Team 1 Score'] || 0;
+                    livescoreTeam2ScoreInput.value = selectedMatch['Team 2 Score'] || 0;
+                    livescoreStatusSelect.value = selectedMatch['Status'] || 'Scheduled';
+                    livescoreCourtInput.value = selectedMatch['Court'] || '';
+                } else {
+                    // Clear the form fields if no match is selected (or resetting)
+                    livescoreTeam1NameInput.value = '';
+                    livescoreTeam2NameInput.value = '';
+                    livescoreTeam1ScoreInput.value = '';
+                    livescoreTeam2ScoreInput.value = '';
+                    livescoreStatusSelect.value = 'Scheduled';
+                    livescoreCourtInput.value = '';
+                    superAdminModeCheckbox.checked = false; // Also reset the super admin checkbox
+                }
+                // Always apply restrictions after loading/clearing data
+                applyLiveScoreFormRestrictions();
+            }
+
 
         // --- Live Score Section Elements ---
         const livescoreCategorySelect = document.getElementById('livescoreCategory');
@@ -507,6 +538,10 @@
         const livescoreTeam2NameInput = document.getElementById('livescoreTeam2Name');
         const liveScoreMessage = document.getElementById('liveScoreMessage');
         const liveScoreForm = document.getElementById('liveScoreForm');
+        const updateLiveScoreButton = document.getElementById('updateLiveScoreButton'); // New ID for the button
+        const superAdminModeCheckbox = document.getElementById('superAdminModeCheckbox'); // New checkbox
+
+        let currentSelectedLiveMatch = null; // Global to store the currently loaded match for checks
 
         // --- Fixture Management Section Elements ---
         const fixtureActionSelect = document.getElementById('fixtureAction');
@@ -723,24 +758,78 @@
                 clearLiveScoreForm();
             }
         }
+        function applyLiveScoreFormRestrictions() {
+                const isCompleted = currentSelectedLiveMatch && currentSelectedLiveMatch.Status === 'Completed';
+                const isSuperAdmin = superAdminModeCheckbox.checked;
+
+                // Disable/enable fields based on status and super admin mode
+                livescoreTeam1ScoreInput.disabled = isCompleted && !isSuperAdmin;
+                livescoreTeam2ScoreInput.disabled = isCompleted && !isSuperAdmin;
+                livescoreStatusSelect.disabled = isCompleted && !isSuperAdmin;
+                livescoreCourtInput.disabled = isCompleted && !isSuperAdmin;
+                updateLiveScoreButton.disabled = isCompleted && !isSuperAdmin;
+
+                if (isCompleted && !isSuperAdmin) {
+                    updateLiveScoreButton.textContent = 'Match Completed (Super Admin Only)';
+                    displayMessage(liveScoreMessage, 'This match is completed. Only Super Admins can make changes.', 'error');
+                } else {
+                    updateLiveScoreButton.textContent = 'Update Live Score';
+                    liveScoreMessage.style.display = 'none'; // Hide message if re-enabled
+                }
+            }
+
+        // Add event listener for the Super Admin Mode checkbox
+        superAdminModeCheckbox.addEventListener('change', () => {
+            if (superAdminModeCheckbox.checked) {
+                const enteredPassword = prompt('Please enter the Super Admin password to enable this mode:');
+                if (enteredPassword === SUPER_ADMIN_CLIENT_PASSWORD) {
+                    displayMessage(liveScoreMessage, 'Super Admin Mode enabled.', 'success');
+                    applyLiveScoreFormRestrictions();
+                } else {
+                    displayMessage(liveScoreMessage, 'Incorrect Super Admin password.', 'error');
+                    superAdminModeCheckbox.checked = false;
+                    applyLiveScoreFormRestrictions();
+                }
+            } else {
+                displayMessage(liveScoreMessage, 'Super Admin Mode disabled.', '');
+                applyLiveScoreFormRestrictions();
+            }
+        });
         // Event listeners for Live Score Section
         livescoreCategorySelect.addEventListener('change', () => populateLiveScoreDropdowns(livescoreCategorySelect.value, null, null, null, null));
         livescoreStageSelect.addEventListener('change', () => populateLiveScoreDropdowns(livescoreCategorySelect.value, livescoreStageSelect.value, null, null, null));
         livescoreGroupSelect.addEventListener('change', () => populateLiveScoreDropdowns(livescoreCategorySelect.value, livescoreStageSelect.value, livescoreGroupSelect.value, null, null));
         
-        livescoreSelectBy.addEventListener('change', () => {
-            clearLiveScoreForm(); // Clear form when selection method changes
-            livescoreMatchIdSelect.value = ''; // Clear match ID
-            livescoreTeamNameSelect.value = ''; // Clear team name
-            populateLiveScoreDropdowns(livescoreCategorySelect.value, livescoreStageSelect.value, livescoreGroupSelect.value, null, null);
-        });
+            // Event listener for "Select By" (Match ID / Team Name)
+            livescoreSelectBy.addEventListener('change', () => {
+                const selectByValue = livescoreSelectBy.value;
 
+                if (selectByValue === 'matchId') {
+                    livescoreMatchIdSelect.style.display = 'block';
+                    livescoreTeam1NameInput.style.display = 'block';
+                    livescoreTeam2NameInput.style.display = 'block';
+                    livescoreTeamNameSelectionContainer.style.display = 'none';
+                    populateMatchIdDropdown(); // Re-populate based on category/stage/group
+                } else if (selectByValue === 'teamName') {
+                    livescoreMatchIdSelect.style.display = 'none';
+                    livescoreTeam1NameInput.style.display = 'none';
+                    livescoreTeam2NameInput.style.display = 'none';
+                    livescoreTeamNameSelectionContainer.style.display = 'block';
+                    // Populate livescoreTeamNameSelect for filtering
+                    const uniqueTeamNames = getUniqueValues(allLiveMatches, 'Team 1').concat(getUniqueValues(allLiveMatches, 'Team 2')).filter(Boolean);
+                    populateSelect(livescoreTeamNameSelect, [...new Set(uniqueTeamNames)].sort());
+                }
+                // Clear the form and re-apply restrictions whenever selectBy changes
+                loadLiveScoreFormData(null); // <--- Make sure this line is here
+            });
+
+            // Event listener for Live Score Match ID selection
         livescoreMatchIdSelect.addEventListener('change', () => {
-            if (livescoreMatchIdSelect.value) {
-                fillLiveScoreForm(livescoreMatchIdSelect.value);
-            } else {
-                clearLiveScoreForm();
-            }
+            const selectedMatchId = livescoreMatchIdSelect.value;
+            const selectedMatch = allLiveMatches.find(match => match['Match ID'] === selectedMatchId);
+            
+            // Use the new helper function to load data and apply restrictions
+            loadLiveScoreFormData(selectedMatch); 
         });
 
         livescoreTeamNameSelect.addEventListener('change', () => {
@@ -771,10 +860,15 @@
 
         liveScoreForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            displayMessage(liveScoreMessage, '', '');
             const matchId = livescoreMatchIdSelect.value;
             if (!matchId) {
                 displayMessage(liveScoreMessage, 'Please select a Match ID.', 'error');
                 return;
+            }
+            if (currentSelectedLiveMatch && currentSelectedLiveMatch.Status === 'Completed' && !superAdminModeCheckbox.checked) {
+                displayMessage(liveScoreMessage, 'Cannot update a completed match without Super Admin Mode enabled.', 'error');
+                return; // Prevent submission
             }
 
             const updates = {
@@ -958,6 +1052,7 @@
                 clearFixtureForm();
             }
         }
+
 
         // Event Listeners for Fixture Section
         fixtureActionSelect.addEventListener('change', handleFixtureActionChange);
