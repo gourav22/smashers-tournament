@@ -1,510 +1,399 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mens Beginner Doubles - SMASHERS Badminton Tournament 2025</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Men's Beginner Doubles - SMASHERS Tournament 2025</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a class="back-button" href="index.html">Back to Home</a>
   <header>
-    <a href="index.html" class="back-button">Back to Home</a>
-    <h1>Mens Beginner Doubles</h1>
-    <p>Dive into the details of the Mens Beginner Doubles category!</p>
+    <h1>Men's Beginner Doubles</h1>
+    <p>Dive into the details of the Men's Beginner Doubles category!</p>
   </header>
 
   <section class="process-flow">
     <h2>Road to the Finals</h2>
-    <p>For the Mens Beginner Doubles category, with **5 teams** participating, here's how the tournament will unfold:</p>
-
+    <p>For the Men's Beginner Doubles category, with <strong>5 teams</strong> participating, here's how the tournament will unfold:</p>
     <div class="tournament-diagram">
-        <div class="stage-block start-stage">
-            <span class="icon">🏁</span>
-            <h3>Initial Teams (5)</h3>
+      <div class="stage-block">
+        <span class="icon">🏁</span>
+        <h3>Initial Teams (5)</h3>
+      </div>
+      <span class="arrow-connector"></span>
+      <div class="stage-block">
+        <span class="icon">🔄</span>
+        <h3>League Stage (Round Robin)</h3>
+        <p>Each team plays <strong>two matches</strong> against every other team for a total of <strong>20 matches</strong> in this stage.</p>
+      </div>
+      <span class="arrow-connector"></span>
+      <div class="bracket-round">
+        <h3>Final</h3>
+        <h4>2 sets of 21 for each match</h4>
+        <div class="match-pair">
+          <div class="match-block final-match">🏆 Final Match<br><small>Top 2 based on points and net score</small></div>
         </div>
-
-        <div class="arrow-connector"></div> <div class="stage-block league-stage">
-            <span class="icon">🔄</span>
-            <h3>League Stage (Round Robin)</h3>
-            <p>Each team plays **two matches** against every other team for a total of **20 matches** in this stage.</p>
-        </div>
-
-        <div class="arrow-connector"></div> <div class="stage-block qualification-stage">
-            <span class="icon">🏅</span>
-            <h3>Qualification</h3>
-            <p>The **top 4 teams** based on points (and Net Score for tie-breaking) will advance.</p>
-        </div>
-
-        <div class="arrow-connector"></div> <div class="knockout-stage-container">
-            <div class="knockout-stage-label"><h3>Knockout Rounds</h3></div>
-            <div class="knockout-brackets">
-                <div class="bracket-round semi-finals-round">
-                    <h4>Semi-Finals</h4>
-                    <div class="match-pair">
-                        <div class="match-block">SF 1</div>
-                        <div class="match-block">SF 2</div>
-                    </div>
-                </div>
-                <div class="bracket-arrow">➡️</div>
-                <div class="bracket-round finals-round">
-                    <h4>Final</h4>
-                    <div class="match-pair">
-                        <div class="match-block final-match">🏆 Final Match</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="arrow-connector"></div> <div class="stage-block champion-stage">
-            <span class="icon">🥇</span>
-            <h3>Champion</h3>
-            <p>The ultimate winner of the tournament!</p>
-        </div>
+      </div>
+      <span class="arrow-connector"></span>
+      <div class="stage-block">
+        <span class="icon">🥇</span>
+        <h3>Champion</h3>
+        <p>The ultimate winner of the tournament!</p>
+      </div>
     </div>
-    <p class="final-note">Match Scoring: All matches are of 21 points rally scoring, capped at 30.</p>
+    <p class="final-note"><strong>Match Scoring:</strong> All matches are of 21 points rally scoring, capped at 30.</p>
   </section>
 
-  <div class="live-scores-full-width-wrapper">
-    <div class="live-scores-fixtures">
-      <section> <h2>🏆 Live Scores</h2> <div class="filter-controls">
-            <input type="text" id="liveTeamNameFilter" class="team-filter-input" placeholder="Filter by team name">
-        </div>
-        <div id="live-scoring-content" class="loading-message">
-            Loading live scores...
-        </div>
-      </section>
+  <section>
+    <h2>🏆 Live Scores</h2>
+    <input type="text" id="liveMatchesFilterInputCategoryPage" class="team-filter-input" placeholder="Filter by team name..." onkeyup="filterTable('live-scores', 'live-scores-table', this.value, 'liveScore')">
+    <div id="live-scores">Loading live scores...</div>
+  </section>
 
-      <section> <h2>🗓️ Fixtures</h2> <div class="filter-controls">
-            <input type="text" id="fixturesTeamNameFilter" class="team-filter-input" placeholder="Filter by team name">
-        </div>
-        <div id="fixtures-list" class="loading-message">
-            Loading fixtures for this category...
-        </div>
-      </section>
-    </div>
-  </div>
+  <section>
+    <h2>🗓️ Fixtures</h2>
+    <input type="text" id="upcomingFixturesFilterInputCategoryPage" class="team-filter-input" placeholder="Filter by team name..." onkeyup="filterTable('fixtures', 'fixtures-table', this.value, 'fixture')">
+    <div id="fixtures">Loading fixtures for this category...</div>
+  </section>
 
   <section>
     <h2>📊 Points Table</h2>
-    <div id="points-table-content" class="points-table-container loading-message">
-        Loading points table...
-    </div>
+    <div id="points-table">Loading points table...</div>
   </section>
 
-  <div class="footer">© 2025 SMASHERS Tournament</div>
+  <footer>
+    <p>© 2025 SMASHERS Tournament</p>
+  </footer>
 
   <script>
-    // *** IMPORTANT: Ensure this URL is correct and matches your deployed Google Apps Script Web App URL ***
-    const GOOGLE_SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbzWEqK6KQToFHvYHwVeSjh1wLDQ3yPS6GAmY1dj7auY3yDRPcbrSMbXrn5xJbf4I-G6Hw/exec';
+const webAppUrl = 'https://script.google.com/macros/s/AKfycbzwzWVhd0HCRjSFEEVhNgpdHQIA1HMbEj21ef3WdhR3641ZAf-0OLoD_Jmeb1oY5NqvCA/exec';
+const category = "Mens Beginner Doubles";
 
-    // Define the category for this specific page
-    const CATEGORY_NAME = "Mens Beginner Doubles"; // <<-- CHANGE THIS FOR EACH CATEGORY PAGE -->>
-
-    // Function to format time (e.g., "8:30 PM")
-    const formatTime = (timeString) => {
-        if (!timeString) return 'N/A';
-        try {
-            // Create a dummy date to parse the time string correctly
-            const dummyDate = new Date(`2000-01-01T${timeString}`);
-            if (isNaN(dummyDate.getTime())) {
-                return timeString; // Return original if parsing fails
-            }
-            return dummyDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-        } catch (e) {
-            console.error("Error formatting time:", timeString, e);
-            return timeString; // Fallback
-        }
-    };
-
-    // Function to format date (e.g., "Jan 1, 2000")
-    const formatDate = (dateString) => {
-        if (!dateString) return 'N/A';
-        try {
-            const date = new Date(dateString);
-            if (isNaN(date.getTime())) {
-                return dateString; // Return original if parsing fails
-            }
-            return date.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' });
-        } catch (e) {
-            console.error("Error formatting date:", dateString, e);
-            return dateString; // Fallback
-        }
-    };
-
-
-    // --- Fixtures for Category Pages (Scheduled only, grouped by Stage and Group) ---
-    const fixturesListContainer = document.getElementById('fixtures-list');
-    const fixturesTeamNameFilterInput = document.getElementById('fixturesTeamNameFilter');
-
-    async function fetchAndDisplayFixtures() {
-        const teamName = fixturesTeamNameFilterInput.value.trim();
-        // Changed filter to only show 'Scheduled'
-        let url = `${GOOGLE_SHEETS_API_URL}?sheet=Fixtures&filterField=Category&filterValue=${encodeURIComponent(CATEGORY_NAME)}&filter=Scheduled`;
-        if (teamName) {
-            url += `&teamName=${encodeURIComponent(teamName)}`;
-        }
-
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            const fixtures = data.fixtures;
-
-            if (!fixtures || fixtures.length === 0) {
-                fixturesListContainer.innerHTML = '<p class="loading-message">No upcoming fixtures for this category yet.</p>';
-                return;
-            }
-
-            // Group fixtures by Stage and then by Group
-            const groupedByStageAndGroup = fixtures.reduce((acc, fixture) => {
-                const stage = fixture.Stage || 'Uncategorized Stage';
-                const group = fixture.Group || 'Uncategorized Group'; // Default if Group is empty
-
-                if (!acc[stage]) {
-                    acc[stage] = {};
-                }
-                if (!acc[stage][group]) {
-                    acc[stage][group] = [];
-                }
-                acc[stage][group].push(fixture);
-                return acc;
-            }, {});
-
-            let htmlContent = '';
-            // Define a custom order for stages
-            const stageOrder = ['League', 'QuarterFinals', 'Semi Finals', 'Finals'];
-
-            // Sort stages based on the predefined order
-            const sortedStages = Object.keys(groupedByStageAndGroup).sort((a, b) => {
-                const indexA = stageOrder.indexOf(a);
-                const indexB = stageOrder.indexOf(b);
-                if (indexA === -1 && indexB === -1) return a.localeCompare(b); // If both not in order, sort alphabetically
-                if (indexA === -1) return 1; // a is not in order, b is - push a to end
-                if (indexB === -1) return -1; // b is not in order, a is - push b to end
-                return indexA - indexB;
-            });
-
-            sortedStages.forEach(stage => {
-                htmlContent += `<div class="stage-group-container">`;
-                htmlContent += `<h3 class="stage-header">${stage}</h3>`;
-
-                const groupsInStage = groupedByStageAndGroup[stage];
-                // Sort groups alphabetically (e.g., Group 1, Group 2, Overall)
-                const sortedGroups = Object.keys(groupsInStage).sort();
-
-                sortedGroups.forEach(group => {
-                    htmlContent += `<h4 class="group-header">${group}</h4>`; // Sub-header for group
-                    htmlContent += '<div class="fixtures-table-container">';
-                    htmlContent += '<table class="fixtures-table points-table">'; // Reusing points-table for styling
-                    htmlContent += '<thead><tr><th>Date</th><th>Time</th><th>Team 1</th><th>Team 2</th><th>Court</th></tr></thead>';
-                    htmlContent += '<tbody>';
-
-                    // Sort fixtures within each group by Date then Time
-                    groupsInStage[group].sort((a, b) => {
-                        const dateA = new Date(`${a.Date}T${a.Time || '00:00:00'}`);
-                        const dateB = new Date(`${b.Date}T${b.Time || '00:00:00'}`);
-                        return dateA.getTime() - dateB.getTime();
-                    }).forEach(fixture => {
-                        htmlContent += `
-                            <tr>
-                                <td>${formatDate(fixture.Date)}</td>
-                                <td>${formatTime(fixture.Time)}</td>
-                                <td>${fixture['Team 1'] || 'N/A'}</td>
-                                <td>${fixture['Team 2'] || 'N/A'}</td>
-                                <td>${fixture.Court || 'N/A'}</td>
-                            </tr>
-                        `;
-                    });
-                    htmlContent += '</tbody></table>';
-                    htmlContent += '</div>'; // Close fixtures-table-container
-                });
-                htmlContent += `</div>`; // Close stage-group-container
-            });
-
-            fixturesListContainer.innerHTML = htmlContent;
-
-        } catch (error) {
-            console.error('Error fetching fixtures:', error);
-            fixturesListContainer.innerHTML = '<p class="loading-message" style="color: red;">Failed to load fixtures. Please try again later.</p>';
-        }
+async function loadData() {
+  try {
+    // Fetch Live Scores (all matches)
+    const liveResponse = await fetch(`${webAppUrl}?sheet=Livescores&category=${encodeURIComponent(category)}`, { method: 'GET', mode: 'cors' });
+    if (!liveResponse.ok) throw new Error(`HTTP error! Status: ${liveResponse.status}`);
+    const liveData = await liveResponse.json();
+    if (!liveData.data || !Array.isArray(liveData.data.liveMatches)) {
+      throw new Error('Invalid live matches data structure');
     }
+    renderLiveScores(liveData.data.liveMatches);
 
-    fixturesTeamNameFilterInput.addEventListener('input', fetchAndDisplayFixtures);
-
-
-    // --- Live Scoring for Category Pages (In Progress & Completed) ---
-    const liveScoresContainer = document.getElementById('live-scoring-content');
-    const liveTeamNameFilterInput = document.getElementById('liveTeamNameFilter');
-
-    async function fetchAndDisplayLiveScores() {
-        const teamName = liveTeamNameFilterInput.value.trim();
-        // Changed filter to include both 'In Progress' and 'Complete'
-        let url = `${GOOGLE_SHEETS_API_URL}?sheet=Livescores&filterField=Category&filterValue=${encodeURIComponent(CATEGORY_NAME)}&filter=In%20Progress,Complete`;
-        if (teamName) {
-            url += `&teamName=${encodeURIComponent(teamName)}`;
-        }
-
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            const liveMatches = data.liveMatches;
-
-            let htmlContent = '';
-            if (!liveMatches || liveMatches.length === 0) {
-                htmlContent = '<p class="loading-message">No live matches for this category currently.</p>';
-            } else {
-                const inProgressMatches = liveMatches.filter(m => (m.Status || '').toLowerCase() === 'in progress');
-                const completedMatches = liveMatches.filter(m => (m.Status || '').toLowerCase() === 'complete');
-
-                if (inProgressMatches.length > 0) {
-                    htmlContent += '<h3>Currently In Progress</h3>';
-                    htmlContent += '<div class="live-scores-table-container">';
-                    htmlContent += '<table class="live-scores-table">';
-                    htmlContent += '<thead><tr><th>Group</th><th>Stage</th><th>Team 1</th><th>Team 2</th><th>Score</th><th>Court</th></tr></thead>';
-                    htmlContent += '<tbody>';
-                    inProgressMatches.forEach(match => {
-                        const team1 = match['Team 1'] || 'TBD';
-                        const team2 = match['Team 2'] || 'TBD';
-                        const score1 = match['Team 1 Score'] !== undefined && match['Team 1 Score'] !== '' ? match['Team 1 Score'] : '0';
-                        const score2 = match['Team 2 Score'] !== undefined && match['Team 2 Score'] !== '' ? match['Team 2 Score'] : '0';
-                        const court = match.Court || 'TBD';
-                        const group = match.Group || 'N/A';
-                        const stage = match.Stage || 'N/A';
-
-                        htmlContent += `
-                            <tr>
-                                <td>${group}</td>
-                                <td>${stage}</td>  
-                                <td>${team1}</td>
-                                <td>${team2}</td>
-                                <td><span class="score-display">${score1} - ${score2}</span></td>
-                                <td>${court}</td>
-
-                            </tr>
-                        `;
-                    });
-                    htmlContent += '</tbody></table>';
-                    htmlContent += '</div>'; // Close live-scores-table-container
-                }
-
-                if (completedMatches.length > 0) {
-                    htmlContent += '<h3>Recently Completed Matches</h3>';
-                    htmlContent += '<div class="live-scores-table-container">';
-                    htmlContent += '<table class="live-scores-table">';
-                    htmlContent += '<thead><tr><th>Group</th><th>Stage</th><th>Team 1</th><th>Team 2</th><th>Score</th><th>Court</th><th>Completed At</th></tr></thead>';
-                    htmlContent += '<tbody>';
-                    // The matches are already sorted by CompletionTimestamp descending from code.gs
-                    completedMatches.forEach(match => {
-                        const team1 = match['Team 1'] || 'N/A';
-                        const team2 = match['Team 2'] || 'N/A';
-                        const score1 = match['Team 1 Score'] !== undefined && match['Team 1 Score'] !== '' ? match['Team 1 Score'] : '--';
-                        const score2 = match['Team 2 Score'] !== undefined && match['Team 2 Score'] !== '' ? match['Team 2 Score'] : '--';
-                        const court = match.Court || 'N/A';
-                        const completionTime = match.CompletionTimestamp ? new Date(match.CompletionTimestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : 'N/A';
-                        const group = match.Group || 'N/A';
-                        const stage = match.Stage || 'N/A';
-
-                        htmlContent += `
-                            <tr>
-                                <td>${group}</td>
-                                <td>${stage}</td>
-                                <td>${team1}</td>
-                                <td>${team2}</td>
-                                <td><span class="score-display">${score1} - ${score2}</span></td>
-                                <td>${court}</td>
-                                <td>${completionTime}</td>
-                            </tr>
-                        `;
-                    });
-                    htmlContent += '</tbody></table>';
-                    htmlContent += '</div>'; // Close live-scores-table-container
-                }
-            }
-            liveScoresContainer.innerHTML = htmlContent;
-
-        } catch (error) {
-            console.error('Error fetching live scores:', error);
-            liveScoresContainer.innerHTML = '<p class="loading-message" style="color: red;">Failed to load live scores. Please try again later.</p>';
-        }
+    // Fetch Fixtures (all scheduled)
+    const fixturesResponse = await fetch(`${webAppUrl}?sheet=Fixtures&category=${encodeURIComponent(category)}`, { method: 'GET', mode: 'cors' });
+    if (!fixturesResponse.ok) throw new Error(`HTTP error! Status: ${fixturesResponse.status}`);
+    const fixturesData = await fixturesResponse.json();
+    if (!fixturesData.data || !Array.isArray(fixturesData.data.fixtures)) {
+      throw new Error('Invalid fixtures data structure');
     }
+    renderFixtures(fixturesData.data.fixtures);
 
-    liveTeamNameFilterInput.addEventListener('input', fetchAndDisplayLiveScores);
-
-
-    // --- Dynamic Points Table (Grouped by Stage and then by Group for League) ---
-    const pointsTableContainer = document.getElementById('points-table-content');
-
-    async function fetchAndDisplayPointsTable() {
-        try {
-            const url = `${GOOGLE_SHEETS_API_URL}?sheet=Points&filterField=Category&filterValue=${encodeURIComponent(CATEGORY_NAME)}`;
-            console.log("Fetching points table from URL:", url);
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            console.log("Raw data received for points table:", data);
-
-            let pointsTable = data.pointsTable;
-
-            if (!pointsTable || pointsTable.length === 0) {
-                console.log("No raw points table data found.");
-                pointsTableContainer.innerHTML = '<p class="loading-message">No points table data for this category yet.</p>';
-                return;
-            }
-
-            // Filter out entries where Player/Team is truly blank or whitespace-only
-            const filteredPointsTable = pointsTable.filter(item => {
-                const playerTeamValue = item['Player/Team'];
-                return playerTeamValue && String(playerTeamValue).trim() !== '';
-            });
-
-            console.log("Filtered pointsTableData (excluding blank team names):", filteredPointsTable);
-
-            if (filteredPointsTable.length === 0) { // Check the length of the filtered array
-                console.log("No valid points table data found after filtering blank team names.");
-                pointsTableContainer.innerHTML = '<p class="loading-message">No points table data for this category yet.</p>';
-                return;
-            }
-
-            // Define custom order for stages for display
-            const stageDisplayOrder = ['Finals', 'Semi Finals', 'QuarterFinals', 'League'];
-            // Group points by Stage (using filteredPointsTable)
-            const groupedByStage = filteredPointsTable.reduce((acc, item) => {
-                const stage = item.Stage || 'League'; // Default to 'League' if stage is not specified
-                if (!acc[stage]) {
-                    acc[stage] = [];
-                }
-                acc[stage].push(item);
-                return acc;
-            }, {});
-
-            let htmlContent = '';
-
-            // Sort stages for display
-            const sortedStagesForDisplay = Object.keys(groupedByStage).sort((a, b) => {
-                const indexA = stageDisplayOrder.indexOf(a);
-                const indexB = stageDisplayOrder.indexOf(b);
-                if (indexA === -1 && indexB === -1) return a.localeCompare(b);
-                if (indexA === -1) return 1;
-                if (indexB === -1) return -1;
-                return indexA - indexB;
-            });
-
-            sortedStagesForDisplay.forEach(stage => {
-                htmlContent += `<h3 class="points-table-stage-header">${stage}</h3>`;
-
-                if (stage.toLowerCase() === 'league') {
-                    // For League stage, group by 'Group' (using filteredPointsTable data for this stage)
-                    const groupedByLeagueGroup = groupedByStage[stage].reduce((acc, item) => {
-                        const group = item.Group || 'Overall';
-                        if (!acc[group]) {
-                            acc[group] = [];
-                        }
-                        acc[group].push(item);
-                        return acc;
-                    }, {});
-
-                    // Sort groups alphabetically (e.g., Group 1, Group 2, Overall)
-                    const sortedLeagueGroups = Object.keys(groupedByLeagueGroup).sort();
-
-                    sortedLeagueGroups.forEach(group => {
-                        htmlContent += `<h4 class="points-table-group-header">${group}</h4>`;
-                        htmlContent += generatePointsTableHtml(groupedByLeagueGroup[group]);
-                    });
-
-                } else {
-                    // For other stages (Finals, Semifinals, QuarterFinals), display directly
-                    htmlContent += generatePointsTableHtml(groupedByStage[stage]);
-                }
-            });
-
-            pointsTableContainer.innerHTML = htmlContent;
-
-        } catch (error) {
-            console.error('Error fetching points table:', error);
-            pointsTableContainer.innerHTML = '<p class="loading-message" style="color: red;">Failed to load points table. Please try again later.</p>';
-        }
+    // Fetch Points Table
+    const pointsResponse = await fetch(`${webAppUrl}?sheet=Points&category=${encodeURIComponent(category)}`, { method: 'GET', mode: 'cors' });
+    if (!pointsResponse.ok) throw new Error(`HTTP error! Status: ${pointsResponse.status}`);
+    const pointsData = await pointsResponse.json();
+    if (!pointsData.data || !Array.isArray(pointsData.data.pointsTable)) {
+      throw new Error('Invalid points table data structure');
     }
+    renderPointsTable(pointsData.data.pointsTable);
+  } catch (error) {
+    console.error('Error loading data:', error);
+    document.getElementById('live-scores').innerHTML = 'Failed to load live scores: ' + error.message;
+    document.getElementById('fixtures').innerHTML = 'Failed to load fixtures: ' + error.message;
+    document.getElementById('points-table').innerHTML = 'Failed to load points table: ' + error.message;
+  }
+}
 
-    // Helper function to generate the HTML for a single points table
-    function generatePointsTableHtml(data) {
-        if (!data || data.length === 0) {
-            return '<p class="loading-message">No data for this section.</p>';
-        }
+// Helper for sorting stages for Points Table
+const stageOrder = {
+    'Final': 0,
+    'Semi-Finals': 1,
+    'Quarter-Finals': 2,
+    'League': 3
+};
 
-        // Sort data for this specific table (by Points desc, then Net Score desc)
-        data.sort((a, b) => {
-            const pointsA = a.Points ?? 0;
-            const pointsB = b.Points ?? 0;
-            if (pointsB !== pointsA) return pointsB - pointsA;
+function sortStages(stageA, stageB) {
+    const orderA = stageOrder[stageA] !== undefined ? stageOrder[stageA] : 99; // 99 for unknown stages (put last)
+    const orderB = stageOrder[stageB] !== undefined ? stageOrder[stageB] : 99;
+    return orderA - orderB;
+}
 
-            const netScoreA = a.NetScore ?? 0;
-            const netScoreB = b.NetScore ?? 0;
-            return netScoreB - netScoreA;
-        });
 
-        let tableHtml = `
-            <div class="points-table-container">
-                <table class="points-table">
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Player/Team</th>
-                            <th>Wins</th>
-                            <th>Losses</th>
-                            <th>Score By</th>
-                            <th>Score Against</th>
-                            <th>Points</th>
-                            <th>Net Score</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-        `;
-        data.forEach((item, index) => {
-            // After filtering in fetchAndDisplayPointsTable, playerTeam should always be a non-blank string.
-            const playerTeam = item['Player/Team'] || ''; 
+// NEW renderLiveScores function for mens-beginner-doubles.html
+function renderLiveScores(liveScores, category) {
+  const groupedByStage = {};
 
-            const points = item.Points ?? 0;
-            const wins = item.Wins ?? 0;
-            const losses = item.Losses ?? 0;
-            const scoreBy = item['Score By'] ?? 0;
-            const scoreAgainst = item['Score Against'] ?? 0;
-            const netScore = item.NetScore ?? 0;
+  liveScores.forEach(score => {
+    const stage = score.Stage || 'No Stage';
+    const group = score.Group || 'No Group';
+    const categoryName = score.Category || 'No Category'; // Keep for grouping/sorting logic if needed elsewhere
 
-            tableHtml += `
+    if (!groupedByStage[stage]) {
+      groupedByStage[stage] = {};
+    }
+    if (!groupedByStage[stage][group]) {
+      groupedByStage[stage][group] = {
+        category: categoryName,
+        stage: stage,
+        group: group,
+        scores: []
+      };
+    }
+    groupedByStage[stage][group].scores.push(score);
+  });
+
+  // Get and sort stage names (you might need a custom sort order for stages like 'League', 'Semi-Finals', 'Finals')
+  const sortedStageNames = Object.keys(groupedByStage).sort((a, b) => {
+    // Example custom stage order (adjust as per your actual stage names)
+    const stageOrder = ['League Stage', 'Qualification', 'Quarter-Finals', 'Semi-Finals', 'Finals', 'No Stage'];
+    const indexA = stageOrder.indexOf(a);
+    const indexB = stageOrder.indexOf(b);
+    if (indexA === -1 || indexB === -1) {
+      return a.localeCompare(b); // Fallback to alphabetical if not in custom order
+    }
+    return indexA - indexB;
+  });
+
+  let htmlContent = '';
+
+  if (sortedStageNames.length === 0) {
+    htmlContent = '<p>No live or completed matches available.</p>';
+  } else {
+    sortedStageNames.forEach(stageName => {
+      htmlContent += `<div class="stage-container"><h2>${stageName}</h2>`; // Main Stage Header
+
+      const groupsInStage = Object.values(groupedByStage[stageName]).sort((a, b) => {
+        // Sort groups within this stage alphabetically
+        return a.group.localeCompare(b.group);
+      });
+
+      groupsInStage.forEach(group => {
+        htmlContent += `
+          <div class="live-scores-table-container">
+            <h3>${group.group && group.group !== 'No Group' ? `Group ${group.group}` : 'Matches'}</h3> <table class="live-scores-table points-table">
+              <tr><th>Match ID</th><th>Team 1</th><th>Score</th><th>Team 2</th><th>Score</th><th>Status</th></tr>
+              ${(group.scores || []).map(score => `
                 <tr>
-                    <td>${index + 1}</td>
-                    <td>${playerTeam}</td>
-                    <td>${wins}</td>
-                    <td>${losses}</td>
-                    <td>${scoreBy}</td>
-                    <td>${scoreAgainst}</td>
-                    <td>${points}</td>
-                    <td>${netScore}</td>
-                </tr>
-            `;
+                  <td>${score['Match ID'] || '-'}</td>
+                  <td>${score['Team 1'] || '-'}</td>
+                  <td class="score">${score['Team 1 Score'] || '0'}</td>
+                  <td>${score['Team 2'] || '-'}</td>
+                  <td class="score">${score['Team 2 Score'] || '0'}</td>
+                  <td>${score.Status || '-'}</td>
+                </tr>`).join('')}
+            </table>
+          </div>
+        `;
+      });
+      htmlContent += `</div>`; // Close stage-container
+    });
+  }
+
+  document.getElementById('live-scores').innerHTML = htmlContent;
+}
+
+// MODIFIED renderFixtures function for mens-beginner-doubles.html
+function renderFixtures(fixtures, category) {
+  const groupedByStage = {};
+
+  fixtures.forEach(fixture => {
+    const stage = fixture.Stage || 'No Stage';
+    const group = fixture.Group || 'No Group';
+    const categoryName = fixture.Category || 'No Category'; // Keep for grouping/sorting logic if needed elsewhere
+
+    if (!groupedByStage[stage]) {
+      groupedByStage[stage] = {};
+    }
+    if (!groupedByStage[stage][group]) {
+      groupedByStage[stage][group] = {
+        category: categoryName,
+        stage: stage,
+        group: group,
+        fixtures: []
+      };
+    }
+    groupedByStage[stage][group].fixtures.push(fixture);
+  });
+
+  // Get and sort stage names (you might need a custom sort order for stages like 'League', 'Semi-Finals', 'Finals')
+  const sortedStageNames = Object.keys(groupedByStage).sort((a, b) => {
+    // Example custom stage order (adjust as per your actual stage names)
+    const stageOrder = ['League Stage', 'Qualification', 'Quarter-Finals', 'Semi-Finals', 'Finals', 'No Stage'];
+    const indexA = stageOrder.indexOf(a);
+    const indexB = stageOrder.indexOf(b);
+    if (indexA === -1 || indexB === -1) {
+      return a.localeCompare(b); // Fallback to alphabetical if not in custom order
+    }
+    return indexA - indexB;
+  });
+
+  let htmlContent = '';
+
+  if (sortedStageNames.length === 0) {
+    htmlContent = '<p>No upcoming fixtures available.</p>';
+  } else {
+    sortedStageNames.forEach(stageName => {
+      htmlContent += `<div class="stage-container"><h2>${stageName}</h2>`; // Main Stage Header
+
+      const groupsInStage = Object.values(groupedByStage[stageName]).sort((a, b) => {
+        // Sort groups within this stage alphabetically
+        return a.group.localeCompare(b.group);
+      });
+
+      groupsInStage.forEach(group => {
+        htmlContent += `
+          <div class="fixtures-table-container">
+            <h3>${group.group && group.group !== 'No Group' ? `Group ${group.group}` : 'Matches'}</h3> <table class="fixtures-table points-table">
+              <tr><th>Match ID</th><th>Team 1</th><th>Team 2</th><th>Date</th><th>Time</th><th>Court</th></tr>
+              ${(group.fixtures || []).map(fixture => `
+                <tr>
+                  <td>${fixture['Match ID'] || '-'}</td>
+                  <td>${fixture['Team 1'] || '-'}</td>
+                  <td>${fixture['Team 2'] || '-'}</td>
+                  <td>${fixture.Date || '-'}</td>
+                  <td>${fixture.Time || '-'}</td>
+                  <td>${fixture.Court || '-'}</td>
+                </tr>`).join('')}
+            </table>
+          </div>
+        `;
+      });
+      htmlContent += `</div>`; // Close stage-container
+    });
+  }
+
+  document.getElementById('fixtures').innerHTML = htmlContent;
+}
+
+// MODIFIED renderPointsTable function for mens-beginner-doubles.html
+function renderPointsTable(pointsData) {
+  const groupedByStage = {};
+
+  pointsData.forEach(team => {
+    const stage = team.Stage || 'No Stage';
+    const group = team.Group || 'No Group';
+    const categoryName = team.Category || 'No Category';
+
+    if (!groupedByStage[stage]) {
+      groupedByStage[stage] = {};
+    }
+    if (!groupedByStage[stage][group]) {
+      groupedByStage[stage][group] = {
+        category: categoryName,
+        stage: stage,
+        group: group,
+        teams: [] // Use 'teams' for points data
+      };
+    }
+    groupedByStage[stage][group].teams.push(team);
+  });
+
+  // Get and sort stage names (adjust 'stageOrder' to match your actual stage names and desired display order)
+  const sortedStageNames = Object.keys(groupedByStage).sort((a, b) => {
+    const stageOrder = ['League Stage', 'Qualification', 'Quarter-Finals', 'Semi-Finals', 'Finals', 'No Stage'];
+    const indexA = stageOrder.indexOf(a);
+    const indexB = stageOrder.indexOf(b);
+    if (indexA === -1 || indexB === -1) {
+      return a.localeCompare(b); // Fallback to alphabetical if not in custom order
+    }
+    return indexA - indexB;
+  });
+
+  let htmlContent = '';
+
+  if (sortedStageNames.length === 0) {
+    htmlContent = '<p>No points data available.</p>';
+  } else {
+    sortedStageNames.forEach(stageName => {
+      htmlContent += `<div class="stage-container"><h2>${stageName}</h2>`; // Main Stage Header
+
+      const groupsInStage = Object.values(groupedByStage[stageName]).sort((a, b) => {
+        // Sort groups within this stage alphabetically
+        return a.group.localeCompare(b.group);
+      });
+
+      groupsInStage.forEach(group => {
+        // Sort teams within each group by Points, then Net Score (descending)
+        const sortedTeams = (group.teams || []).sort((a, b) => {
+          if ((b.Points || 0) !== (a.Points || 0)) {
+            return (b.Points || 0) - (a.Points || 0); // Sort by points (desc)
+          }
+          return (b['Net score'] || 0) - (a['Net score'] || 0); // Then by net score (desc)
         });
-        tableHtml += '</tbody></table></div>';
-        return tableHtml;
+
+        htmlContent += `
+          <div class="points-table-container">
+            <h3>${group.group && group.group !== 'No Group' ? `Group ${group.group}` : 'Overall Standings'}</h3> <table class="points-table">
+              <thead>
+                <tr><th>Team</th><th>Points</th><th>Wins</th><th>Losses</th><th>Net Score</th></tr>
+              </thead>
+              <tbody>
+                ${sortedTeams.map(team => `
+                  <tr>
+                    <td>${team.Team || '-'}</td>
+                    <td>${team.Points || '0'}</td>
+                    <td>${team.Wins || '0'}</td>
+                    <td>${team.Losses || '0'}</td>
+                    <td>${team['Net score'] || '0'}</td>
+                  </tr>`).join('')}
+              </tbody>
+            </table>
+          </div>
+        `;
+      });
+      htmlContent += `</div>`; // Close stage-container
+    });
+  }
+
+  document.getElementById('points-table').innerHTML = htmlContent;
+}
+loadData();
+
+// UPDATED JAVASCRIPT FILTER FUNCTION remains the same,
+// as column indices for Team 1 and Team 2 have not changed (still 1 and 2 after Match ID is 0)
+function filterTable(tableContainerId, tableClass, filterValue, tableType) {
+    var input, filter, table, tr, td1, td2, i, txtValue;
+    input = filterValue;
+    filter = input.toUpperCase();
+
+    const tables = document.querySelectorAll(`#${tableContainerId} .${tableClass}`);
+    if (tables.length === 0) {
+        console.warn(`No tables found in #${tableContainerId} with class .${tableClass}`);
+        return;
     }
 
-
-    // Initial data fetch on page load
-    fetchAndDisplayLiveScores();
-    fetchAndDisplayFixtures();
-    fetchAndDisplayPointsTable();
-
-    // Poll for updates (e.g., live scores every 10 seconds, fixtures/points table every 30 seconds)
-    setInterval(fetchAndDisplayLiveScores, 10000);
-    setInterval(fetchAndDisplayFixtures, 30000);
-    setInterval(fetchAndDisplayPointsTable, 30000);
-
+    tables.forEach(table => {
+        tr = table.getElementsByTagName("tr");
+        // Start from 1 to skip the header row (assuming the first row is always header)
+        for (i = 1; i < tr.length; i++) {
+            if (tableType === 'liveScore') {
+                td1 = tr[i].getElementsByTagName("td")[1]; // Team 1 (index 1 in 6-column table)
+                td2 = tr[i].getElementsByTagName("td")[2]; // Team 2 (index 2 in 6-column table)
+            } else if (tableType === 'fixture') {
+                td1 = tr[i].getElementsByTagName("td")[1]; // Team 1 (index 1 in 6-column table)
+                td2 = tr[i].getElementsByTagName("td")[2]; // Team 2 (index 2 in 6-column table)
+            }
+            
+            if (td1 && td2) {
+                txtValue = (td1.textContent || td1.innerText) + " " + (td2.textContent || td2.innerText);
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            } else if (td1) {
+                txtValue = td1.textContent || td1.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    });
+}
   </script>
 </body>
 </html>

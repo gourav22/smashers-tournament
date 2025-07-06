@@ -28,7 +28,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
+  /* height: 100%; */
   width: 100%;
   background-color: var(--background-start);
 }
@@ -101,6 +101,7 @@ header p {
 }
 
 /* Back Button (specific to category pages, absolute position) */
+/* Back Button (specific to category pages, absolute position) */
 .back-button {
   display: inline-flex;
   align-items: center;
@@ -115,9 +116,9 @@ header p {
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
   position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 100; /* Ensured high z-index */
+  top: 20px; /* Desktop: Increased for clearance */
+  left: 20px; /* Desktop: Increased for clearance */
+  z-index: 100;
 }
 
 .back-button:hover {
@@ -133,16 +134,19 @@ header p {
     margin-right: 4px;
 }
 
+/* Responsive adjustments for FAQ and other mobile-specific overrides */
+
 /* Countdown Timer Enhancement (for sections that are themselves countdown-section) */
 .countdown-section {
   background: var(--glass-bg);
-  backdrop-filter: blur(8px);
+  /* backdrop-filter: blur(2px); */
   border: 1px solid var(--glass-border);
   border-radius: 14px;
   padding: 0.8rem 1rem;
   text-align: center;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex; /* Changed from grid to flex */
+  justify-content: center; /* Centers the flex items (the two countdown groups) horizontally */
+  align-items: center; /* Centers the flex items vertically, in case their heights differ */
   gap: 1rem;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
   width: 95%;
@@ -155,7 +159,7 @@ header p {
 }
 
 .countdown-timer-group h2 {
-  color: var(--light-background-white);
+  color: var(--primary-blue);
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
 }
@@ -199,11 +203,9 @@ header p {
 /* General Section Styling (Applies to all <section> elements as main content blocks) */
 section {
   padding: 1.6rem;
-  width: 95%;
-  max-width: 900px;
-  margin: 1.8rem auto;
+  margin: 1.8rem 1.8rem;
   background: var(--glass-bg);
-  backdrop-filter: blur(8px);
+  /* backdrop-filter: blur(2px); */
   border: 1px solid var(--glass-border);
   border-radius: 14px;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.25);
@@ -217,7 +219,7 @@ section:hover {
 
 section h2 {
   text-align: center;
-  color: var(--light-background-white);
+  color: var(--primary-blue);
   margin-bottom: 1.3rem;
   font-size: clamp(1.4rem, 3.5vw, 1.8rem);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
@@ -225,7 +227,7 @@ section h2 {
 
 section h3 {
   text-align: center;
-  color: var(--light-background-white);
+  color: var(--primary-blue);
   margin-top: 1.8rem;
   font-size: clamp(1.2rem, 3vw, 1.6rem);
   margin-bottom: 0.9rem;
@@ -254,101 +256,342 @@ img {
     /* overflow: hidden; */
 }
 
+/* START: Modified styles for Flyer and Categories Section to be separate boxes */
+.flyer-and-categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center; /* Changed from flex-start to center */
+  gap: 20px;
+  width: 95%;
+  max-width: 900px;
+  margin: 1.8rem auto;
+}
+/* ... rest of the .flyer-and-categories and other rules ... */
+
+.flyer {
+  flex: 1; /* Allows flex item to grow and shrink */
+  min-width: 280px; /* Minimum width for the flyer column before wrapping */
+  max-width: 400px; /* Limit individual flyer width */
+  box-sizing: border-box;
+  text-align: center; /* Center the image if it's smaller than its container */
+
+  /* Card styling for the flyer box */}
+
+.flyer:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+}
+
+.flyer img {
+  max-width: 100%;
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Remove extra space below image */
+  border-radius: 8px; /* Smooth corners for the image */
+}
+
+.category-selection-section {
+  flex: 1; /* Allows flex item to grow and shrink */
+  min-width: 280px; /* Minimum width for the category selection column before wrapping */
+  max-width: 400px; /* Limit individual section width */
+  box-sizing: border-box;
+  text-align: center; /* Centers text and buttons */
+
+  /* This section already inherits card styling from the general 'section' rule,
+     so no need to explicitly add background, border, etc. here.
+     Its padding, width, max-width, margin are also managed by the 'section' rule.
+  */
+}
+/* END: Modified styles for Flyer and Categories Section to be separate boxes */
+
 
 /* Specific styling for .process-flow section (Road to the Finals) */
+/* Specific styling for .process-flow section (Road to the Finals) */
 .process-flow > p {
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto 1rem auto;
-    color: var(--text-light);
-    font-size: 0.9rem;
+  text-align: center;
+  max-width: 800px; /* Increased for better readability on desktop */
+  margin: 0 auto 1.5rem auto; /* Adjusted margin for better spacing */
+  color: var(--text-light);
+  font-size: 1rem; /* Slightly larger font size */
 }
 
+/* Updated styles for .tournament-diagram */
 .tournament-diagram {
-  display: flex; /* Use flexbox for layout */
-  justify-content: center;
-  align-items: center; /* Align items centrally */
-  gap: 15px; /* Spacing between blocks and arrows */
-  flex-wrap: wrap; /* Allow wrapping on larger screens before going fully column on mobile */
-  margin-top: 1.4rem;
-  padding: 0.8rem 0;
+display: flex;
+flex-wrap: wrap; /* Allows steps to wrap on smaller screens */
+justify-content: center;
+align-items: center; /* CHANGED: Vertically center all items in the flow */
+gap: 1.5rem; /* Increased spacing between steps and arrows */
+margin-top: 2rem; /* Increased top margin */
+position: relative;
+padding: 1rem 0; /* Adjusted padding */
 }
 
-.process-flow .workflow-step {
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid var(--glass-border);
-  border-radius: 10px;
-  padding: 1rem 0.8rem;
-  text-align: center;
-  flex: 1;
-  min-width: 130px;
-  max-width: 180px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+/* Updated styles for .stage-block (replacing .workflow-step) */
+.stage-block {
+background: rgba(228, 15, 15, 0.3);
+border: 1px solid var(--glass-border);
+border-radius: 15px; /* Slightly larger border-radius */
+padding: 1.5rem 1rem; /* Adjusted padding */
+text-align: center;
+flex: 2 2 20%; /* Allows blocks to grow/shrink */
+/* min-width: 180px; /* Increased min-width */
+/* max-width: auto; Increased max-width for larger screens */
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: flex-start; /* Align content to the top within the step */
 }
 
-.process-flow .workflow-step:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.3);
+.stage-block:hover {
+transform: translateY(-5px); /* Increased hover effect */
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Increased hover shadow */
 }
 
-.process-flow .step-icon {
-  font-size: 2rem;
-  margin-bottom: 0.6rem;
-  line-height: 1;
+.stage-block .icon { /* Replaced .step-icon with .icon within .stage-block */
+font-size: 2.5rem; /* Increased icon size */
+margin-bottom: 0.8rem; /* Adjusted margin */
+line-height: 1;
 }
 
-.process-flow .workflow-step h3 {
-  color: var(--light-background-white);
-  font-size: 1rem;
-  margin-top: 0;
-  margin-bottom: 0.4rem;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+.stage-block h3 { /* Replaced .workflow-step h3 with .stage-block h3 */
+color: var(--light-background-white);
+font-size: 1.3rem; /* Increased font size */
+margin-top: 0;
+margin-bottom: 0.5rem; /* Adjusted margin */
+text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-.process-flow .workflow-step p {
-  font-size: 0.8rem;
-  color: var(--text-lighter);
-  margin: 0;
-  text-align: center;
+.stage-block p { /* Replaced .workflow-step p with .stage-block p */
+font-size: 0.95rem; /* Increased font size */
+color: var(--text-lighter);
+margin: 0;
+text-align: center;
 }
 
-/* Styling for the arrow connector in the process flow */
+/* Updated styling for the arrow connector in the process flow */
 .arrow-connector {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem; /* Larger arrow icon for desktop */
-  color: var(--light-background-white); /* White arrow */
-  flex-shrink: 0; /* Prevent it from shrinking */
-  height: 100%; /* Take full height to align with stage blocks */
-  min-width: 30px; /* Ensure some space for the arrow */
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 2.5rem; /* Consistent arrow icon size */
+color: var(--light-background-white);
+flex-shrink: 0;
+margin: 0 0.5rem; /* Adjusted horizontal margin */
 }
 
 .arrow-connector::before {
-  content: '→'; /* Right-pointing arrow for desktop */
-  display: block;
-  line-height: 1; /* Align text vertically */
+content: '→'; /* Right-pointing arrow for desktop */
+display: block;
+line-height: 1;
+}
+
+/* New styles for Knockout Rounds */
+.knockout-stage-container {
+  display: flex;
+  flex-direction: column; /* Stack label and brackets */
+  align-items: center;
+  justify-content: center;
+  background: rgba(228, 15, 15, 0.3); /* Consistent background */
+  border: 1px solid var(--glass-border);
+  border-radius: 15px; /* Consistent border-radius */
+  padding: 1.5rem 1rem; /* Consistent padding */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 1; /* Allow it to grow/shrink like other stages */
+}
+
+.knockout-stage-container:hover {
+transform: translateY(-5px);
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.knockout-stage-label h3 {
+  margin: 0 0 1rem 0; /* Adjust margin for label */
+  color: var(--light-background-white);
+  font-size: 1.3rem; /* Consistent font size */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.knockout-brackets {
+  display: flex;
+  align-items: center; /* Align rounds and arrow horizontally */
+  gap: 1rem; /* Space between rounds and arrow */
+  width: 100%; /* Take full width of its container */
+  justify-content: center; /* Center content horizontally */
+}
+
+.bracket-round {
+  background: rgba(0, 0, 0, 0.2); /* Darker transparent background for rounds */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 0.8rem;
+  flex-shrink: 0; /* Prevent shrinking */
+  text-align: center;
+  min-width: 90px; /* Min width for rounds */
+}
+
+.bracket-round h4 {
+  color: var(--text-light);
+  font-size: 0.95rem; /* Adjusted font size */
+  margin: 0 0 0.5rem 0;
+}
+
+.match-pair {
+  display: flex;
+  flex-direction: column; /* Stack matches vertically */
+  gap: 0.5rem; /* Space between matches */
+}
+
+.match-block {
+  background: rgba(255, 255, 255, 0.1); /* Lighter transparent for individual matches */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem; /* Adjusted padding */
+  color: var(--text-light);
+  font-size: 0.9rem; /* Adjusted font size */
+  white-space: nowrap; /* Prevent match text from wrapping */
+}
+
+.final-match {
+  background: var(--primary-blue); /* Highlight final match */
+  color: #333; /* Darker text for better contrast */
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.bracket-arrow {
+  font-size: 2rem; /* Adjusted font size */
+  color: var(--text-light);
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .process-flow .final-note {
-  text-align: center;
-  margin-top: 1.8rem;
-  font-size: 0.9rem;
-  color: var(--text-light);
-  font-style: italic;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 0.8rem 1rem;
-  border-radius: 8px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+text-align: center;
+margin-top: 2.5rem; /* Adjusted margin */
+font-size: 1rem; /* Increased font size */
+color: var(--text-light);
+font-style: italic;
+background: rgba(255, 255, 255, 0.05);
+padding: 1rem 1.5rem; /* Adjusted padding */
+border-radius: 10px; /* Adjusted border-radius */
+max-width: auto; /* Increased max-width */
+margin-left: auto;
+margin-right: auto;
 }
 
+/* REFINED STYLES FOR PROCESS FLOW (Tournament Diagram) - MOBILE */
+@media (max-width: 768px) {
+.tournament-diagram {
+  flex-direction: column; /* Stack vertically */
+  align-items: center; /* Center items when stacked */
+  gap: 1rem; /* Smaller gap for vertical stacking */
+}
+
+.stage-block { /* Replaced .process-flow .workflow-step */
+  min-width: unset;
+  width: 90%; /* Take up more width on small screens */
+  max-width: 350px; /* Prevent blocks from getting too wide on slightly larger mobiles */
+  padding: 1.5rem 1rem; /* Consistent padding */
+}
+
+.arrow-connector {
+  font-size: 2rem; /* Smaller arrow for mobile */
+  margin: 0.5rem 0; /* Vertical margin for arrows */
+  /* REMOVED: transform: rotate(90deg); - The content '↓' is now sufficient */
+  height: auto; /* Auto height on mobile */
+  min-width: unset; /* No min-width needed */
+}
+
+.arrow-connector::before {
+  content: '↓'; /* Correctly pointing down arrow for mobile */
+}
+
+/* Specific adjustments for the Knockout Rounds on mobile */
+.knockout-stage-container {
+    width: 90%; /* Adjust width for mobile */
+    max-width: 350px;
+    padding: 1.5rem 1rem; /* Consistent padding */
+}
+
+.knockout-brackets {
+    flex-direction: column; /* Stack bracket rounds vertically */
+    gap: 0.8rem;
+}
+
+.bracket-arrow {
+    transform: rotate(90deg); 
+    margin: 0.5rem 0; /* Vertical margin */
+    font-size: 2rem; /* Consistent with desktop size */
+}
+
+.bracket-round {
+    width: 80%; /* Adjust width for stacked rounds */
+    min-width: unset; /* Remove min-width to allow more flexibility */
+    padding: 0.8rem; /* Consistent padding */
+}
+
+.match-block {
+    padding: 0.6rem 0.8rem; /* Consistent padding */
+    font-size: 0.9rem; /* Consistent font size */
+    min-width: unset; /* Ensure match block scales */
+}
+}
+
+/* Very small screens (e.g., older/smaller phones) specific process flow adjustments */
+@media (max-width: 480px) {
+  .process-flow > p {
+      font-size: 0.9rem;
+  }
+
+  .stage-block {
+      padding: 1rem 0.8rem;
+  }
+
+  .stage-block .icon {
+      font-size: 2rem;
+  }
+
+  .stage-block h3 {
+      font-size: 1.1rem;
+  }
+
+  .stage-block p {
+      font-size: 0.85rem;
+  }
+
+  .arrow-connector {
+      font-size: 1.8rem;
+  }
+
+  .knockout-stage-container {
+      padding: 1rem 0.8rem;
+  }
+
+  .knockout-stage-label h3 {
+      font-size: 1.1rem;
+  }
+
+  .bracket-round {
+      padding: 0.6rem;
+  }
+
+  .match-block {
+      padding: 0.5rem 0.6rem;
+      font-size: 0.8rem;
+  }
+
+  .bracket-arrow {
+      font-size: 1.6rem;
+  }
+
+  .process-flow .final-note {
+      font-size: 0.85rem;
+      padding: 0.8rem 1rem;
+  }
+}
 /* Horizontal rule for separation within combined box */
 .tournament-info-registration-contact hr {
   border: none;
@@ -534,7 +777,7 @@ li:hover {
   max-width: 1000px;
   margin: 1.8rem auto;
   background: var(--glass-bg);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(2px);
   border: 1px solid var(--glass-border);
   border-radius: 14px;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.25);
@@ -647,12 +890,13 @@ details:hover {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, filter 0.3s ease;
 }
 
 .filter-controls .button:hover {
     background-color: var(--primary-color-dark);
     transform: translateY(-1px);
+    filter: brightness(1.1); /* Slightly brighter on hover */
 }
 
 
@@ -687,8 +931,9 @@ details:hover {
     line-height: 1.4;
   }
 
+  /* Adjust section padding for better fit on small screens */
   section {
-    padding: 12px 8px;
+    padding: 0.8rem 0.5rem; /* Reduced padding */
     margin: 1rem auto;
   }
 
@@ -706,30 +951,62 @@ details:hover {
       font-size: 0.85rem;
   }
 
-  /* Countdown Section */
+  /* Countdown Section - MODIFIED: Force single line & drasticaly reduced size */
   .countdown-section {
-    grid-template-columns: 1fr;
-    gap: 0.8rem;
-    padding: 0.8rem;
+    grid-template-columns: none; /* Remove grid layout for mobile */
+    display: block; /* Ensures it acts as a block */
+    padding: 0.5rem; /* Reduced padding */
     width: 95%;
   }
+
   .countdown-timer-group {
-    padding: 4px;
+    padding: 0; /* No padding needed around the group */
   }
+
+  .countdown-timer-group h2 {
+    font-size: 1rem; /* Smaller heading for countdown group */
+    margin-bottom: 0.3rem;
+  }
+
   .timer {
-    gap: 4px;
+    gap: 2px; /* Very small gap between units */
+    flex-wrap: nowrap; /* Force units onto a single line */
+    overflow-x: auto; /* Allow horizontal scrolling if necessary (though hopefully not needed) */
+    justify-content: center; /* Center the units */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
   }
+
   .timer-unit {
-    flex-basis: 45%;
-    margin-bottom: 4px;
-    height: 45px;
-    min-width: 40px;
+    flex-shrink: 0; /* Prevent units from shrinking smaller than their content */
+    padding: 0.1rem 0.2rem; /* Reduced padding */
+    min-width: 50px; /* Set a very small minimum width */
+    height: 35px; /* Significantly reduced height */
+    border-radius: 6px; /* Slightly smaller border radius */
+    margin: 0; /* Remove any default margins */
   }
+
   .timer-number {
-    font-size: 1.8rem;
+    font-size: 1.1rem; /* Reduced font size for numbers */
+    line-height: 1; /* Ensure tight line height */
   }
+
   .timer-label {
-    font-size: 0.6rem;
+    font-size: 0.45rem; /* Reduced font size for labels */
+    line-height: 1;
+    margin-top: 2px; /* Small space between number and label */
+  }
+
+  /* Flyer and Categories Section on Mobile */
+  .flyer-and-categories {
+    flex-direction: column; /* Stack them vertically on mobile */
+    gap: 15px; /* Smaller gap when stacked */
+  }
+
+  .flyer, .category-selection-section {
+    width: 95%; /* Take full width of parent on mobile */
+    max-width: none; /* Remove max-width constraint */
+    margin: 0 auto; /* Center individual boxes */
+    padding: 0.8rem 0.5rem; /* Match general section mobile padding */
   }
 
   /* Category Section (Homepage grid) */
@@ -743,7 +1020,7 @@ details:hover {
     font-size: 0.9rem;
   }
 
-  /* REFINED STYLES FOR TABLES (Live Scores, Fixtures, Points Table) */
+  /* REFINED STYLES FOR TABLES (Live Scores, Fixtures, Points Table) - Auto-resize, no scroll, scaled fonts/padding */
   .live-scores-fixtures {
     flex-direction: column;
     align-items: center;
@@ -753,14 +1030,14 @@ details:hover {
   .live-scores-fixtures section {
     width: 98%;
     margin-bottom: 15px;
-    padding: 12px 4px;
+    padding: 10px 5px; /* Reduced padding for sections containing tables */
   }
 
   .live-scores-table-container,
   .fixtures-table-container,
   .points-table-container {
     width: 100%;
-    overflow-x: auto;
+    /* overflow-x: auto; Removed this if we enforce wrapping */
     -webkit-overflow-scrolling: touch;
     border-radius: 8px;
     padding: 0;
@@ -770,16 +1047,17 @@ details:hover {
   .fixtures-table,
   .points-table {
     width: 100%;
-    min-width: 450px;
+    /* min-width: 450px; Removed for better mobile experience */
     border-collapse: collapse;
-    white-space: nowrap;
+    /* white-space: nowrap; Removed, text will wrap */
   }
 
   .live-scores-table th, .live-scores-table td,
   .fixtures-table th, .fixtures-table td,
   .points-table th, .points-table td {
-    padding: 6px 8px;
-    font-size: 0.7rem;
+    padding: 5px 4px; /* Further reduced padding for table cells */
+    font-size: 0.6rem; /* Slightly reduced font size for table content */
+    white-space: normal; /* Ensures text wraps */
   }
 
   /* Filter Controls Formatting - REFINED FOR MOBILE */
@@ -804,71 +1082,7 @@ details:hover {
       font-size: 0.9rem;
   }
 
-  /* REFINED STYLES FOR PROCESS FLOW (Tournament Diagram) - MOBILE */
-  .tournament-diagram {
-    flex-direction: column; /* Stack vertically */
-    gap: 8px; /* Reduced gap for mobile */
-  }
-
-  .process-flow .workflow-step {
-    min-width: unset;
-    width: 95%;
-    max-width: 280px;
-    padding: 0.8rem;
-  }
-
-  .arrow-connector {
-    font-size: 2rem; /* Smaller arrow for mobile */
-    height: auto; /* Auto height on mobile */
-    min-width: unset; /* No min-width needed */
-  }
-
-  .arrow-connector::before {
-    content: '↓'; /* Down-pointing arrow for mobile */
-  }
-
-  .knockout-stage-container {
-    flex-direction: column;
-    width: 95%;
-    max-width: 300px;
-  }
-
-  .knockout-brackets {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .bracket-round {
-    width: 100%;
-    padding: 6px;
-  }
-
-  .match-block {
-    padding: 5px 8px;
-    font-size: 0.7rem;
-    min-width: unset;
-  }
-
-  .bracket-arrow {
-    font-size: 1.3rem;
-    padding: 0 3px;
-    margin-top: 6px;
-  }
-
-  .wildcard-playoff-stage {
-    width: 95%;
-    max-width: 280px;
-    padding: 0.8rem;
-    margin: 8px 0;
-  }
-  .wildcard-playoff-stage h3 {
-    font-size: 1rem;
-  }
-  .wildcard-playoff-stage p {
-    font-size: 0.75rem;
-  }
-
-  /* Contact & FAQ Sections */
+   /* Contact & FAQ Sections */
   .contact-info {
     flex-direction: column;
     gap: 8px;
@@ -876,7 +1090,13 @@ details:hover {
   .contact-item {
     font-size: 0.85rem;
   }
-
+  
+  .back-button {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    top: 2px; /* Adjusted: Shift significantly UP (closer to the absolute top edge) */
+    left: 2px; /* Adjusted: Shift significantly LEFT (closer to the absolute left edge) */
+  }
   .faq-item summary {
     font-size: 0.85rem;
     padding: 8px 12px;

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SMASHERS Badminton Tournament 2025</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -12,147 +12,121 @@
     <p>Get ready for an electrifying tournament experience!</p>
   </header>
 
-  <div class="main-visual-area">
-    <section class="countdown-section">
-      <div class="countdown-timer-group">
-        <h2>🏆 Tournament Starts In</h2>
-        <div id="tournament-countdown" class="timer">
-          <div class="timer-unit">
-            <span class="timer-number" id="tournament-days">--</span>
-            <span class="timer-label">Days</span>
-          </div>
-          <div class="timer-unit">
-            <span class="timer-number" id="tournament-hours">--</span>
-            <span class="timer-label">Hours</span>
-          </div>
-          <div class="timer-unit">
-            <span class="timer-number" id="tournament-minutes">--</span>
-            <span class="timer-label">Minutes</span>
-          </div>
-          <div class="timer-unit">
-            <span class="timer-number" id="tournament-seconds">--</span>
-            <span class="timer-label">Seconds</span>
-          </div>
+  <section class="countdown-section">
+    <div class="countdown-timer-group">
+      <h2>🏆 Tournament Starts In</h2>
+      <div class="timer">
+        <div class="timer-unit">
+          <span class="timer-number" id="days">--</span>
+          <span class="timer-label">Days</span>
+        </div>
+        <div class="timer-unit">
+          <span class="timer-number" id="hours">--</span>
+          <span class="timer-label">Hours</span>
+        </div>
+        <div class="timer-unit">
+          <span class="timer-number" id="minutes">--</span>
+          <span class="timer-label">Minutes</span>
+        </div>
+        <div class="timer-unit">
+          <span class="timer-number" id="seconds">--</span>
+          <span class="timer-label">Seconds</span>
         </div>
       </div>
-
-      <div class="countdown-timer-group">
-        <h2>📝 Registration Closes In</h2>
-        <div id="registration-countdown" class="timer">
-          <div class="timer-unit">
-            <span class="timer-number" id="reg-days">--</span>
-            <span class="timer-label">Days</span>
-          </div>
-          <div class="timer-unit">
-            <span class="timer-number" id="reg-hours">--</span>
-            <span class="timer-label">Hours</span>
-          </div>
-          <div class="timer-unit">
-            <span class="timer-number" id="reg-minutes">--</span>
-            <span class="timer-label">Minutes</span>
-          </div>
-          <div class="timer-unit">
-            <span class="timer-number" id="reg-seconds">--</span>
-            <span class="timer-label">Seconds</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="flyer-and-categories">
-      <div class="flyer">
-        <img src="flyer2.png" alt="SMASHERS Tournament 2025 Flyer" loading="lazy">
-      </div>
-      <section class="category-selection-section">
-        <h3>🏅 Tournament Category Selection</h3>
-        <p>Select your category to get detailed fixtures and scores</p>
-        <div class="category-buttons">
-          <a href="mens-beginner-doubles.html" class="category">👥 Men's Beginner Doubles</a>
-          <a href="mens-advanced-doubles.html" class="category">🏆 Men's Advanced Doubles</a>
-          <a href="womens-doubles.html" class="category">👭 Women's Doubles</a>
-          <a href="mixed-doubles.html" class="category">👫 Mixed Doubles</a>
-        </div>
-      </section>
     </div>
-  </div>
+  </section>
 
-  <div class="live-scores-full-width-wrapper">
-    <div class="live-scores-fixtures">
-      <section>
-        <h2>🏆 Live Matches</h2>
-        <input type="text" id="live-match-team-filter" class="team-filter-input" placeholder="Filter by team name...">
-        <div id="live-scoring-content" class="loading-message">
-          Loading live scores...
-        </div>
-      </section>
-
-      <section>
-        <h2>🗓️ Upcoming Fixtures</h2>
-        <input type="text" id="fixtures-team-filter" class="team-filter-input" placeholder="Filter by team name...">
-        <div id="fixtures-list" class="loading-message">
-          Loading tournament fixtures...
-        </div>
-      </section>
+  <div class="flyer-and-categories">
+    <div class="flyer">
+      <img id="tournament-flyer" src="flyer2.png" alt="Tournament Flyer" onerror="this.src='https://via.placeholder.com/400x300?text=Tournament+Flyer';">
     </div>
-  </div>
 
-  <div class="main-grid">
-    <section class="tournament-info-registration-contact combined-details-section">
-      <div class="tournament-details-column">
-        <h2>📋 Tournament Information</h2>
-        <ul>
-          <li><strong>Registration:</strong> Every individual needs to register separately</li>
-          <li><strong>Location:</strong> Slagbaai 14, 1317 AC, Almere</li>
-          <li><strong>Match Start Time:</strong> 8:30 PM onwards</li>
-          <li><strong>Shuttle Used:</strong> Mavis 600</li>
-        </ul>
-
-        <hr>
-        <h3>📅 Tournament Schedule</h3>
-        <ul>
-          <li><strong>7th July:</strong> Women's Doubles + Men's Beginner Doubles (Complete)</li>
-          <li><strong>8th July:</b> Men's Advanced Doubles (League + Quarters)</li>
-          <li><strong>9th July:</strong> Mixed Doubles (League + Semi-finals)</li>
-          <li><strong>11th July:</strong> Finals Day (Men's Advanced + Mixed Doubles)</li>
-        </ul>
-
-        <hr>
-        <h3>📞 Contact Information</h3>
-        <div class="contact-info-block">
-          <p><strong>Tournament Organizer:</strong> Gourav</p>
-          <p><strong>WhatsApp:</strong> <a href="https://wa.me/917022462728" target="_blank" rel="noopener noreferrer">+91 70224 62728</a></p>
-          <p class="text-lighter small-text">Available for queries, partnerships, and tournament updates</p>
-        </div>
-      </div>
-      <div class="registration-contact-column">
-        <h3>📝 Registration Details</h3>
-        <ul>
-          <li><strong>Solo Registration:</strong> Register individually - partner mapped by us if not available</li>
-          <li><strong>Individual Entry:</strong> Each person must register separately</li>
-          <li><strong>Deadline:</strong> July 4th, 2025</li>
-          <li><strong>Fees:</strong> €12 per person for 1 category and €15 for 2 categories </li>
-          <li><strong>Payment:</strong> Via tikkie. Present in google form </li>
-        </ul>
-        <div class="registration-buttons">
-          <a href="https://forms.gle/FSXz5i7oqqMf12DP6" target="_blank" rel="noopener noreferrer" class="register-button">Register Now!</a>
-        </div>
-        <div class="faq-link">
-          <p><a href="#faq-section">Have questions? Check out our FAQ</a></p>
-        </div>
-
-        <hr>
-        <h3>🏆 Prizes</h3>
-        <ul>
-          <li>Shiny Winner's Cups for champions</li>
-          <li>Free games with SMASHERS for winners</li>
-          <li>Free Game on Registration</li>
-          <li>Bragging rights and eternal glory and many more!</li>
-        </ul>
+    <section class="category-selection-section">
+      <h2>🏅 Tournament Category Selection</h2>
+      <p>Select your category to get detailed fixtures and scores</p>
+      <div class="category-buttons">
+        <a href="mens-beginner-doubles.html" class="category">👥 Men's Beginner Doubles</a>
+        <a href="mens-advanced-doubles.html" class="category">🏆 Men's Advanced Doubles</a>
+        <a href="womens-doubles.html" class="category">👭 Women's Doubles</a>
+        <a href="mixed-doubles.html" class="category">👫 Mixed Doubles</a>
       </div>
     </section>
   </div>
+  <section class="live-scores-fixtures">
+    <section>
+      <h2>🏆 Live Matches</h2>
+      <input type="text" id="live-match-team-filter" class="team-filter-input" placeholder="Filter by team name..." onkeyup="filterTable('live-matches', 'live-scores-table', this.value, 'liveScore')">
+      <div id="live-matches">Loading live scores...</div>
+    </section>
+    <section>
+      <h2>🗓️ Upcoming Fixtures</h2>
+      <input type="text" id="upcoming-fixtures-team-filter" class="team-filter-input" placeholder="Filter by team name..." onkeyup="filterTable('upcoming-fixtures', 'fixtures-table', this.value, 'fixture')">
+      <div id="upcoming-fixtures">Loading tournament fixtures...</div>
+    </section>
+  </section>
 
-  <section id="faq-section" class="faq-section">
+  <section class="tournament-info-registration-contact">
+    <h2>📋 Tournament Information</h2>
+    <ul>
+      <li><strong>Registration:</strong> Every individual needs to register separately</li>
+      <li><strong>Location:</strong> Slagbaai 14, 1317 AC, Almere</li>
+      <li><strong>Match Start Time:</strong> 8:40 PM onwards</li>
+      <li><strong>Shuttle Used:</strong> Mavis 600</li>
+    </ul>
+
+    <h3>📅 Tournament Schedule</h3>
+    <ul>
+      <li><strong>7th July:</strong> Women's Doubles league, Semi - Finals + Men's Beginner Doubles League</li>
+      <li><strong>8th July:</strong> Men's Advanced Doubles (League)</li>
+      <li><strong>9th July:</strong> Mixed Doubles (League)</li>
+      <li><strong>11th July:</strong> Finals Day :  (Men's Advanced + Mixed Doubles) - Quarters + Semi + Final , (Men's Advanced + Womens Doubles): Final </li>
+    </ul>
+
+    <h3>📜 Tournament Rules</h3>
+    <ul>
+        <li><strong>General Rules:</strong> All matches will be played according to BWF (Badminton World Federation) rules, unless otherwise specified.</li>
+        <li><strong>Scoring:</strong> Every match will be 1 set of 21 points rally scoring upto max 30 points post which the match will be a tie.</li>
+        <li><strong>Tie breakers:</strong> Net score will be used as tie breaker i.e (total points won - total points lost).If there is still a tie breaker that will be resolved with a 11 point match</li>
+        <li><strong>Defaults:</strong> Teams/players not present at their scheduled match time will forfeit the match after a 10-minute grace period and opponent team will get a walkover.</li>
+        <li><strong>Disputes:</strong> All on-court disputes will be resolved by the designated court referee/organizer. Tournament organizer's decision is final.</li>
+        <li><strong>Dress Code:</strong> Ensure to wear non-marking indoor badminton shoes .</li>
+        <li><strong>Cleanliness:</strong> Ensure to keep premises clean at all times and use designated dustbins .</li>
+        <li><strong>Conduct:</strong> Players are expected to exhibit good sportsmanship and respect towards opponents, officials, and fellow participants.</li>
+        </ul>
+    <hr>
+
+    <hr>
+
+    <h3>📞 Contact Information</h3>
+    <ul>
+      <li><strong>Tournament Organizer:</strong> Gourav</li>
+      <li><strong>WhatsApp:</strong> +91 70224 62728</li>
+      <li><strong>Available for:</strong> queries, partnerships, and tournament updates</li>
+    </ul>
+
+    <hr>
+
+    <h3>📝 Registration Details</h3>
+    <ul>
+      <li><strong>Solo Registration:</strong> Register individually - partner mapped by us if not available</li>
+      <li><strong>Individual Entry:</strong> Each person must register separately</li>
+      <li><strong>Deadline:</strong> July 4th, 2025</li>
+      <li><strong>Fees:</strong> €12 per person for 1 category and €15 for 2 categories</li>
+      <li><strong>Payment:</strong> Via tikkie. Present in google form</li>
+    </ul>
+    <a href="#" class="button">Register Now!</a>
+    <a href="#faq" class="button">Have questions? Check out our FAQ</a>
+
+    <h3>🏆 Prizes</h3>
+    <ul>
+      <li>Shiny Winner's Cups for champions</li>
+      <li>Free games with SMASHERS for winners</li>
+      <li>Free Game on Registration</li>
+      <li>Bragging rights and eternal glory and many more!</li>
+    </ul>
+  </section>
+
+  <section id="faq" class="full-width-section">
     <h2>❓ Frequently Asked Questions</h2>
     <div class="faq-item">
       <details>
@@ -181,371 +155,306 @@
   </section>
 
   <footer>
-    <p>&copy; 2025 SMASHERS Badminton Tournament. All rights reserved.</p>
+    <p>© 2025 SMASHERS Badminton Tournament. All rights reserved.</p>
   </footer>
 
   <script>
-    // Configuration
-    const GOOGLE_APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzWEqK6KQToFHvYHwVeSjh1wLDQ3yPS6GAmY1dj7auY3yDRPcbrSMbXrn5xJbf4I-G6Hw/exec'; // Replace with your Google Apps Script Web App URL
+const webAppUrl = 'https://script.google.com/macros/s/AKfycbzwzWVhd0HCRjSFEEVhNgpdHQIA1HMbEj21ef3WdhR3641ZAf-0OLoD_Jmeb1oY5NqvCA/exec';
 
-    // --- Countdown Logic ---
-    function updateCountdown(targetDate, elementIds) {
-      const now = new Date();
-      const distance = targetDate - now;
+// Countdown Timer (unchanged)
+function startCountdown() {
+  const targetDate = new Date('2025-07-07T20:30:00+02:00');
+  const daysEl = document.getElementById('days');
+  const hoursEl = document.getElementById('hours');
+  const minutesEl = document.getElementById('minutes');
+  const secondsEl = document.getElementById('seconds');
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  function updateTimer() {
+    const now = new Date();
+    const timeLeft = targetDate - now;
+    if (timeLeft <= 0) {
+      daysEl.textContent = '0';
+      hoursEl.textContent = '0';
+      minutesEl.textContent = '0';
+      secondsEl.textContent = '0';
+      document.querySelector('.countdown-timer-group h2').textContent = '🏆 Tournament has started!';
+      return;
+    }
+    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+    daysEl.textContent = days.toString().padStart(2, '0');
+    hoursEl.textContent = hours.toString().padStart(2, '0');
+    minutesEl.textContent = minutes.toString().padStart(2, '0');
+    secondsEl.textContent = seconds.toString().padStart(2, '0');
+  }
+  updateTimer();
+  setInterval(updateTimer, 1000);
+}
 
-      document.getElementById(elementIds.days).textContent = days > 0 ? days.toString().padStart(2, '0') : '--';
-      document.getElementById(elementIds.hours).textContent = hours > 0 || days > 0 ? hours.toString().padStart(2, '0') : '--';
-      document.getElementById(elementIds.minutes).textContent = minutes > 0 || hours > 0 || days > 0 ? minutes.toString().padStart(2, '0') : '--';
-      document.getElementById(elementIds.seconds).textContent = seconds > 0 || minutes > 0 || hours > 0 || days > 0 ? seconds.toString().padStart(2, '0') : '--';
+// Helper for sorting stages (reused from category pages)
+const stageOrder = {
+    'Final': 0,
+    'Semi-Finals': 1,
+    'Quarter-Finals': 2,
+    'League': 3
+};
 
-      if (distance < 0) {
-        document.getElementById(elementIds.days).textContent = '00';
-        document.getElementById(elementIds.hours).textContent = '00';
-        document.getElementById(elementIds.minutes).textContent = '00';
-        document.getElementById(elementIds.seconds).textContent = '00';
-        return true; // Indicates countdown finished
-      }
-      return false; // Indicates countdown not finished
+function sortStages(stageA, stageB) {
+    const orderA = stageOrder[stageA] !== undefined ? stageOrder[stageA] : 99; // 99 for unknown stages (put last)
+    const orderB = stageOrder[stageB] !== undefined ? stageOrder[stageB] : 99;
+    return orderA - orderB;
+}
+
+async function loadData() {
+  try {
+    const liveResponse = await fetch(`${webAppUrl}?sheet=Livescores`, { method: 'GET', mode: 'cors' });
+    const liveData = await liveResponse.json();
+    if (!liveData.data || !Array.isArray(liveData.data.liveMatches)) {
+      throw new Error('Invalid live matches data structure');
     }
 
-    // Set target dates (Year, Month (0-11), Day, Hour, Minute, Second)
-    const tournamentDate = new Date(2025, 6, 7, 20, 30, 0); // July 7, 2025, 8:30 AM
-    const registrationEndDate = new Date(2025, 6, 4, 23, 59, 59); // July 4, 2025, 11:59:59 PM
+    const fixturesResponse = await fetch(`${webAppUrl}?sheet=Fixtures`, { method: 'GET', mode: 'cors' });
+    const fixturesData = await fixturesResponse.json();
+    if (!fixturesData.data || !Array.isArray(fixturesData.data.fixtures)) {
+      throw new Error('Invalid fixtures data structure');
+    }
+    
+    // Initial render
+    renderLiveScores(liveData.data.liveMatches);
+    renderFixtures(fixturesData.data.fixtures);
 
-    setInterval(() => {
-      updateCountdown(tournamentDate, { days: 'tournament-days', hours: 'tournament-hours', minutes: 'tournament-minutes', seconds: 'tournament-seconds' });
-      updateCountdown(registrationEndDate, { days: 'reg-days', hours: 'reg-hours', minutes: 'reg-minutes', seconds: 'reg-seconds' });
-    }, 1000);
+  } catch (error) {
+    console.error('Error loading data:', error);
+    document.getElementById('live-matches').innerHTML = 'Failed to load live matches: ' + error.message;
+    document.getElementById('upcoming-fixtures').innerHTML = 'Failed to load fixtures: ' + error.message;
+  }
+}
 
-    // Initial call to display immediately
-    updateCountdown(tournamentDate, { days: 'tournament-days', hours: 'tournament-hours', minutes: 'tournament-minutes', seconds: 'tournament-seconds' });
-    updateCountdown(registrationEndDate, { days: 'reg-days', hours: 'reg-hours', minutes: 'reg-minutes', seconds: 'reg-seconds' });
+function renderLiveScores(matches) {
+    const liveMatchesContainer = document.getElementById('live-matches');
+    liveMatchesContainer.innerHTML = ''; // Clear existing content
 
-    // --- Data Fetching & Display Logic for Live Scores and Fixtures (from mens-beginner-doubles.html) ---
-
-    // Function to format time (e.g., "8:30 PM")
-    const formatTime = (timeString) => {
-        if (!timeString) return 'N/A';
-        try {
-            // Create a dummy date to parse the time string correctly
-            const dummyDate = new Date(`2000-01-01T${timeString}`);
-            if (isNaN(dummyDate.getTime())) {
-                return timeString; // Return original if parsing fails
-            }
-            return dummyDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-        } catch (e) {
-            console.error("Error formatting time:", timeString, e);
-            return timeString; // Fallback
-        }
-    };
-
-    // Function to format date (e.g., "Jan 1, 2000")
-    const formatDate = (dateString) => {
-        if (!dateString) return 'N/A';
-        try {
-            const date = new Date(dateString);
-            if (isNaN(date.getTime())) {
-                return dateString; // Return original if parsing fails
-            }
-            return date.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' });
-        } catch (e) {
-            console.error("Error formatting date:", dateString, e);
-            return dateString; // Fallback
-        }
-    };
-
-
-    // --- Fixtures for Category Pages (Scheduled only, grouped by Stage and Group) ---
-    const fixturesListContainer = document.getElementById('fixtures-list');
-    const fixturesTeamNameFilterInput = document.getElementById('fixtures-team-filter'); // Changed ID to match index.html
-
-    async function fetchAndDisplayFixtures() {
-        const teamName = fixturesTeamNameFilterInput.value.trim();
-        // Changed filter to only show 'Scheduled'
-        let url = `${GOOGLE_APP_SCRIPT_URL}?sheet=Fixtures`; // Removed category filter for index.html
-        if (teamName) {
-            url += `&teamName=${encodeURIComponent(teamName)}`;
-        }
-
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            const fixtures = data.fixtures;
-
-            if (!fixtures || fixtures.length === 0) {
-                fixturesListContainer.innerHTML = '<p class="loading-message">No upcoming fixtures yet.</p>';
-                return;
-            }
-
-            // Filter out completed and live matches, sort by Date then Time
-            const upcomingFixtures = fixtures.filter(fixture => {
-              const status = fixture.Status?.toLowerCase();
-              return status !== 'completed' && status !== 'live';
-            }).sort((a, b) => {
-              // Sort by date
-              const dateA = new Date(a.Date);
-              const dateB = new Date(b.Date);
-              if (dateA - dateB !== 0) {
-                return dateA - dateB;
-              }
-
-              // Then by time (convert HH:mm to sortable format, e.g., minutes from midnight)
-              const timeA = a.Time ? parseInt(a.Time.split(':')[0]) * 60 + parseInt(a.Time.split(':')[1]) : 0;
-              const timeB = b.Time ? parseInt(b.Time.split(':')[0]) * 60 + parseInt(b.Time.split(':')[1]) : 0;
-              return timeA - timeB;
-            });
-
-
-            // Group fixtures by Stage and then by Category
-            const groupedByStageAndCategory = upcomingFixtures.reduce((acc, fixture) => {
-                const stage = fixture.Stage || 'Uncategorized Stage';
-                const category = fixture.Category || 'Uncategorized Category'; // Default if Category is empty
-
-                if (!acc[stage]) {
-                    acc[stage] = {};
-                }
-                if (!acc[stage][category]) {
-                    acc[stage][category] = [];
-                }
-                acc[stage][category].push(fixture);
-                return acc;
-            }, {});
-
-            let htmlContent = '';
-            // Define a custom order for stages
-            const stageOrder = ['League', 'QuarterFinals', 'Semi Finals', 'Finals'];
-
-            // Sort stages based on the predefined order
-            const sortedStages = Object.keys(groupedByStageAndCategory).sort((a, b) => {
-                const indexA = stageOrder.indexOf(a);
-                const indexB = stageOrder.indexOf(b);
-                if (indexA === -1 && indexB === -1) return a.localeCompare(b); // If both not in order, sort alphabetically
-                if (indexA === -1) return 1; // a is not in order, b is - push a to end
-                if (indexB === -1) return -1; // b is not in order, a is - push b to end
-                return indexA - indexB;
-            });
-
-            sortedStages.forEach(stage => {
-                htmlContent += `<div class="stage-group-container">`;
-                htmlContent += `<h3 class="stage-header">${stage}</h3>`;
-
-                const categoriesInStage = groupedByStageAndCategory[stage];
-                // Sort categories alphabetically
-                const sortedCategories = Object.keys(categoriesInStage).sort();
-
-                sortedCategories.forEach(category => {
-                    htmlContent += `<h4 class="group-header">${category}</h4>`; // Sub-header for category
-                    htmlContent += '<div class="fixtures-table-container">';
-                    htmlContent += '<table class="fixtures-table points-table">'; // Reusing points-table for styling
-                    htmlContent += '<thead><tr><th>Date</th><th>Time</th><th>Team 1</th><th>Team 2</th><th>Court</th></tr></thead>';
-                    htmlContent += '<tbody>';
-
-                    // Sort fixtures within each category by Date then Time
-                    categoriesInStage[category].sort((a, b) => {
-                        const dateA = new Date(`${a.Date}T${a.Time || '00:00:00'}`);
-                        const dateB = new Date(`${b.Date}T${b.Time || '00:00:00'}`);
-                        return dateA.getTime() - dateB.getTime();
-                    }).forEach(fixture => {
-                        htmlContent += `
-                            <tr>
-                                <td>${formatDate(fixture.Date)}</td>
-                                <td>${formatTime(fixture.Time)}</td>
-                                <td>${fixture['Team 1'] || 'N/A'}</td>
-                                <td>${fixture['Team 2'] || 'N/A'}</td>
-                                <td>${fixture.Court || 'N/A'}</td>
-                            </tr>
-                        `;
-                    });
-                    htmlContent += '</tbody></table>';
-                    htmlContent += '</div>'; // Close fixtures-table-container
-                });
-                htmlContent += `</div>`; // Close stage-group-container
-            });
-
-            fixturesListContainer.innerHTML = htmlContent;
-
-        } catch (error) {
-            console.error('Error fetching fixtures:', error);
-            fixturesListContainer.innerHTML = '<p class="loading-message" style="color: red;">Failed to load fixtures. Please try again later.</p>';
-        }
+    if (!matches || matches.length === 0) {
+        liveMatchesContainer.innerHTML = '<p>No live or completed matches available.</p>';
+        return;
     }
 
-    fixturesTeamNameFilterInput.addEventListener('input', fetchAndDisplayFixtures);
+    // Filter out "Scheduled" matches
+    let filteredMatches = matches.filter(match => match.Status !== 'Scheduled');
 
-
-    // --- Live Scoring for Category Pages (In Progress & Completed) ---
-    const liveScoresContainer = document.getElementById('live-scoring-content');
-    const liveTeamNameFilterInput = document.getElementById('live-match-team-filter'); // Changed ID to match index.html
-
-    async function fetchAndDisplayLiveScores() {
-        const teamName = liveTeamNameFilterInput.value.trim();
-        // Changed filter to include both 'In Progress' and 'Complete'
-        let url = `${GOOGLE_APP_SCRIPT_URL}?sheet=Live Matches&filter=In%20Progress,Complete`; // Removed category filter for index.html
-        if (teamName) {
-            url += `&teamName=${encodeURIComponent(teamName)}`;
-        }
-
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            const liveMatches = data.liveMatches;
-
-            let htmlContent = '';
-            if (!liveMatches || liveMatches.length === 0) {
-                htmlContent = '<p class="loading-message">No live or recent matches available yet. Stay tuned!</p>';
-            } else {
-                const inProgressMatches = liveMatches.filter(m => (m.Status || '').toLowerCase() === 'in progress');
-                const completedMatches = liveMatches.filter(m => (m.Status || '').toLowerCase() === 'complete');
-
-                if (inProgressMatches.length > 0) {
-                    htmlContent += '<h3>Currently In Progress</h3>';
-                    htmlContent += '<div class="live-scores-table-container">';
-                    htmlContent += '<table class="live-scores-table">';
-                    htmlContent += '<thead><tr><th>Category</th><th>Group</th><th>Stage</th><th>Team 1</th><th>Team 2</th><th>Score</th><th>Court</th></tr></thead>'; // Added Category column
-                    htmlContent += '<tbody>';
-                    inProgressMatches.forEach(match => {
-                        const category = match.Category || 'N/A'; // Get Category
-                        const team1 = match['Team 1'] || 'TBD';
-                        const team2 = match['Team 2'] || 'TBD';
-                        const score1 = match['Team 1 Score'] !== undefined && match['Team 1 Score'] !== '' ? match['Team 1 Score'] : '0';
-                        const score2 = match['Team 2 Score'] !== undefined && match['Team 2 Score'] !== '' ? match['Team 2 Score'] : '0';
-                        const court = match.Court || 'TBD';
-                        const group = match.Group || 'N/A';
-                        const stage = match.Stage || 'N/A';
-
-                        htmlContent += `
-                            <tr>
-                                <td>${category}</td>
-                                <td>${group}</td>
-                                <td>${stage}</td>  
-                                <td>${team1}</td>
-                                <td>${team2}</td>
-                                <td><span class="score-display">${score1} - ${score2}</span></td>
-                                <td>${court}</td>
-                            </tr>
-                        `;
-                    });
-                    htmlContent += '</tbody></table>';
-                    htmlContent += '</div>'; // Close live-scores-table-container
-                }
-
-                if (completedMatches.length > 0) {
-                    htmlContent += '<h3>Recently Completed Matches</h3>';
-                    htmlContent += '<div class="live-scores-table-container">';
-                    htmlContent += '<table class="live-scores-table">';
-                    htmlContent += '<thead><tr><th>Category</th><th>Group</th><th>Stage</th><th>Team 1</th><th>Team 2</th><th>Score</th><th>Court</th><th>Completed At</th></tr></thead>'; // Added Category column
-                    htmlContent += '<tbody>';
-                    // The matches are already sorted by CompletionTimestamp descending from code.gs
-                    completedMatches.forEach(match => {
-                        const category = match.Category || 'N/A'; // Get Category
-                        const team1 = match['Team 1'] || 'N/A';
-                        const team2 = match['Team 2'] || 'N/A';
-                        const score1 = match['Team 1 Score'] !== undefined && match['Team 1 Score'] !== '' ? match['Team 1 Score'] : '--';
-                        const score2 = match['Team 2 Score'] !== undefined && match['Team 2 Score'] !== '' ? match['Team 2 Score'] : '--';
-                        const court = match.Court || 'N/A';
-                        const completionTime = match.CompletionTimestamp ? new Date(match.CompletionTimestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : 'N/A';
-                        const group = match.Group || 'N/A';
-                        const stage = match.Stage || 'N/A';
-
-                        htmlContent += `
-                            <tr>
-                                <td>${category}</td>
-                                <td>${group}</td>
-                                <td>${stage}</td>
-                                <td>${team1}</td>
-                                <td>${team2}</td>
-                                <td><span class="score-display">${score1} - ${score2}</span></td>
-                                <td>${court}</td>
-                                <td>${completionTime}</td>
-                            </tr>
-                        `;
-                    });
-                    htmlContent += '</tbody></table>';
-                    htmlContent += '</div>'; // Close live-scores-table-container
-                }
-            }
-            liveScoresContainer.innerHTML = htmlContent;
-
-        } catch (error) {
-            console.error('Error fetching live scores:', error);
-            liveScoresContainer.innerHTML = '<p class="loading-message" style="color: red;">Failed to load live scores. Please try again later.</p>';
-        }
-    }
-
-    liveTeamNameFilterInput.addEventListener('input', fetchAndDisplayLiveScores);
-
-    // Initial data fetch on page load
-    fetchAllData();
-    // Poll for updates (e.g., every 30 seconds) - adjust as needed
-    setInterval(fetchAllData, 30000);
-
-    function fetchAllData() {
-      fetchAndDisplayLiveScores();
-      fetchAndDisplayFixtures();
-    }
-
-    // New event listeners for team filters
-    document.getElementById('live-match-team-filter').addEventListener('input', fetchAndDisplayLiveScores);
-    document.getElementById('fixtures-team-filter').addEventListener('input', fetchAndDisplayFixtures);
-
-
-    // Service Worker for PWA (Optional)
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js').then(registration => {
-          console.log('ServiceWorker registered: ', registration.scope);
-        }, err => {
-          console.log('ServiceWorker registration failed: ', err);
-        });
-      });
-    }
-
-    // Add analytics tracking (placeholder)
-    function trackEvent(eventName, properties = {}) {
-      // This would integrate with your analytics service
-      console.log('Event tracked:', eventName, properties);
-    }
-
-    // Track user interactions
-    document.addEventListener('click', (e) => {
-      if (e.target.matches('.category')) {
-        trackEvent('category_clicked', { category: e.target.textContent });
-      }
-      if (e.target.matches('a[href*="forms.gle"]')) {
-        trackEvent('registration_clicked');
-      }
-      if (e.target.matches('a[href*="wa.me"]')) {
-        trackEvent('whatsapp_clicked');
-      }
+    // Sort: In Progress first, then Completed (by Match ID descending as fallback)
+    filteredMatches.sort((a, b) => {
+        if (a.Status === 'In Progress' && b.Status !== 'In Progress') return -1;
+        if (a.Status !== 'In Progress' && b.Status === 'In Progress') return 1;
+        // If both are 'Completed' or both 'In Progress', sort by Match ID descending
+        return (b['Match ID'] || '').localeCompare(a['Match ID'] || '');
     });
 
-    // Add notification system (placeholder for future web notifications)
-    function requestNotificationPermission() {
-      if ('Notification' in window && Notification.permission === 'default') {
-        Notification.requestPermission().then(permission => {
-          if (permission === 'granted') {
-            console.log('Notification permission granted');
-            // You could send notifications for live match updates
-          }
-        });
-      }
+    // Limit to top 12
+    const top12Matches = filteredMatches.slice(0, 12);
+
+    if (top12Matches.length === 0) {
+        liveMatchesContainer.innerHTML = '<p>No live or completed matches to display in top 6.</p>';
+        return;
     }
 
-    // Request notification permission after user interaction
-    document.addEventListener('click', requestNotificationPermission, { once: true });
+    // Group the top 12 matches by Category, then Group, then Stage
+    const groupedData = top12Matches.reduce((acc, match) => {
+        const category = match.Category || 'Unknown Category';
+        const group = match.Group || 'No Group';
+        const stage = match.Stage || 'Unknown Stage';
 
-    console.log('SMASHERS Tournament Website loaded successfully! 🏆');
+        if (!acc[category]) acc[category] = {};
+        if (!acc[category][group]) acc[category][group] = {};
+        if (!acc[category][group][stage]) acc[category][group][stage] = [];
+        acc[category][group][stage].push(match);
+        return acc;
+    }, {});
+
+    let htmlContent = '';
+    Object.keys(groupedData).sort().forEach(category => {
+        htmlContent += `<div class="live-scores-category-container"><h2>${category}</h2>`;
+        Object.keys(groupedData[category]).sort().forEach(group => {
+            const displayGroup = group === 'No Group' || !group ? 'No Group' : `${group}`;
+            
+            htmlContent += `<div class="live-scores-group-container"><h3>${displayGroup}</h3>`;
+            Object.keys(groupedData[category][group]).sort(sortStages).forEach(stage => {
+                const displaystage = `Stage: ${stage}`
+                htmlContent += `<div class="live-scores-stage-container"><h4>${displaystage}</h4>`;
+                htmlContent += `
+                    <div class="live-scores-table-container">
+                        <table class="live-scores-table points-table">
+                            <thead>
+                                <tr>
+                                    <th>Match ID</th>
+                                    <th>Team 1</th>
+                                    <th>Team 2</th>
+                                    <th>Score</th>
+                                    <th>Status</th>
+                                    <th>Court</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${groupedData[category][group][stage].map(match => `
+                                    <tr>
+                                        <td>${match['Match ID'] || '-'}</td>
+                                        <td>${match['Team 1'] || '-'}</td>
+                                        <td>${match['Team 2'] || '-'}</td>
+                                        <td>${match['Team 1 Score'] || '0'} - ${match['Team 2 Score'] || '0'}</td>
+                                        <td>${match.Status || '-'}</td>
+                                        <td>${match.Court || '-'}</td>
+                                    </tr>`).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                htmlContent += `</div>`; // Close stage container
+            });
+            htmlContent += `</div>`; // Close group container
+        });
+        htmlContent += `</div>`; // Close category container
+    });
+
+    liveMatchesContainer.innerHTML = htmlContent;
+}
+
+function renderFixtures(fixtures) { // Parameter renamed to 'fixtures' for clarity
+    const fixturesContainer = document.getElementById('upcoming-fixtures');
+    fixturesContainer.innerHTML = ''; // Clear existing content
+
+    if (!fixtures || fixtures.length === 0) {
+        fixturesContainer.innerHTML = '<p>No upcoming fixtures available.</p>';
+        return;
+    }
+
+    // Directly use the raw fixtures data
+    let allFixtures = fixtures;
+
+    // Filter to include only "Scheduled" matches
+    let scheduledFixtures = allFixtures.filter(fixture => fixture.Status === 'Scheduled');
+
+    // Sort by ascending order of time
+    scheduledFixtures.sort((a, b) => {
+        const dateA = new Date(`${a.Date} ${a.Time}`);
+        const dateB = new Date(`${b.Date} ${b.Time}`);
+        return dateA - dateB;
+    });
+
+    // Limit to top 12
+    const top12Fixtures = scheduledFixtures.slice(0, 12);
+
+    if (top12Fixtures.length === 0) {
+        fixturesContainer.innerHTML = '<p>No upcoming fixtures to display in top 6.</p>';
+        return;
+    }
+
+    // Group the top 6 fixtures by Category, then Group, then Stage
+    const groupedData = top12Fixtures.reduce((acc, fixture) => {
+        const category = fixture.Category || 'Unknown Category';
+        const group = fixture.Group || 'No Group';
+        const stage = fixture.Stage || 'Unknown Stage';
+
+        if (!acc[category]) acc[category] = {};
+        if (!acc[category][group]) acc[category][group] = {};
+        if (!acc[category][group][stage]) acc[category][group][stage] = [];
+        acc[category][group][stage].push(fixture);
+        return acc;
+    }, {});
+
+    let htmlContent = '';
+    Object.keys(groupedData).sort().forEach(category => {
+        htmlContent += `<div class="fixtures-category-container"><h2>${category}</h2>`;
+        Object.keys(groupedData[category]).sort().forEach(group => {
+            const displayGroup = group === 'No Group' || !group ? 'No Group' : `Group ${group}`;
+            htmlContent += `<div class="fixtures-group-container"><h3>${displayGroup}</h3>`;
+            Object.keys(groupedData[category][group]).sort(sortStages).forEach(stage => {
+                const displaystage = `Stage: ${stage}`
+                htmlContent += `<div class="fixtures-stage-container"><h4>${displaystage}</h4>`;
+                htmlContent += `
+                    <div class="fixtures-table-container">
+                        <table class="fixtures-table points-table">
+                            <thead>
+                                <tr>
+                                    <th>Match ID</th>
+                                    <th>Team 1</th>
+                                    <th>Team 2</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Court</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${groupedData[category][group][stage].map(fixture => `
+                                    <tr>
+                                        <td>${fixture['Match ID'] || '-'}</td>
+                                        <td>${fixture['Team 1'] || '-'}</td>
+                                        <td>${fixture['Team 2'] || '-'}</td>
+                                        <td>${fixture.Date || '-'}</td>
+                                        <td>${fixture.Time || '-'}</td>
+                                        <td>${fixture.Court || '-'}</td>
+                                    </tr>`).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                htmlContent += `</div>`; // Close stage container
+            });
+            htmlContent += `</div>`; // Close group container
+        });
+        htmlContent += `</div>`; // Close category container
+    });
+
+    fixturesContainer.innerHTML = htmlContent;
+}
+
+// Filter function (reused from category pages)
+function filterTable(tableContainerId, tableClass, filterValue, tableType) {
+    var input, filter, table, tr, td1, td2, i, txtValue;
+    input = filterValue;
+    filter = input.toUpperCase();
+
+    const tables = document.querySelectorAll(`#${tableContainerId} .${tableClass}`);
+    if (tables.length === 0) {
+        console.warn(`No tables found in #${tableContainerId} with class .${tableClass}`);
+        return;
+    }
+
+    tables.forEach(table => {
+        tr = table.getElementsByTagName("tr");
+        // Start from 1 to skip the header row (assuming the first row is always header)
+        for (i = 1; i < tr.length; i++) {
+            if (tableType === 'liveScore') {
+                td1 = tr[i].getElementsByTagName("td")[1]; // Team 1 (index 1 in 6-column table)
+                td2 = tr[i].getElementsByTagName("td")[2]; // Team 2 (index 2 in 6-column table)
+            } else if (tableType === 'fixture') {
+                td1 = tr[i].getElementsByTagName("td")[1]; // Team 1 (index 1 in 6-column table)
+                td2 = tr[i].getElementsByTagName("td")[2]; // Team 2 (index 2 in 6-column table)
+            }
+            
+            if (td1 && td2) {
+                txtValue = (td1.textContent || td1.innerText) + " " + (td2.textContent || td2.innerText);
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            } else if (td1) { // Fallback if only td1 is available (shouldn't happen for these tables)
+                txtValue = td1.textContent || td1.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    });
+}
+
+
+startCountdown();
+loadData();
   </script>
 </body>
 </html>
