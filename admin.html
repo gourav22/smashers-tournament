@@ -272,24 +272,29 @@
                     <label for="livescoreSelectBy">Select By:</label>
                     <select id="livescoreSelectBy">
                         <option value="matchId">Match ID</option>
-                        <option value="teamName">Team Name</option>
-                    </select>
+                        <option value="teamName">Team Name Pair</option> </select>
+                </div>
+                <div class="flex-item" id="livescoreTeamSelectionContainer">
+                    <div id="livescoreTeamPairSelection" style="display: none;">
+                        <label for="livescoreSelectedTeam1">Team 1 Name:</label>
+                        <select id="livescoreSelectedTeam1"></select>
+
+                        <label for="livescoreSelectedTeam2">Team 2 Name:</label>
+                        <select id="livescoreSelectedTeam2"></select>
+                    </div>
                 </div>
                 <div class="flex-item">
-                    <label for="livescoreMatchId">Match ID:</label>
-                    <select id="livescoreMatchId"></select>
-                    <label for="livescoreTeam1Name">Team 1 Name:</label>
-                    <input type="text" id="livescoreTeam1Name" readonly>
-        
-                    <label for="livescoreTeam2Name">Team 2 Name:</label>
-                    <input type="text" id="livescoreTeam2Name" readonly>
-                </div>
-                <div class="flex-item" style="display: none;" id="livescoreTeamNameSelectionContainer">
-                    <label for="livescoreTeamName">Team Name:</label>
-                    <select id="livescoreTeamName"></select>
+                     <label for="livescoreMatchId">Match ID:</label>
+                     <select id="livescoreMatchId"></select>
                 </div>
             </div>
             
+            <label for="livescoreTeam1Name">Team 1 Name:</label>
+            <input type="text" id="livescoreTeam1Name" readonly>
+        
+            <label for="livescoreTeam2Name">Team 2 Name:</label>
+            <input type="text" id="livescoreTeam2Name" readonly>
+
             <label for="livescoreTeam1Score">Team 1 Score:</label>
             <input type="number" id="livescoreTeam1Score" min="0">
 
@@ -485,8 +490,10 @@
         // --- Message Display Function ---
         function displayMessage(element, message, type) {
             element.textContent = message;
-            element.classList.remove('success', 'error');
-            element.classList.add(type);
+            element.classList.remove('success', 'error', 'show'); // Always remove these for a clean state
+            if (type) { // Only add type class if it's not empty
+                element.classList.add(type);
+            }
             element.classList.add('show'); // Make visible
             setTimeout(() => {
                 element.classList.remove('show'); // Hide after some time
@@ -527,8 +534,12 @@
         const livescoreGroupSelect = document.getElementById('livescoreGroup');
         const livescoreSelectBy = document.getElementById('livescoreSelectBy');
         const livescoreMatchIdSelect = document.getElementById('livescoreMatchId');
-        const livescoreTeamNameSelect = document.getElementById('livescoreTeamName');
-        const livescoreTeamNameSelectionContainer = document.getElementById('livescoreTeamNameSelectionContainer');
+        
+        // NEW elements for Team Name Pair selection
+        const livescoreTeamSelectionContainer = document.getElementById('livescoreTeamSelectionContainer');
+        const livescoreTeamPairSelection = document.getElementById('livescoreTeamPairSelection');
+        const livescoreSelectedTeam1Select = document.getElementById('livescoreSelectedTeam1');
+        const livescoreSelectedTeam2Select = document.getElementById('livescoreSelectedTeam2');
 
         const livescoreTeam1ScoreInput = document.getElementById('livescoreTeam1Score');
         const livescoreTeam2ScoreInput = document.getElementById('livescoreTeam2Score');
@@ -538,8 +549,8 @@
         const livescoreTeam2NameInput = document.getElementById('livescoreTeam2Name');
         const liveScoreMessage = document.getElementById('liveScoreMessage');
         const liveScoreForm = document.getElementById('liveScoreForm');
-        const updateLiveScoreButton = document.getElementById('updateLiveScoreButton'); // New ID for the button
-        const superAdminModeCheckbox = document.getElementById('superAdminModeCheckbox'); // New checkbox
+        const updateLiveScoreButton = document.getElementById('updateLiveScoreButton');
+        const superAdminModeCheckbox = document.getElementById('superAdminModeCheckbox');
 
         let currentSelectedLiveMatch = null; // Global to store the currently loaded match for checks
 
@@ -567,7 +578,7 @@
 
         // IMPORTANT: REPLACE THIS WITH YOUR ACTUAL DEPLOYED GOOGLE APPS SCRIPT WEB APP URL
         const webAppUrl = 'https://script.google.com/macros/s/AKfycbzwzWVhd0HCRjSFEEVhNgpdHQIA1HMbEj21ef3WdhR3641ZAf-0OLoD_Jmeb1oY5NqvCA/exec'; // REPLACE THIS
-
+        
         // Predefined options for fixture dropdowns
         const fixtureCategories = ['Mens Beginner Doubles', 'Mens Advanced Doubles', 'Womens Doubles', 'Mixed Doubles'];
         const fixtureGroups = ['Overall', 'Group A', 'Group B', 'Group C', 'Group D']; // All possible groups
@@ -607,7 +618,11 @@
 
                 if (result.status === 'success') {
                     displayMessage(messageElement, result.message, 'success');
-                    fetchAllData(); // Re-fetch all data to refresh dropdowns and state
+                    if (action === 'create' && sheetName === 'Fixtures') {
+                        await fetchAllData(id); // Pass the newly created ID
+                    } else {
+                        await fetchAllData(); // Regular refresh
+                    }
                     return true;
                 } else {
                     throw new Error(result.message || 'Unknown error');
@@ -621,7 +636,7 @@
         }
 
         // --- Initial data fetch on page load ---
-        async function fetchAllData() {
+        async function fetchAllData(newlyCreatedFixtureId = null) {
             showLoading();
             try {
                 // Fetch Fixtures data
@@ -639,7 +654,7 @@
                 // Extract all unique team names from fixtures
                 const teams1 = getUniqueValues(allFixtures, 'Team 1');
                 const teams2 = getUniqueValues(allFixtures, 'Team 2');
-                allTeamNames = [...new Set([...teams1, ...teams2])].sort();
+                allTeamNames = [...new Set([...teams1, ...teams2])].filter(Boolean).sort();
 
                 console.log("Fetched Fixtures:", allFixtures);
                 console.log("Fetched Livescores:", allLiveMatches);
@@ -647,7 +662,7 @@
 
 
                 populateLiveScoreDropdowns();
-                populateFixtureDropdowns();
+                populateFixtureDropdowns(null, null, null, newlyCreatedFixtureId);
 
                 hideLoading();
             } catch (error) {
@@ -659,7 +674,8 @@
         }
 
         // --- Live Score Functions ---
-        function populateLiveScoreDropdowns(selectedCategory = null, selectedStage = null, selectedGroup = null, selectedMatchId = null, selectedTeamName = null) {
+        // Added selectedTeam1 and selectedTeam2 parameters for filtering by team pair
+        function populateLiveScoreDropdowns(selectedCategory = null, selectedStage = null, selectedGroup = null, selectedMatchId = null, selectedTeam1 = null, selectedTeam2 = null) {
             const currentSelectBy = livescoreSelectBy.value;
 
             const categories = getUniqueValues(allLiveMatches, 'Category');
@@ -676,11 +692,17 @@
 
             if (selectedGroup) filteredMatches = filteredMatches.filter(m => m.Group === selectedGroup);
 
-            // --- START MODIFICATION FOR LIVE SCORES SECTION ---
-            // Handle Match ID and Team Name dropdowns based on livescoreSelectBy
+            // Sort filtered matches: In Progress first, then by Match ID descending
+            filteredMatches.sort((a, b) => {
+                if (a.Status === 'In Progress' && b.Status !== 'In Progress') return -1;
+                if (a.Status !== 'In Progress' && b.Status === 'In Progress') return 1;
+                return (b['Match ID'] || '').localeCompare(a['Match ID'] || '');
+            });
+
+
             if (currentSelectBy === 'matchId') {
                 livescoreMatchIdSelect.style.display = 'block';
-                livescoreTeamNameSelectionContainer.style.display = 'none'; // Hide Team Name selection when by Match ID
+                livescoreTeamPairSelection.style.display = 'none'; // Hide the team pair selection
 
                 const matchIds = getUniqueValues(filteredMatches, 'Match ID');
                 populateSelect(livescoreMatchIdSelect, matchIds, selectedMatchId, false, true); // Auto-select if single
@@ -692,32 +714,55 @@
                     clearLiveScoreForm();
                 }
 
-            } else if (currentSelectBy === 'teamName') {
-                livescoreMatchIdSelect.style.display = 'block'; // Match ID should still be visible to be auto-populated
-                livescoreTeamNameSelectionContainer.style.display = 'block';
+            } else if (currentSelectBy === 'teamName') { // Now handles Team Name Pair
+                livescoreMatchIdSelect.style.display = 'block'; 
+                livescoreTeamPairSelection.style.display = 'block'; // Show the team pair selection
 
-                const teamNames = [...new Set(filteredMatches.flatMap(m => [m['Team 1'], m['Team 2']]))].filter(Boolean).sort();
-                populateSelect(livescoreTeamNameSelect, teamNames, selectedTeamName, true); // Do not trigger change here yet
+                // Populate Team 1 dropdown
+                const teamNamesForSelects = allTeamNames; // Use all unique teams for selection
+                populateSelect(livescoreSelectedTeam1Select, teamNamesForSelects, selectedTeam1, true);
 
-                // If a team name is already selected, filter matches for it
-                if (livescoreTeamNameSelect.value) {
-                    const matchesForSelectedTeam = filteredMatches.filter(m => m['Team 1'] === livescoreTeamNameSelect.value || m['Team 2'] === livescoreTeamNameSelect.value);
-                    const matchIdsForTeam = getUniqueValues(matchesForSelectedTeam, 'Match ID');
-                    
-                    // Populate Match ID dropdown and auto-select if single, and fill form
-                    populateSelect(livescoreMatchIdSelect, matchIdsForTeam, null, false, true);
-                    if (livescoreMatchIdSelect.value) {
-                        fillLiveScoreForm(livescoreMatchIdSelect.value);
-                    } else {
-                        clearLiveScoreForm(); // If no match ID is found for the selected team
-                    }
+                // Populate Team 2 dropdown (filter out selected Team 1 if any)
+                let availableTeam2Options = teamNamesForSelects;
+                if (livescoreSelectedTeam1Select.value) {
+                    availableTeam2Options = teamNamesForSelects.filter(team => team !== livescoreSelectedTeam1Select.value);
+                }
+                populateSelect(livescoreSelectedTeam2Select, availableTeam2Options, selectedTeam2, true);
+
+
+                let matchesToDisplay = [];
+                const team1Selected = livescoreSelectedTeam1Select.value;
+                const team2Selected = livescoreSelectedTeam2Select.value;
+
+                if (team1Selected && team2Selected) {
+                    // Filter for matches involving specific Team 1 AND Team 2
+                    matchesToDisplay = filteredMatches.filter(m => 
+                        (m['Team 1'] === team1Selected && m['Team 2'] === team2Selected) ||
+                        (m['Team 2'] === team1Selected && m['Team 1'] === team2Selected) // Account for reverse order
+                    );
+                } else if (team1Selected) {
+                    // Filter for matches involving specific Team 1 (as either Team 1 or Team 2)
+                    matchesToDisplay = filteredMatches.filter(m => 
+                        m['Team 1'] === team1Selected || m['Team 2'] === team1Selected
+                    );
+                } else if (team2Selected) {
+                    // Filter for matches involving specific Team 2 (as either Team 1 or Team 2)
+                    matchesToDisplay = filteredMatches.filter(m => 
+                        m['Team 1'] === team2Selected || m['Team 2'] === team2Selected
+                    );
+                }
+                // If neither is selected, matchesToDisplay will be empty, which is intended behavior (no match IDs shown)
+
+                // Populate Match ID dropdown with filtered results
+                const matchIdsToPopulate = getUniqueValues(matchesToDisplay, 'Match ID');
+                populateSelect(livescoreMatchIdSelect, matchIdsToPopulate, null, false, true);
+
+                if (livescoreMatchIdSelect.value) {
+                    fillLiveScoreForm(livescoreMatchIdSelect.value);
                 } else {
-                    // If no team name is selected, clear match ID and form
-                    populateSelect(livescoreMatchIdSelect, [], null, false, false); // Clear match ID dropdown
                     clearLiveScoreForm();
                 }
             }
-            // --- END MODIFICATION FOR LIVE SCORES SECTION ---
         }
         function clearLiveScoreForm() {
             livescoreTeam1ScoreInput.value = '';
@@ -726,37 +771,26 @@
             livescoreCourtInput.value = '';
             livescoreTeam1NameInput.value = ''; // Clear team 1 name
             livescoreTeam2NameInput.value = ''; // Clear team 2 name
+            superAdminModeCheckbox.checked = false; // Reset checkbox on clear
+            applyLiveScoreFormRestrictions(); // Re-apply restrictions after clearing
         }
 
         function fillLiveScoreForm(matchId) {
             const match = allLiveMatches.find(m => m['Match ID'] === matchId);
             if (match) {
-                // Only update category, stage, group dropdowns if they don't already match to avoid unnecessary re-filtering
-                if (livescoreCategorySelect.value !== match.Category) livescoreCategorySelect.value = match.Category || '';
-                if (livescoreStageSelect.value !== match.Stage) livescoreStageSelect.value = match.Stage || '';
-                if (livescoreGroupSelect.value !== match.Group) livescoreGroupSelect.value = match.Group || '';
-
                 livescoreTeam1ScoreInput.value = match['Team 1 Score'] || '';
                 livescoreTeam2ScoreInput.value = match['Team 2 Score'] || '';
                 livescoreStatusSelect.value = match.Status || 'Scheduled';
                 livescoreCourtInput.value = match.Court || '';
                 
-                // --- START MODIFICATION ---
                 livescoreTeam1NameInput.value = match['Team 1'] || ''; // Auto-populate Team 1 Name
                 livescoreTeam2NameInput.value = match['Team 2'] || ''; // Auto-populate Team 2 Name
-                // --- END MODIFICATION ---
-
-                // If currently selecting by team name, update team name dropdown
-                if (livescoreSelectBy.value === 'teamName') {
-                    // This part is a bit tricky: which team name to select if both are present?
-                    // For now, let's just make sure the match ID dropdown has the value
-                    // The team name dropdown needs to be handled by the user's initial selection or subsequent filtering
-                    // For simplicity, we'll let the user choose the team or rely on match ID selection.
-                    // The primary goal here is to fill scores once match ID is determined.
-                }
+                
+                currentSelectedLiveMatch = match; // Update global current selected match
             } else {
                 clearLiveScoreForm();
             }
+            applyLiveScoreFormRestrictions(); // Apply restrictions based on newly loaded match
         }
         function applyLiveScoreFormRestrictions() {
                 const isCompleted = currentSelectedLiveMatch && currentSelectedLiveMatch.Status === 'Completed';
@@ -771,10 +805,17 @@
 
                 if (isCompleted && !isSuperAdmin) {
                     updateLiveScoreButton.textContent = 'Match Completed (Super Admin Only)';
-                    displayMessage(liveScoreMessage, 'This match is completed. Only Super Admins can make changes.', 'error');
+                    // Only display if there's no existing error message that's more critical
+                    if (!liveScoreMessage.classList.contains('error')) {
+                        displayMessage(liveScoreMessage, 'This match is completed. Only Super Admins can make changes.', 'error');
+                    }
                 } else {
                     updateLiveScoreButton.textContent = 'Update Live Score';
-                    liveScoreMessage.style.display = 'none'; // Hide message if re-enabled
+                    // Only clear message if it's the "completed" message. Other error messages should persist.
+                    if (liveScoreMessage.textContent.includes('This match is completed') || liveScoreMessage.textContent.includes('Super Admin Mode enabled')) {
+                        liveScoreMessage.classList.remove('show');
+                        liveScoreMessage.textContent = '';
+                    }
                 }
             }
 
@@ -787,41 +828,39 @@
                     applyLiveScoreFormRestrictions();
                 } else {
                     displayMessage(liveScoreMessage, 'Incorrect Super Admin password.', 'error');
-                    superAdminModeCheckbox.checked = false;
+                    superAdminModeCheckbox.checked = false; // Uncheck if password is wrong
                     applyLiveScoreFormRestrictions();
                 }
             } else {
-                displayMessage(liveScoreMessage, 'Super Admin Mode disabled.', '');
-                applyLiveScoreFormRestrictions();
+                // Only clear message if it's the "Super Admin Mode enabled" message
+                if (liveScoreMessage.textContent.includes('Super Admin Mode enabled')) {
+                    liveScoreMessage.classList.remove('show'); // Hide immediately
+                    liveScoreMessage.textContent = ''; // Clear text
+                }
+                applyLiveScoreFormRestrictions(); // Re-apply restrictions after disabling
             }
         });
         // Event listeners for Live Score Section
-        livescoreCategorySelect.addEventListener('change', () => populateLiveScoreDropdowns(livescoreCategorySelect.value, null, null, null, null));
-        livescoreStageSelect.addEventListener('change', () => populateLiveScoreDropdowns(livescoreCategorySelect.value, livescoreStageSelect.value, null, null, null));
-        livescoreGroupSelect.addEventListener('change', () => populateLiveScoreDropdowns(livescoreCategorySelect.value, livescoreStageSelect.value, livescoreGroupSelect.value, null, null));
+        livescoreCategorySelect.addEventListener('change', () => populateLiveScoreDropdowns(livescoreCategorySelect.value, null, null, null, livescoreSelectedTeam1Select.value, livescoreSelectedTeam2Select.value));
+        livescoreStageSelect.addEventListener('change', () => populateLiveScoreDropdowns(livescoreCategorySelect.value, livescoreStageSelect.value, null, null, livescoreSelectedTeam1Select.value, livescoreSelectedTeam2Select.value));
+        livescoreGroupSelect.addEventListener('change', () => populateLiveScoreDropdowns(livescoreCategorySelect.value, livescoreStageSelect.value, livescoreGroupSelect.value, null, livescoreSelectedTeam1Select.value, livescoreSelectedTeam2Select.value));
         
-            // Event listener for "Select By" (Match ID / Team Name)
-            livescoreSelectBy.addEventListener('change', () => {
-                const selectByValue = livescoreSelectBy.value;
-
-                if (selectByValue === 'matchId') {
-                    livescoreMatchIdSelect.style.display = 'block';
-                    livescoreTeam1NameInput.style.display = 'block';
-                    livescoreTeam2NameInput.style.display = 'block';
-                    livescoreTeamNameSelectionContainer.style.display = 'none';
-                    populateMatchIdDropdown(); // Re-populate based on category/stage/group
-                } else if (selectByValue === 'teamName') {
-                    livescoreMatchIdSelect.style.display = 'none';
-                    livescoreTeam1NameInput.style.display = 'none';
-                    livescoreTeam2NameInput.style.display = 'none';
-                    livescoreTeamNameSelectionContainer.style.display = 'block';
-                    // Populate livescoreTeamNameSelect for filtering
-                    const uniqueTeamNames = getUniqueValues(allLiveMatches, 'Team 1').concat(getUniqueValues(allLiveMatches, 'Team 2')).filter(Boolean);
-                    populateSelect(livescoreTeamNameSelect, [...new Set(uniqueTeamNames)].sort());
-                }
-                // Clear the form and re-apply restrictions whenever selectBy changes
-                loadLiveScoreFormData(null); // <--- Make sure this line is here
-            });
+        // Event listener for "Select By" (Match ID / Team Name)
+        livescoreSelectBy.addEventListener('change', () => {
+            // Call populateLiveScoreDropdowns to re-filter and re-populate based on new selectBy method
+            // Passing current category/stage/group to maintain filters
+            populateLiveScoreDropdowns(
+                livescoreCategorySelect.value,
+                livescoreStageSelect.value,
+                livescoreGroupSelect.value,
+                null, // Clear matchId
+                null, // Clear team1 for new selection mode
+                null  // Clear team2 for new selection mode
+            );
+            
+            // Clear the form and re-apply restrictions whenever selectBy changes
+            loadLiveScoreFormData(null); // This clears the form and resets currentSelectedLiveMatch
+        });
 
             // Event listener for Live Score Match ID selection
         livescoreMatchIdSelect.addEventListener('change', () => {
@@ -832,35 +871,35 @@
             loadLiveScoreFormData(selectedMatch); 
         });
 
-        livescoreTeamNameSelect.addEventListener('change', () => {
-            // When a team name is selected, filter available match IDs for that team and auto-select if only one
-            const selectedTeam = livescoreTeamNameSelect.value;
-            let filteredMatches = allLiveMatches;
-            if (livescoreCategorySelect.value) filteredMatches = filteredMatches.filter(m => m.Category === livescoreCategorySelect.value);
-            if (livescoreStageSelect.value) filteredMatches = filteredMatches.filter(m => m.Stage === livescoreStageSelect.value);
-            if (livescoreGroupSelect.value) filteredMatches = filteredMatches.filter(m => m.Group === livescoreGroupSelect.value);
+        // NEW Event Listeners for livescoreSelectedTeam1 and livescoreSelectedTeam2
+        livescoreSelectedTeam1Select.addEventListener('change', () => {
+            populateLiveScoreDropdowns(
+                livescoreCategorySelect.value,
+                livescoreStageSelect.value,
+                livescoreGroupSelect.value,
+                null, // Clear selectedMatchId
+                livescoreSelectedTeam1Select.value, // Pass current Team 1
+                livescoreSelectedTeam2Select.value // Pass current Team 2
+            );
+        });
 
-            if (selectedTeam) {
-                const matchesForSelectedTeam = filteredMatches.filter(m => m['Team 1'] === selectedTeam || m['Team 2'] === selectedTeam);
-                const matchIdsForTeam = getUniqueValues(matchesForSelectedTeam, 'Match ID');
-                
-                // --- START MODIFICATION ---
-                // Populate Match ID dropdown and auto-select if single, ensuring change event fires
-                populateSelect(livescoreMatchIdSelect, matchIdsForTeam, null, false, true); 
-                // fillLiveScoreForm will now be called by the livescoreMatchIdSelect's change event listener if a value is selected
-                // --- END MODIFICATION ---
-            } else {
-                // If team name is cleared, re-populate match IDs based on category/stage/group filters
-                const matchIds = getUniqueValues(filteredMatches, 'Match ID');
-                populateSelect(livescoreMatchIdSelect, matchIds, null, false, false);
-                clearLiveScoreForm();
-            }
+        livescoreSelectedTeam2Select.addEventListener('change', () => {
+            populateLiveScoreDropdowns(
+                livescoreCategorySelect.value,
+                livescoreStageSelect.value,
+                livescoreGroupSelect.value,
+                null, // Clear selectedMatchId
+                livescoreSelectedTeam1Select.value, // Pass current Team 1
+                livescoreSelectedTeam2Select.value // Pass current Team 2
+            );
         });
 
 
         liveScoreForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            displayMessage(liveScoreMessage, '', '');
+            liveScoreMessage.classList.remove('success', 'error', 'show'); // Clear previous messages
+            liveScoreMessage.textContent = ''; // Clear text
+
             const matchId = livescoreMatchIdSelect.value;
             if (!matchId) {
                 displayMessage(liveScoreMessage, 'Please select a Match ID.', 'error');
@@ -897,23 +936,13 @@
             if (selectedCategory)   filteredFixtures = filteredFixtures.filter(f => f.Category === selectedCategory);
             if (selectedStage) filteredFixtures = filteredFixtures.filter(f => f.Stage === selectedStage);
             
-            // --- START MODIFICATION ---
-            // Populate Group dropdown based on ALL possible groups, or filtered if specific category/stage is selected
-            // Use allFixtures for groups if you want all groups to show always, or filteredFixtures if you want cascading
-            // Based on your request, it seems you want the Group dropdown to have values.
-            // Let's populate from allFixtures initially, but you can adjust if you need stricter cascading.
-            
-            // If you want groups to strictly cascade, use: const groups = getUniqueValues(filteredFixtures, 'Group');
-            // But this might lead to empty group dropdowns if no existing fixture matches the category/stage.
-            // The current request implies you want values to appear in Group dropdown.
-            // --- END MODIFICATION ---
+            // Populate Group dropdown with all possible groups as per original intent (not strictly cascading)
             populateSelect(fixtureGroupSelect, fixtureGroups, selectedGroup, true);
-
 
             if (selectedGroup) filteredFixtures = filteredFixtures.filter(f => f.Group === selectedGroup);
 
             const matchIds = getUniqueValues(filteredFixtures, 'Match ID');
-            populateSelect(fixtureMatchIdSelect, matchIds, selectedMatchId, true); // Don't trigger change event here
+            populateSelect(fixtureMatchIdSelect, matchIds, selectedMatchId, true, true); // Don't trigger change event here
 
             // Populate Team 1 and Team 2 dropdowns with all unique team names
             populateSelect(fixtureTeam1Select, allTeamNames);
@@ -922,10 +951,11 @@
 
             // After populating dropdowns, ensure action change event is triggered
             handleFixtureActionChange();
-            if (selectedMatchId) {
-                fillFixtureForm(selectedMatchId);
-            } else {
-                clearFixtureForm();
+            if (!selectedMatchId && fixtureMatchIdSelect.value === '') { // Only clear if nothing is selected and no ID was passed
+                 // Modified: Only clear if not in auto-generate create mode
+                if (!(fixtureActionSelect.value === 'create' && autoGenerateMatchIdRadio.checked)) {
+                    clearFixtureForm();
+                }
             }
         }
 
@@ -933,12 +963,15 @@
             fixtureIdInput.value = '';
             fixtureTeam1Select.value = '';
             fixtureTeam2Select.value = '';
-            // Removed: fixtureTeam1ScoreInput.value = '';
-            // Removed: fixtureTeam2ScoreInput.value = '';
             fixtureCourtSelect.value = '';
             fixtureTimeInput.value = '';
             fixtureDateInput.value = '';
             fixtureStatusSelect.value = 'Scheduled'; // Default status
+            // Reset Match ID generation to auto-generate
+            autoGenerateMatchIdRadio.checked = true;
+            manualMatchIdRadio.checked = false;
+            fixtureIdInput.readOnly = true; // Ensure it's read-only for auto-generate
+            // handleFixtureActionChange(); // This call caused a stack overflow, removed
         }
 
         function fillFixtureForm(matchId) {
@@ -957,8 +990,6 @@
                 const availableTeam2Options = team1 ? allTeamNames.filter(team => team !== team1) : allTeamNames;
                 populateSelect(fixtureTeam2Select, availableTeam2Options, team2, true);
 
-                // Removed: fixtureTeam1ScoreInput.value = fixture['Team 1 Score'] || ''; // Optional score for fixtures
-                // Removed: fixtureTeam2ScoreInput.value = fixture['Team 2 Score'] || ''; // Optional score for fixtures
                 fixtureCourtSelect.value = fixture.Court || '';
                 fixtureTimeInput.value = fixture.Time || '';
                 fixtureDateInput.value = fixture.Date || '';
@@ -973,11 +1004,11 @@
         function generateNewMatchId(category) {
             let prefix = '';
             switch (category) {
-                case 'Mens Beginner Doubles': prefix = 'MB'; break;
-                case 'Mens Advanced Doubles': prefix = 'MA'; break;
-                case 'Womens Doubles': prefix = 'W'; break;
-                case 'Mixed Doubles': prefix = 'MD'; break;
-                default: return `FIX${Date.now().toString().slice(-6)}`; // Fallback
+                case 'Mens Beginner Doubles': prefix = 'MB-'; break; // Changed to hyphen
+                case 'Mens Advanced Doubles': prefix = 'MA-'; break; // Changed to hyphen
+                case 'Womens Doubles': prefix = 'W-'; break;     // Changed to hyphen
+                case 'Mixed Doubles': prefix = 'MD-'; break;     // Changed to hyphen
+                default: return `FIX-${Date.now().toString().slice(-6)}`; // Fallback with hyphen
             }
 
             // Find the highest existing number for this category
@@ -988,7 +1019,7 @@
                 .filter(num => !isNaN(num));
 
             const nextNumber = existingIds.length > 0 ? Math.max(...existingIds) + 1 : 1;
-            return `${prefix} ${nextNumber}`;
+            return `${prefix}${nextNumber}`;
         }
 
 
@@ -999,39 +1030,37 @@
 
             fixtureMatchIdSelect.style.display = isCreate ? 'none' : 'block';
             
-            // --- START MODIFICATION ---
             fixtureIdInput.style.display = isCreate ? 'block' : 'none'; // Show/hide fixtureIdInput
             matchIdGenerationOptions.style.display = isCreate ? 'block' : 'none'; // Show/hide radio buttons
 
             if (isCreate) {
-                fixtureMatchIdSelect.value = ''; // Ensure no match is selected
+                fixtureMatchIdSelect.value = ''; // Ensure no match is selected in the regular dropdown
 
                 if (autoGenerateMatchIdRadio.checked) {
                     fixtureIdInput.readOnly = true; // Make it read-only
-                    // Only generate a new ID if it's currently empty or previously auto-generated
-                    if (!fixtureIdInput.value || fixtureIdInput.value.startsWith('MB-') || fixtureIdInput.value.startsWith('MA-') || fixtureIdInput.value.startsWith('WD-') || fixtureIdInput.value.startsWith('MX-')) {
-                        fixtureIdInput.value = generateNewMatchId(fixtureCategorySelect.value);
-                    }
+                    fixtureIdInput.value = generateNewMatchId(fixtureCategorySelect.value);
                 } else { // manualMatchIdRadio.checked
                     fixtureIdInput.readOnly = false; // Make it editable
-                    // Do not clear the value if user switched from auto-generate to manual,
-                    // but clear it if it was an auto-generated one when switching from other modes
-                    if (fixtureIdInput.value.startsWith('MB-') || fixtureIdInput.value.startsWith('MA-') || fixtureIdInput.value.startsWith('WD-') || fixtureIdInput.value.startsWith('MX-')) {
-                        fixtureIdInput.value = ''; // Clear if it was an auto-generated ID
+                    // If previously auto-generated, clear it for manual entry
+                    if (fixtureIdInput.value.startsWith('MB-') || fixtureIdInput.value.startsWith('MA-') || fixtureIdInput.value.startsWith('W-') || fixtureIdInput.value.startsWith('MD-') || fixtureIdInput.value.startsWith('FIX-')) {
+                         fixtureIdInput.value = '';
                     }
                 }
             } else { // Not create mode (update/delete)
                 fixtureIdInput.value = ''; // Clear ID input when not in create mode
                 fixtureIdInput.readOnly = true; // Should always be read-only in update/delete
+                
                 // If switching from create to update/delete, try to select the first match ID
-                if (fixtureMatchIdSelect.options.length > 1) {
+                // Only if the match ID select has options other than the default '-- Select --'
+                if (fixtureMatchIdSelect.options.length > 1 && fixtureMatchIdSelect.value === '') {
                      fixtureMatchIdSelect.value = fixtureMatchIdSelect.options[1].value;
                      fillFixtureForm(fixtureMatchIdSelect.value);
-                } else {
+                } else if (fixtureMatchIdSelect.options.length <= 1) { // No actual matches
                     clearFixtureForm();
+                } else { // Keep the current selection if valid
+                    fillFixtureForm(fixtureMatchIdSelect.value);
                 }
             }
-            // --- END MODIFICATION ---
 
             // Disable or enable fields based on action type
             const fieldsToToggle = [
@@ -1047,10 +1076,7 @@
             fixtureSubmitButton.textContent = actionType === 'create' ? 'Create Fixture' :
                                              actionType === 'delete' ? 'Delete Fixture' : 'Update Fixture';
 
-            // Clear form if switching action, unless already selecting an existing fixture
-            if (!isCreate && !fixtureMatchIdSelect.value) {
-                clearFixtureForm();
-            }
+            // No need to clear form here, it's handled by specific logic paths
         }
 
 
@@ -1058,15 +1084,26 @@
         fixtureActionSelect.addEventListener('change', handleFixtureActionChange);
         fixtureCategorySelect.addEventListener('change', () => {
             populateFixtureDropdowns(fixtureCategorySelect.value, null, null, null);
-            // --- START MODIFICATION ---
+            // Re-evaluate ID generation if in create mode and auto-generate is checked
             if (fixtureActionSelect.value === 'create' && autoGenerateMatchIdRadio.checked) {
                 fixtureIdInput.value = generateNewMatchId(fixtureCategorySelect.value);
             }
-            // --- END MODIFICATION ---
         });
-        fixtureStageSelect.addEventListener('change', () => populateFixtureDropdowns(fixtureCategorySelect.value, fixtureStageSelect.value, null, null));
-        fixtureGroupSelect.addEventListener('change', () => populateFixtureDropdowns(fixtureCategorySelect.value, fixtureStageSelect.value, fixtureGroupSelect.value, null));
-        
+        // MODIFIED: Added logic to re-generate Match ID when Stage or Group changes
+        fixtureStageSelect.addEventListener('change', () => {
+            populateFixtureDropdowns(fixtureCategorySelect.value, fixtureStageSelect.value, null, null);
+            if (fixtureActionSelect.value === 'create' && autoGenerateMatchIdRadio.checked) {
+                fixtureIdInput.value = generateNewMatchId(fixtureCategorySelect.value); // Re-generate based on category
+            }
+        });
+
+        // MODIFIED: Added logic to re-generate Match ID when Stage or Group changes
+        fixtureGroupSelect.addEventListener('change', () => {
+            populateFixtureDropdowns(fixtureCategorySelect.value, fixtureStageSelect.value, fixtureGroupSelect.value, null);
+            if (fixtureActionSelect.value === 'create' && autoGenerateMatchIdRadio.checked) {
+                fixtureIdInput.value = generateNewMatchId(fixtureCategorySelect.value); // Re-generate based on category
+            }
+        });        
         fixtureMatchIdSelect.addEventListener('change', () => fillFixtureForm(fixtureMatchIdSelect.value));
 
         // Cascading Team Name Dropdowns
@@ -1112,8 +1149,6 @@
                     'Group': fixtureGroupSelect.value,
                     'Team 1': fixtureTeam1Select.value, // Changed to Select
                     'Team 2': fixtureTeam2Select.value, // Changed to Select
-                    // Removed: 'Team 1 Score': fixtureTeam1ScoreInput.value,
-                    // Removed: 'Team 2 Score': fixtureTeam2ScoreInput.value,
                     'Court': fixtureCourtSelect.value,
                     'Time': fixtureTimeInput.value,
                     'Date': fixtureDateInput.value,
