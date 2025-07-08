@@ -31,7 +31,7 @@
       <div class="stage-block">
         <span class="icon">➡️</span>
         <h3>Qualification from League</h3>
-        <p>The <strong>top team from each Group (A, B, C, D)</strong> directly qualify for the Quarter-Finals (4 teams).</p>
+        <p>The <strong>top team from each Group (A, B, C, D)</strong> directly qualify for the Quarter-Finals (4 teams) and form Group F based on points and Net score i.e F1-F4.</p>
         <p>The <strong>rest of 9 teams are ranked based on points and net score </strong> and top 2 teams qualify to quarters to form group E i.e E1 and E2.</p>
         <p>The <strong>Bottom 3 from the ranking above </strong> are directly disqualified (3 teams).</p>
       </div>
@@ -46,15 +46,16 @@
       <div class="knockout-stage-container">
         <div class="knockout-stage-label">
           <h3>Knockout Rounds</h3>
+          <h4>3 sets of 21 match each</h4>
         </div>
         <div class="knockout-brackets">
           <div class="bracket-round">
             <h4>Quarter-Finals</h4>
             <div class="quarter-final-matches">
-              <div class="match-block">Q1: A1 vs E1 <br><small>(8th July)</small></div>
-              <div class="match-block">Q2: B1 vs E2 <br><small>(8th July)</small></div>
-              <div class="match-block">Q3: C1 vs E3 <br><small>(11th July)</small></div>
-              <div class="match-block">Q4: D1 vs E4 <br><small>(11th July)</small></div>
+              <div class="match-block">Q1: F1 vs E3 <br><small>(8th July)</small></div>
+              <div class="match-block">Q2: F2 vs E4 <br><small>(8th July)</small></div>
+              <div class="match-block">Q3: F3 vs E1 <br><small>(8th/11th July)</small></div>
+              <div class="match-block">Q4: F4 vs E2 <br><small>(8th/11th July)</small></div>
             </div>
           </div>
           <span class="bracket-arrow">➡️</span>
@@ -183,7 +184,7 @@ function renderLiveScores(liveScores) {
   });
 
   const sortedStageNames = Object.keys(groupedByStage).sort((a, b) => {
-    const stageOrder = ['League Stage', 'Qualification', 'Quarter-Finals', 'Semi-Finals', 'Finals', 'No Stage'];
+    const stageOrder = ['Finals', 'Semi-Finals', 'Quarter-Finals','League'];
     const indexA = stageOrder.indexOf(a);
     const indexB = stageOrder.indexOf(b);
     if (indexA === -1 || indexB === -1) {
@@ -198,7 +199,7 @@ function renderLiveScores(liveScores) {
     htmlContent = '<p>No live or completed matches available.</p>';
   } else {
     sortedStageNames.forEach(stageName => {
-      htmlContent += `<div class="stage-container"><h2>${stageName}</h2>`;
+      htmlContent += `<div class="stage-container"><h3>${stageName}</h3>`;
 
       const groupsInStage = Object.values(groupedByStage[stageName]).sort((a, b) => {
         return a.group.localeCompare(b.group);
@@ -207,7 +208,7 @@ function renderLiveScores(liveScores) {
       groupsInStage.forEach(group => {
         htmlContent += `
           <div class="live-scores-table-container">
-            <h3>${group.group && group.group !== 'No Group' ? `${group.group}` : 'Matches'}</h3> <table class="live-scores-table points-table">
+            <h4>${group.group && group.group !== 'No Group' ? `${group.group}` : 'Matches'}</h4> <table class="live-scores-table points-table">
               <tr><th>Match ID</th><th>Team 1</th><th>Score</th><th>Team 2</th><th>Score</th><th>Status</th></tr>
               ${(group.scores || []).map(score => `
                 <tr>
@@ -253,7 +254,7 @@ function renderFixtures(fixtures) {
   });
 
   const sortedStageNames = Object.keys(groupedByStage).sort((a, b) => {
-    const stageOrder = ['League Stage', 'Qualification', 'Quarter-Finals', 'Semi-Finals', 'Finals', 'No Stage'];
+    const stageOrder = ['Finals', 'Semi-Finals', 'Quarter-Finals','League'];
     const indexA = stageOrder.indexOf(a);
     const indexB = stageOrder.indexOf(b);
     if (indexA === -1 || indexB === -1) {
@@ -268,7 +269,7 @@ function renderFixtures(fixtures) {
     htmlContent = '<p>No upcoming fixtures available.</p>';
   } else {
     sortedStageNames.forEach(stageName => {
-      htmlContent += `<div class="stage-container"><h2>${stageName}</h2>`;
+      htmlContent += `<div class="stage-container"><h3>${stageName}</h3>`;
 
       const groupsInStage = Object.values(groupedByStage[stageName]).sort((a, b) => {
         return a.group.localeCompare(b.group);
@@ -277,7 +278,7 @@ function renderFixtures(fixtures) {
       groupsInStage.forEach(group => {
         htmlContent += `
           <div class="fixtures-table-container">
-            <h3>${group.group && group.group !== 'No Group' ? `${group.group}` : 'Matches'}</h3> <table class="fixtures-table points-table">
+            <h4>${group.group && group.group !== 'No Group' ? `${group.group}` : 'Matches'}</h4> <table class="fixtures-table points-table">
               <tr><th>Match ID</th><th>Team 1</th><th>Team 2</th><th>Date</th><th>Time</th><th>Court</th></tr>
               ${(group.fixtures || []).map(fixture => `
                 <tr>
@@ -323,7 +324,7 @@ function renderPointsTable(pointsData) {
   });
 
   const sortedStageNames = Object.keys(groupedByStage).sort((a, b) => {
-    const stageOrder = ['League Stage', 'Qualification', 'Quarter-Finals', 'Semi-Finals', 'Finals', 'No Stage'];
+    const stageOrder = ['Finals', 'Semi-Finals', 'Quarter-Finals','League'];
     const indexA = stageOrder.indexOf(a);
     const indexB = stageOrder.indexOf(b);
     if (indexA === -1 || indexB === -1) {
@@ -338,7 +339,7 @@ function renderPointsTable(pointsData) {
     htmlContent = '<p>No points data available.</p>';
   } else {
     sortedStageNames.forEach(stageName => {
-      htmlContent += `<div class="stage-container"><h2>${stageName}</h2>`;
+      htmlContent += `<div class="stage-container"><h3>${stageName}</h3>`;
 
       const groupsInStage = Object.values(groupedByStage[stageName]).sort((a, b) => {
         return a.group.localeCompare(b.group);
@@ -354,7 +355,7 @@ function renderPointsTable(pointsData) {
 
         htmlContent += `
           <div class="points-table-container">
-            <h3>${group.group && group.group !== 'No Group' ? `${group.group}` : 'Overall Standings'}</h3> <table class="points-table">
+            <h4>${group.group && group.group !== 'No Group' ? `${group.group}` : 'Overall Standings'}</h4> <table class="points-table">
               <thead>
                 <tr><th>Team</th><th>Points</th><th>Wins</th><th>Losses</th><th>Net Score</th></tr>
               </thead>

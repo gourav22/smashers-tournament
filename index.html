@@ -14,33 +14,46 @@
 
   <section class="countdown-section">
     <div class="countdown-timer-group">
-      <h2>🏆 Tournament Starts In</h2>
+      <h2>🏆 Tournament is ON. Finals on 11th July</h2>
       <h4>Not Participating? You can still be with us as spectator</h4>
-      <div class="timer">
-        <div class="timer-unit">
-          <span class="timer-number" id="days">--</span>
-          <span class="timer-label">Days</span>
-        </div>
-        <div class="timer-unit">
-          <span class="timer-number" id="hours">--</span>
-          <span class="timer-label">Hours</span>
-        </div>
-        <div class="timer-unit">
-          <span class="timer-number" id="minutes">--</span>
-          <span class="timer-label">Minutes</span>
-        </div>
-        <div class="timer-unit">
-          <span class="timer-number" id="seconds">--</span>
-          <span class="timer-label">Seconds</span>
-        </div>
-      </div>
     </div>
+  </section>
+  <section class="champions-corner">
+    <h2>🏆 Champions Corner 🏆</h2>
+    <h3>Meet the tournament champions</h3>
+    
+    <div class="champions-row">
+      <div class="champion-card">
+        <img src="womens_doubles.jpg" alt="Smashers Tournament- Womens Doubles Champions">
+        <h3>Pooja N & Pranali</h3>
+        <p>Smashers Tournament- Womens Doubles</p>
+      </div>
+
+      <div class="champion-card">
+        <img src="mens_advanced_doubles.jpg" alt="Smashers Tournament- Mens Advanced Doubles Champions">
+        <h3>To be announced......</h3>
+        <p>Smashers Tournament- Mens Advanced Doubles</p>
+      </div>
+
+      <div class="champion-card">
+        <img src="mens_advanced_doubles.jpg" alt="Smashers Tournament- Mens Beginner Doubles Champions">
+        <h3>To be announced.....</h3>
+        <p>Smashers Tournament- Mens Beginner Doubles</p>
+      </div>
+
+      <div class="champion-card">
+        <img src="Mixed_doubles.jpeg" alt="Smashers Tournament- Mixed Doubles Champions">
+        <h3>To be announced.....</h3>
+        <p>Smashers Tournament- Mixed Doubles</p>
+      </div>
+
+      </div>
   </section>
 
   <div class="flyer-and-categories">
-    <div class="flyer">
+    <!-- <div class="flyer">
       <img id="tournament-flyer" src="flyer2.png" alt="Tournament Flyer" onerror="this.src='https://via.placeholder.com/400x300?text=Tournament+Flyer';">
-    </div>
+    </div> -->
 
     <section class="category-selection-section">
       <h2>🏅 Tournament Category Selection</h2>
@@ -64,6 +77,41 @@
       <input type="text" id="upcoming-fixtures-team-filter" class="team-filter-input" placeholder="Filter by team name..." onkeyup="filterTable('upcoming-fixtures', 'fixtures-table', this.value, 'fixture')">
       <div id="upcoming-fixtures">Loading tournament fixtures...</div>
     </section>
+  </section>
+
+  </section> <section class="prizes-section">
+    <h2>🏆 Prizes & Rewards 🏆</h2>
+    <p>Celebrating excellence and participation in the SMASHERS Tournament 2025!</p>
+
+    <div class="prizes-grid">
+        <div class="prize-category winner-prizes">
+            <h3>🥇 Winner's Circle</h3>
+            <ul>
+                <li>Shiny Winner's Cups for champions</li>
+                <li>Exclusive 3 Free games with SMASHERS for each winner (worth €12) (Voucher code to be shared)</li>
+                <li>A special prize</li>
+                <li>Bragging rights and eternal glory!</li>
+            </ul>
+        </div>
+
+        <div class="prize-category runner-prizes">
+            <h3>🥈 Runner-Up Rewards</h3>
+            <ul>
+                <li>Exclusive 2 Free games with SMASHERS for each runners-up (worth €8) (Voucher code to be shared)</li></li>
+                <li>A special prize</li>
+                <li>Recognition and awesome experience</li>
+            </ul>
+        </div>
+
+        <div class="prize-category registration-prizes">
+            <h3>🎁 Registration Perks</h3>
+            <ul>
+                <li>One Free Game during summer break with SMASHERS on Registration (Voucher to be shared separately)</li>
+                <li>Easy access to future tournament registration</li>
+                <li>Loads of fun and entertainment</li>
+            </ul>
+        </div>
+    </div>
   </section>
 
   <section class="tournament-info-registration-contact">
@@ -117,15 +165,8 @@
     </ul>
     <a href="#" class="button">Register Now!</a>
     <a href="#faq" class="button">Have questions? Check out our FAQ</a>
-
-    <h3>🏆 Prizes</h3>
-    <ul>
-      <li>Shiny Winner's Cups for champions</li>
-      <li>Free games with SMASHERS for winners</li>
-      <li>One Free Game during summer break with smashers on Registration - voucher to be shared separately </li>
-      <li>Bragging rights and eternal glory and many more!</li>
-    </ul>
   </section>
+
 
   <section id="faq" class="full-width-section">
     <h2>❓ Frequently Asked Questions</h2>
@@ -163,36 +204,36 @@
 const webAppUrl = 'https://script.google.com/macros/s/AKfycbzwzWVhd0HCRjSFEEVhNgpdHQIA1HMbEj21ef3WdhR3641ZAf-0OLoD_Jmeb1oY5NqvCA/exec';
 
 // Countdown Timer (unchanged)
-function startCountdown() {
-  const targetDate = new Date('2025-07-07T20:30:00+02:00');
-  const daysEl = document.getElementById('days');
-  const hoursEl = document.getElementById('hours');
-  const minutesEl = document.getElementById('minutes');
-  const secondsEl = document.getElementById('seconds');
+// function startCountdown() {
+//   const targetDate = new Date('2025-07-07T20:30:00+02:00');
+//   const daysEl = document.getElementById('days');
+//   const hoursEl = document.getElementById('hours');
+//   const minutesEl = document.getElementById('minutes');
+//   const secondsEl = document.getElementById('seconds');
 
-  function updateTimer() {
-    const now = new Date();
-    const timeLeft = targetDate - now;
-    if (timeLeft <= 0) {
-      daysEl.textContent = '0';
-      hoursEl.textContent = '0';
-      minutesEl.textContent = '0';
-      secondsEl.textContent = '0';
-      document.querySelector('.countdown-timer-group h2').textContent = '🏆 Tournament has started!';
-      return;
-    }
-    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-    daysEl.textContent = days.toString().padStart(2, '0');
-    hoursEl.textContent = hours.toString().padStart(2, '0');
-    minutesEl.textContent = minutes.toString().padStart(2, '0');
-    secondsEl.textContent = seconds.toString().padStart(2, '0');
-  }
-  updateTimer();
-  setInterval(updateTimer, 1000);
-}
+//   function updateTimer() {
+//     const now = new Date();
+//     const timeLeft = targetDate - now;
+//     if (timeLeft <= 0) {
+//       daysEl.textContent = '0';
+//       hoursEl.textContent = '0';
+//       minutesEl.textContent = '0';
+//       secondsEl.textContent = '0';
+//       document.querySelector('.countdown-timer-group h2').textContent = '🏆 Tournament has started!';
+//       return;
+//     }
+//     const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+//     const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+//     const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+//     const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+//     daysEl.textContent = days.toString().padStart(2, '0');
+//     hoursEl.textContent = hours.toString().padStart(2, '0');
+//     minutesEl.textContent = minutes.toString().padStart(2, '0');
+//     secondsEl.textContent = seconds.toString().padStart(2, '0');
+//   }
+//   updateTimer();
+//   setInterval(updateTimer, 1000);
+// }
 
 // Helper for sorting stages (reused from category pages)
 const stageOrder = {
@@ -250,7 +291,7 @@ function renderLiveScores(matches) {
         if (a.Status === 'In Progress' && b.Status !== 'In Progress') return -1;
         if (a.Status !== 'In Progress' && b.Status === 'In Progress') return 1;
         // If both are 'Completed' or both 'In Progress', sort by Match ID descending
-        return (b['Match ID'] || '').localeCompare(a['Match ID'] || '');
+        return (b['CompletionTimestamp'] || '').localeCompare(a['CompletionTimestamp'] || '');
     });
 
     // Limit to top 12
@@ -268,22 +309,28 @@ function renderLiveScores(matches) {
         const stage = match.Stage || 'Unknown Stage';
 
         if (!acc[category]) acc[category] = {};
-        if (!acc[category][group]) acc[category][group] = {};
-        if (!acc[category][group][stage]) acc[category][group][stage] = [];
-        acc[category][group][stage].push(match);
+        if (!acc[category][stage]) acc[category][stage] = {};
+        if (!acc[category][stage][group]) acc[category][stage][group] = [];
+        acc[category][stage][group].push(match);
         return acc;
     }, {});
 
     let htmlContent = '';
     Object.keys(groupedData).sort().forEach(category => {
         htmlContent += `<div class="live-scores-category-container"><h2>${category}</h2>`;
-        Object.keys(groupedData[category]).sort().forEach(group => {
-            const displayGroup = group === 'No Group' || !group ? 'No Group' : `${group}`;
+        console.log("Grouped_data",groupedData)
+        Object.keys(groupedData[category]).sort(sortStages).forEach(stage => {
+              const displaystage = `Stage: ${stage}`
+              console.log("displaystage",displaystage)
+
+              htmlContent += `<div class="live-scores-stage-container"><h3>${displaystage}</h3>`;
+              Object.keys(groupedData[category][stage]).sort().forEach(group => {
+                const displayGroup = group === 'No Group' || !group ? 'No Group' : `${group}`;
+                console.log("displayGroup",displayGroup)
+
             
-            htmlContent += `<div class="live-scores-group-container"><h3>${displayGroup}</h3>`;
-            Object.keys(groupedData[category][group]).sort(sortStages).forEach(stage => {
-                const displaystage = `Stage: ${stage}`
-                htmlContent += `<div class="live-scores-stage-container"><h4>${displaystage}</h4>`;
+                htmlContent += `<div class="live-scores-group-container"><h4>${displayGroup}</h4>`;
+
                 htmlContent += `
                     <div class="live-scores-table-container">
                         <table class="live-scores-table points-table">
@@ -298,7 +345,7 @@ function renderLiveScores(matches) {
                                 </tr>
                             </thead>
                             <tbody>
-                                ${groupedData[category][group][stage].map(match => `
+                                ${groupedData[category][stage][group].map(match => `
                                     <tr>
                                         <td>${match['Match ID'] || '-'}</td>
                                         <td>${match['Team 1'] || '-'}</td>
@@ -358,21 +405,22 @@ function renderFixtures(fixtures) { // Parameter renamed to 'fixtures' for clari
         const stage = fixture.Stage || 'Unknown Stage';
 
         if (!acc[category]) acc[category] = {};
-        if (!acc[category][group]) acc[category][group] = {};
-        if (!acc[category][group][stage]) acc[category][group][stage] = [];
-        acc[category][group][stage].push(fixture);
+        if (!acc[category][stage]) acc[category][stage] = {};
+        if (!acc[category][stage][group]) acc[category][stage][group] = [];
+        acc[category][stage][group].push(fixture);
         return acc;
     }, {});
 
     let htmlContent = '';
     Object.keys(groupedData).sort().forEach(category => {
         htmlContent += `<div class="fixtures-category-container"><h2>${category}</h2>`;
-        Object.keys(groupedData[category]).sort().forEach(group => {
-            const displayGroup = group === 'No Group' || !group ? 'No Group' : `Group ${group}`;
-            htmlContent += `<div class="fixtures-group-container"><h3>${displayGroup}</h3>`;
-            Object.keys(groupedData[category][group]).sort(sortStages).forEach(stage => {
-                const displaystage = `Stage: ${stage}`
-                htmlContent += `<div class="fixtures-stage-container"><h4>${displaystage}</h4>`;
+        Object.keys(groupedData[category]).sort(sortStages).forEach(stage => {
+              const displaystage = `Stage: ${stage}`
+              htmlContent += `<div class="fixtures-stage-container"><h3>${displaystage}</h3>`;
+            Object.keys(groupedData[category][stage]).sort().forEach(group => {
+                const displayGroup = group === 'No Group' || !group ? 'No Group' : `${group}`;
+                htmlContent += `<div class="fixtures-group-container"><h4>${displayGroup}</h4>`;
+
                 htmlContent += `
                     <div class="fixtures-table-container">
                         <table class="fixtures-table points-table">
@@ -387,7 +435,7 @@ function renderFixtures(fixtures) { // Parameter renamed to 'fixtures' for clari
                                 </tr>
                             </thead>
                             <tbody>
-                                ${groupedData[category][group][stage].map(fixture => `
+                                ${groupedData[category][stage][group].map(fixture => `
                                     <tr>
                                         <td>${fixture['Match ID'] || '-'}</td>
                                         <td>${fixture['Team 1'] || '-'}</td>
@@ -454,7 +502,7 @@ function filterTable(tableContainerId, tableClass, filterValue, tableType) {
 }
 
 
-startCountdown();
+// startCountdown();
 loadData();
   </script>
 </body>

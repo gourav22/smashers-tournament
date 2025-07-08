@@ -44,7 +44,7 @@
           <span class="bracket-arrow">➡️</span>
           <div class="bracket-round">
             <h3>Final</h3>
-            <h4>2 sets of 21 for each match</h4>
+            <h4>3 sets of 21 for each match</h4>
             <div class="match-pair">
               <div class="match-block final-match">🏆 Final Match<br><small>Winners of Semi-Finals play here</small></div>
             </div>
@@ -163,7 +163,7 @@ function renderLiveScores(liveScores, category) {
   // Get and sort stage names (you might need a custom sort order for stages like 'League', 'Semi-Finals', 'Finals')
   const sortedStageNames = Object.keys(groupedByStage).sort((a, b) => {
     // Example custom stage order (adjust as per your actual stage names)
-    const stageOrder = ['League Stage', 'Qualification', 'Quarter-Finals', 'Semi-Finals', 'Finals', 'No Stage'];
+    const stageOrder = ['Finals', 'Semi-Finals', 'Quarter-Finals','League'];
     const indexA = stageOrder.indexOf(a);
     const indexB = stageOrder.indexOf(b);
     if (indexA === -1 || indexB === -1) {
@@ -178,7 +178,7 @@ function renderLiveScores(liveScores, category) {
     htmlContent = '<p>No live or completed matches available.</p>';
   } else {
     sortedStageNames.forEach(stageName => {
-      htmlContent += `<div class="stage-container"><h2>${stageName}</h2>`; // Main Stage Header
+      htmlContent += `<div class="stage-container"><h3>${stageName}</h3>`; // Main Stage Header
 
       const groupsInStage = Object.values(groupedByStage[stageName]).sort((a, b) => {
         // Sort groups within this stage alphabetically
@@ -188,7 +188,7 @@ function renderLiveScores(liveScores, category) {
       groupsInStage.forEach(group => {
         htmlContent += `
           <div class="live-scores-table-container">
-            <h3>${group.group && group.group !== 'No Group' ? `${group.group}` : 'Matches'}</h3> <table class="live-scores-table points-table">
+            <h4>${group.group && group.group !== 'No Group' ? `${group.group}` : 'Matches'}</h4> <table class="live-scores-table points-table">
               <tr><th>Match ID</th><th>Team 1</th><th>Score</th><th>Team 2</th><th>Score</th><th>Status</th></tr>
               ${(group.scores || []).map(score => `
                 <tr>
@@ -236,7 +236,7 @@ function renderFixtures(fixtures, category) {
   // Get and sort stage names (you might need a custom sort order for stages like 'League', 'Semi-Finals', 'Finals')
   const sortedStageNames = Object.keys(groupedByStage).sort((a, b) => {
     // Example custom stage order (adjust as per your actual stage names)
-    const stageOrder = ['League Stage', 'Qualification', 'Quarter-Finals', 'Semi-Finals', 'Finals', 'No Stage'];
+    const stageOrder = ['Finals', 'Semi-Finals', 'Quarter-Finals','League'];
     const indexA = stageOrder.indexOf(a);
     const indexB = stageOrder.indexOf(b);
     if (indexA === -1 || indexB === -1) {
@@ -251,7 +251,7 @@ function renderFixtures(fixtures, category) {
     htmlContent = '<p>No upcoming fixtures available.</p>';
   } else {
     sortedStageNames.forEach(stageName => {
-      htmlContent += `<div class="stage-container"><h2>${stageName}</h2>`; // Main Stage Header
+      htmlContent += `<div class="stage-container"><h3>${stageName}</h3>`; // Main Stage Header
 
       const groupsInStage = Object.values(groupedByStage[stageName]).sort((a, b) => {
         // Sort groups within this stage alphabetically
@@ -261,7 +261,7 @@ function renderFixtures(fixtures, category) {
       groupsInStage.forEach(group => {
         htmlContent += `
           <div class="fixtures-table-container">
-            <h3>${group.group && group.group !== 'No Group' ? `${group.group}` : 'Matches'}</h3> <table class="fixtures-table points-table">
+            <h4>${group.group && group.group !== 'No Group' ? `${group.group}` : 'Matches'}</h4> <table class="fixtures-table points-table">
               <tr><th>Match ID</th><th>Team 1</th><th>Team 2</th><th>Date</th><th>Time</th><th>Court</th></tr>
               ${(group.fixtures || []).map(fixture => `
                 <tr>
@@ -308,7 +308,7 @@ function renderPointsTable(pointsData) {
 
   // Get and sort stage names (adjust 'stageOrder' to match your actual stage names and desired display order)
   const sortedStageNames = Object.keys(groupedByStage).sort((a, b) => {
-    const stageOrder = ['League Stage', 'Qualification', 'Quarter-Finals', 'Semi-Finals', 'Finals', 'No Stage'];
+    const stageOrder = ['Finals', 'Semi-Finals', 'Quarter-Finals','League'];
     const indexA = stageOrder.indexOf(a);
     const indexB = stageOrder.indexOf(b);
     if (indexA === -1 || indexB === -1) {

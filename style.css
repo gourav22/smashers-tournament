@@ -55,6 +55,226 @@ body {
   100% { background-position: 0% 50%; }
 }
 
+/* --- Champions Corner Styling --- */
+
+/* --- Base Champions Corner Styling (applies to all screen sizes) --- */
+.champions-corner {
+  position: relative;
+  overflow: hidden;
+  /* background-color: #f9f9f9; */
+  padding: 40px 20px;
+  margin-top: 40px;
+  border-top: 2px solid #eee;
+  text-align: center;
+  box-shadow: none;
+}
+
+.champions-corner h2 {
+  color: #eef2ee;
+  margin-bottom: 25px;
+  border-bottom: none;
+  font-size: 2.2em;
+}
+
+.champions-corner p {
+  font-size: 1.1em;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.champions-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.champion-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  flex: 1; /* Allows cards to grow/shrink within the flex container */
+  min-width: 280px; /* Minimum width before wrapping on desktop */
+  max-width: 320px; /* Maximum width to control size on desktop */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  box-sizing: border-box; /* Crucial for consistent sizing, ensures padding/border are included in width */
+}
+
+.champion-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.champion-card img {
+  display: block; /* Ensures no extra space below image */
+  max-width: 100%; /* Image will scale down if container is smaller */
+  height: auto; /* IMPORTANT: Maintain aspect ratio */
+  aspect-ratio: 1 / 1; /* Ensures image is square, even if height:auto is used */
+  object-fit: cover; /* Ensures image covers the circular area without distortion */
+  border-radius: 50%; /* Makes the image circular */
+  margin: 0 auto 20px auto; /* Center image and add bottom margin */
+  border: 4px solid #FFD700;
+  box-shadow: 0 0 0 2px rgba(255,215,0,0.5);
+}
+
+
+.champion-card h3 {
+  color: #333;
+  font-size: 1.6em;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.champion-card p {
+  color: #666;
+  font-size: 1.1em;
+  margin-top: 0;
+  line-height: 1.4;
+}
+
+/* --- Animated Glitter/Sparkle Background --- */
+.champions-corner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+      radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.15) 0%, transparent 10%),
+      radial-gradient(circle at 70% 85%, rgba(255, 255, 255, 0.1) 0%, transparent 8%),
+      radial-gradient(circle at 40% 10%, rgba(255, 255, 255, 0.2) 0%, transparent 12%),
+      radial-gradient(circle at 85% 45%, rgba(255, 255, 255, 0.1) 0%, transparent 9%),
+      radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.15) 0%, transparent 11%),
+      radial-gradient(circle at 5% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 7%);
+  background-size: 40px 40px, 30px 30px, 50px 50px, 45px 45px, 35px 35px, 25px 25px;
+  background-repeat: repeat;
+  animation: glitterMove 40s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+@keyframes glitterMove {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+
+/* Ensure content elements within .champions-corner are above the ::before background */
+.champions-corner h2,
+.champions-corner p,
+.champions-row,
+.champion-card {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Mobile Responsiveness --- */
+
+/* Media query for screens up to 768px (common tablet portrait / smaller desktop) */
+@media (max-width: 768px) {
+  .champions-corner {
+      padding: 30px 15px;
+      margin-top: 30px;
+  }
+
+  .champions-corner h2 {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+  }
+
+  .champions-corner p {
+      font-size: 1em;
+      margin-bottom: 25px;
+  }
+
+  .champions-row {
+      flex-direction: column; /* Stack cards vertically */
+      align-items: center; /* Center them when stacked */
+      gap: 25px;
+  }
+
+  .champion-card {
+      min-width: unset; /* Remove min-width to allow more fluid shrinking */
+      width: 85%; /* Cards will take 85% of parent width */
+      max-width: 320px; /* Still cap max-width for very wide tablets/stacked view */
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  /* Image sizing for tablets */
+  .champion-card img {
+      width: 180px; /* Define a fluid width for the image container */
+      height: 180px; /* Maintain height for square/circle */
+      margin-bottom: 15px;
+      border-width: 3px;
+  }
+
+  .champion-card h3 {
+      font-size: 1.4em;
+  }
+
+  .champion-card p {
+      font-size: 1em;
+  }
+
+  .champions-corner::before {
+      background-size: 35px 35px, 28px 28px, 45px 45px, 40px 40px, 32px 32px, 22px 22px;
+  }
+}
+
+/* Media query for very small screens (common mobile phone portrait) */
+@media (max-width: 480px) {
+  .champions-corner {
+      padding: 25px 10px;
+      margin-top: 25px;
+  }
+
+  .champions-corner h2 {
+      font-size: 1.5em;
+      margin-bottom: 15px;
+  }
+
+  .champions-corner p {
+      font-size: 0.9em;
+      margin-bottom: 20px;
+  }
+
+  .champions-row {
+      gap: 20px;
+  }
+
+  .champion-card {
+      width: 90%; /* Cards take up 90% of screen width */
+      max-width: 280px; /* Smaller max-width for phones */
+      padding: 15px;
+  }
+
+  /* Image sizing for phones */
+  .champion-card img {
+      width: 140px; /* Smaller fixed width for images on phones */
+      height: 140px; /* Smaller fixed height for images on phones */
+      margin-bottom: 10px;
+      border-width: 2px;
+  }
+
+  .champion-card h3 {
+      font-size: 1.2em;
+  }
+
+  .champion-card p {
+      font-size: 0.9em;
+  }
+
+  /* Further adjust glitter background for very small screens */
+  .champions-corner::before {
+      background-size: 30px 30px, 25px 25px, 40px 40px, 35px 35px, 30px 30px, 20px 20px;
+  }
+}
 /* Header Improvements */
 header {
   background: linear-gradient(135deg, #705b5b 0%, #393131 100%);
@@ -138,9 +358,9 @@ header p {
 
 /* Countdown Timer Enhancement (for sections that are themselves countdown-section) */
 .countdown-section {
-  background: var(--glass-bg);
+  background: #f0f8ff;
   /* backdrop-filter: blur(2px); */
-  border: 1px solid var(--glass-border);
+  border: transparent;
   border-radius: 14px;
   padding: 0.8rem 1rem;
   text-align: center;
@@ -148,19 +368,23 @@ header p {
   justify-content: center; /* Centers the flex items (the two countdown groups) horizontally */
   align-items: center; /* Centers the flex items vertically, in case their heights differ */
   gap: 1rem;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-  width: 95%;
-  max-width: 900px;
-  margin: 1.8rem auto;
+  box-shadow: none;
+  margin: 1.8rem 1.8rem;
 }
 
 .countdown-timer-group {
     text-align: center;
 }
 
-.countdown-timer-group h2 {
-  color: var(--primary-blue);
+.countdown-section h4 {
+  color: rgb(0, 3, 4);
   font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.countdown-section h2 {
+  color: #4CAF50;
+  font-size: 1.6rem;
   margin-bottom: 0.5rem;
 }
 
@@ -222,7 +446,6 @@ section h2 {
   color: var(--primary-blue);
   margin-bottom: 1.3rem;
   font-size: clamp(1.4rem, 3.5vw, 1.8rem);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 section h3 {
@@ -293,7 +516,7 @@ img {
 .category-selection-section {
   flex: 1; /* Allows flex item to grow and shrink */
   min-width: 280px; /* Minimum width for the category selection column before wrapping */
-  max-width: 400px; /* Limit individual section width */
+  max-width: 800px; /* Limit individual section width */
   box-sizing: border-box;
   text-align: center; /* Centers text and buttons */
 
@@ -448,11 +671,11 @@ box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 .match-block {
   background: rgba(255, 255, 255, 0.1); /* Lighter transparent for individual matches */
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 0.6rem 0.8rem; /* Adjusted padding */
   color: var(--text-light);
   font-size: 0.9rem; /* Adjusted font size */
-  white-space: nowrap; /* Prevent match text from wrapping */
+  white-space: wrap; /* Prevent match text from wrapping */
 }
 
 .final-match {
@@ -480,6 +703,137 @@ border-radius: 10px; /* Adjusted border-radius */
 max-width: auto; /* Increased max-width */
 margin-left: auto;
 margin-right: auto;
+}
+/* --- Prizes Section Styling --- */
+.prizes-section {
+  background-color: #f0f8ff; /* A very light blue background for a fresh look */
+  padding: 50px 20px;
+  margin-top: 40px;
+  border-top: 2px solid #e0f2f7;
+  text-align: center;
+  position: relative; /* Needed for any future background effects */
+  overflow: hidden; /* Hides any content that overflows */
+}
+
+.prizes-section h2 {
+  color: #007bff; /* A bright blue for prize heading */
+  margin-bottom: 25px;
+  font-size: 2.5em;
+  position: relative;
+  z-index: 1; /* Ensures heading is above any potential background layers */
+}
+
+.prizes-section p {
+  font-size: 1.15em;
+  color: #444;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1; /* Ensures text is above any potential background layers */
+}
+
+.prizes-grid {
+  display: flex; /* Enables Flexbox for side-by-side layout */
+  flex-wrap: wrap; /* Allows prize categories to wrap to the next row on smaller screens */
+  justify-content: center; /* Centers the categories horizontally */
+  gap: 30px; /* Space between prize categories */
+  position: relative;
+  z-index: 1; /* Ensures grid is above any potential background layers */
+}
+
+.prize-category {
+  background: linear-gradient(145deg, #ffffff, #f0f0f0); /* Subtle gradient for a "shiny" base */
+  border: 1px solid #cceeff; /* Light blue border */
+  border-radius: 12px; /* Rounded corners */
+  padding: 30px;
+  text-align: left;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* Stronger shadow for depth and "pop" */
+  flex: 1; /* Allows categories to grow/shrink to fill space */
+  min-width: 280px; /* Minimum width before wrapping */
+  max-width: 350px; /* Maximum width */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth hover effects */
+  position: relative;
+  overflow: hidden;
+}
+
+.prize-category:hover {
+  transform: translateY(-8px); /* Lifts the card slightly on hover */
+  box-shadow: 0 12px 25px rgba(0,0,0,0.25); /* More intense shadow on hover */
+}
+
+/* Optional: Add a subtle highlight effect on hover for more shine */
+.prize-category::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top left, rgba(255,255,255,0.2) 0%, transparent 40%);
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none; /* Ensures it doesn't block clicks */
+}
+
+.prize-category:hover::before {
+  opacity: 1; /* Shows the highlight on hover */
+}
+
+.prize-category h3 {
+  color: #0056b3; /* Darker blue for category headings */
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e0e0e0; /* Separator line */
+}
+
+.prize-category ul {
+  list-style: none; /* Remove default bullet points */
+  padding: 0;
+  margin: 0;
+}
+
+.prize-category ul li {
+  font-size: 1.05em;
+  color: #555;
+  margin-bottom: 12px;
+  padding-left: 25px; /* Space for custom bullet icon */
+  position: relative;
+  line-height: 1.4;
+}
+
+/* Custom bullet points using emojis for each category */
+.prize-category ul li::before {
+  position: absolute;
+  left: 0;
+  font-size: 1.2em;
+  top: 0;
+}
+
+/* Specific styling for Winner's category */
+.winner-prizes h3 { color: #d4af37; /* Gold color for Winner heading */ }
+.winner-prizes ul li::before { content: '🥇'; color: #d4af37; } /* Gold medal emoji */
+
+/* Specific styling for Runner-Up category */
+.runner-prizes h3 { color: #a9a9a9; /* Silver color for Runner-Up heading */ }
+.runner-prizes ul li::before { content: '🥈'; color: #a9a9a9; } /* Silver medal emoji */
+
+/* Specific styling for Registration category */
+.registration-prizes h3 { color: #e74c3c; /* Red color for Registration heading */ }
+.registration-prizes ul li::before { content: '🎁'; color: #e74c3c; } /* Gift box emoji */
+
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .prizes-grid {
+      flex-direction: column; /* Stack categories vertically on smaller screens */
+      align-items: center; /* Center them when stacked */
+  }
+  .prize-category {
+      max-width: 90%; /* Adjust max-width for stacked categories */
+  }
+  .prizes-section h2 {
+      font-size: 2em; /* Smaller heading on mobile */
+  }
 }
 
 /* REFINED STYLES FOR PROCESS FLOW (Tournament Diagram) - MOBILE */
@@ -952,12 +1306,6 @@ details:hover {
   }
 
   /* Countdown Section - MODIFIED: Force single line & drasticaly reduced size */
-  .countdown-section {
-    grid-template-columns: none; /* Remove grid layout for mobile */
-    display: block; /* Ensures it acts as a block */
-    padding: 0.5rem; /* Reduced padding */
-    width: 95%;
-  }
 
   .countdown-timer-group {
     padding: 0; /* No padding needed around the group */
