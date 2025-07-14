@@ -119,6 +119,7 @@ body {
   margin: 0 auto 20px auto; /* Center image and add bottom margin */
   border: 4px solid #FFD700;
   box-shadow: 0 0 0 2px rgba(255,215,0,0.5);
+  object-position: 50% 10%; 
 }
 
 
@@ -275,6 +276,68 @@ body {
       background-size: 30px 30px, 25px 25px, 40px 40px, 35px 35px, 30px 30px, 20px 20px;
   }
 }
+
+/* --- Tournament Photo Gallery Styling --- */
+
+.tournament-gallery {
+  text-align: center;
+  padding: 60px 20px;
+  margin-top: 40px;
+  border-top: 2px solid #eee;
+  background-color: #fff; /* Optional background color */
+}
+
+.tournament-gallery h2 {
+  font-size: 2.2em;
+  color: #eef2ee; /* Matches your champions h2 color */
+  margin-bottom: 40px;
+}
+
+.gallery-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* Space between images */
+  padding: 0 10px;
+  margin-bottom: 40px;
+  /* Set a default column count for phones (1 or 2 columns) */
+  column-count: 2; 
+  column-gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .gallery-grid {
+      column-count: 3; /* 3 columns on larger screens */
+  }
+}
+
+/* Styling for individual images within the grid */
+.gallery-grid img,
+.gallery-grid video {
+    /* Important for collage layout: */
+    max-width: 100%;
+    height: auto;
+    display: block; 
+    margin-bottom: 20px; 
+    break-inside: avoid-column; /* Ensures items do not break across columns */
+
+    /* Styling */
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Hover effect for both images and videos */
+.gallery-grid img:hover,
+.gallery-grid video:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+
+
+
+
 /* Header Improvements */
 header {
   background: linear-gradient(135deg, #705b5b 0%, #393131 100%);
