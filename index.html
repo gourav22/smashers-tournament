@@ -79,18 +79,27 @@
       </div>
   </section>
 
-  <section class="tournament-highlights">
-    <h2>📸 Tournament Photo Gallery 📸</h2>
+  <section class="tournament-gallery">
+    <h3>📸 Tournament Photo Gallery 📸</h3>
     
-    <div class="gallery-grid">
-        <img src="path_to_group_photo_1.jpg" alt="Group Photo 1">
-        
-        <img src="path_to_group_photo_2.jpg" alt="Group Photo 2">
-        
-        <img src="path_to_group_photo_3.jpg" alt="Group Photo 3">
-        <img src="path_to_group_photo_4.jpg" alt="Group Photo 4">
+    <div class="slideshow-container">
+
+      <div class="mySlides fade">
+          <img src="group_image_1.png" alt="Tournament Photo 1" style="width:100%">
+      </div>
+      
+      <div class="mySlides fade">
+          <img src="prize_img2.png" alt="Tournament Photo 2" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <video src="IMG_2576.mov" controls muted loop style="width:100%"></video>
+      </div>
+          <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1)">&#10095;</a>
+      </div>
     </div>
-</section>
+  </section>
 
   <div class="flyer-and-categories">
     <!-- <div class="flyer">
@@ -503,6 +512,40 @@ function renderFixtures(fixtures) { // Parameter renamed to 'fixtures' for clari
 
     fixturesContainer.innerHTML = htmlContent;
 }
+let slideIndex = 1;
+showSlides(slideIndex);
+
+// Function to move slides forward or backward manually
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Function to control the slideshow display
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  
+  // Handle looping from the last slide back to the first
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  
+  // Hide all slides
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  
+  // Display the current slide
+  slides[slideIndex-1].style.display = "block";
+}
+
+// Automatic slideshow function (calls plusSlides every 4 seconds)
+function autoSlide() {
+    plusSlides(1);
+    setTimeout(autoSlide, 4000); 
+}
+
+// Start the automatic slideshow
+setTimeout(autoSlide, 4000);
 
 // Filter function (reused from category pages)
 function filterTable(tableContainerId, tableClass, filterValue, tableType) {

@@ -279,36 +279,140 @@ body {
 
 /* --- Tournament Photo Gallery Styling --- */
 
+/* --- Tournament Photo Gallery Styling --- */
+
 .tournament-gallery {
   text-align: center;
   padding: 60px 20px;
   margin-top: 40px;
   border-top: 2px solid #eee;
-  background-color: #fff; /* Optional background color */
+  /* Changed from dark blue to a deep black/gray for better contrast */
+  background-color: #1a1a1a; 
+  color: #ffffff; 
+  
+  /* Required for animated background effect */
+  position: relative; 
+  overflow: hidden;
 }
 
+/* Update the h2 color for contrast */
 .tournament-gallery h2 {
   font-size: 2.2em;
-  color: #eef2ee; /* Matches your champions h2 color */
+  color: #FFD700; /* Gold color for vibrancy */
   margin-bottom: 40px;
+  position: relative; /* Ensure the text is above the fireworks */
+  z-index: 2;
 }
 
+/* --- Animated Fireworks/Vibrant Background Effect (::before) --- */
+/* --- Animated Fireworks/Vibrant Background Effect (::before) --- */
+/* --- Animated Fireworks/Vibrant Background Effect (::before) --- */
+.tournament-gallery::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* Updated background-image gradients - replaced blue/cyan with magenta */
+  background-image:
+      radial-gradient(circle at 80% 20%, rgba(255, 165, 0, 0.9) 0%, transparent 6%), 
+      radial-gradient(circle at 20% 80%, rgba(255, 0, 0, 0.8) 0%, transparent 7%), 
+      /* Changed blue (0, 255, 255) to magenta (255, 0, 255) */
+      radial-gradient(circle at 50% 50%, rgba(255, 0, 255, 0.7) 0%, transparent 8%), 
+      radial-gradient(circle at 60% 95%, rgba(0, 255, 0, 0.6) 0%, transparent 5%), 
+      radial-gradient(circle at 5% 40%, rgba(255, 255, 255, 1) 0%, transparent 9%), 
+      radial-gradient(circle at 90% 60%, rgba(255, 215, 0, 0.9) 0%, transparent 6%);
+
+  /* ... (rest of the ::before styles, animation, etc., remain the same) ... */
+  background-size: 100px 100px, 90px 90px, 110px 110px, 80px 80px, 120px 120px, 105px 105px;
+  background-repeat: repeat;
+  animation: fireworkSparkle 30s linear infinite;
+  opacity: 1; 
+  z-index: 0; 
+  filter: blur(1px); 
+}
+/* ... (Your existing @keyframes fireworkSparkle and other styles) ... */
+
+/* Keyframe animation for the fireworks movement */
+@keyframes fireworkSparkle {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+
+/* Ensure the gallery images/videos are above the background effect */
 .gallery-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px; /* Space between images */
-  padding: 0 10px;
-  margin-bottom: 40px;
-  /* Set a default column count for phones (1 or 2 columns) */
-  column-count: 2; 
-  column-gap: 20px;
+position: relative;
+z-index: 2; 
+}
+/* --- Slideshow Container & Slides --- */
+.slideshow-container {
+  max-width: 800px; /* Adjust as needed for width */
+  position: relative;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  overflow: hidden; /* Ensures images are contained within the rounded edges */
+}
+
+/* Individual slides */
+.mySlides {
+  display: none; /* Hidden by default, JavaScript will show/hide */
+  width: 100%;
+}
+
+.mySlides img,
+.mySlides video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 20s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
 }
 
 @media (min-width: 768px) {
-  .gallery-grid {
+  .slideshow-container-grid {
       column-count: 3; /* 3 columns on larger screens */
   }
+}
+
+/* Navigation Arrows */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 2; /* Ensures arrows are above the content */
+}
+
+/* Position the "prev" button to the left */
+.prev {
+    left: 0;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
 }
 
 /* Styling for individual images within the grid */
